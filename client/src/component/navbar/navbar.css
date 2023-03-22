@@ -1,0 +1,52 @@
+nav {
+    @apply md:mx-5 my-2;
+}
+nav, nav .options {
+    @apply relative md:static bg-blue-500 md:max-h-max md:bg-transparent md:flex justify-between items-center;
+}
+nav .options .logo {
+    @apply flex justify-between items-center bg-white;
+}
+nav .options .logo img {
+    @apply w-48 h-14;
+}
+nav .options .logo .toggle-menu {
+    @apply z-50 w-10 flex md:hidden flex-col justify-center items-center gap-1 cursor-pointer;
+}
+nav .options .logo .toggle-menu.close .line {
+    @apply border border-black bg-black h-[2px] rounded-lg w-4/5 transition-all duration-1000;
+}
+nav .options .logo .toggle-menu.open .line {
+    @apply border border-white bg-white h-[2px] rounded-lg w-4/5 transition-all duration-1000;
+}
+nav .options .logo .toggle-menu.open .line:first-child {
+    @apply rotate-45;
+}
+nav .options .logo .toggle-menu.open .line:last-child {
+    @apply -translate-y-2 -rotate-45;
+}
+nav .options ul.links {
+    @apply fixed top-0 left-0 right-0 bg-blue-500 pl-4 md:pl-0 md:bg-transparent md:static md:flex justify-between items-center gap-8 text-blue-500 transition-all md:transition-none duration-1000;
+}
+nav .options ul.links.close {
+    @apply -top-3/4;
+}
+nav .options ul.links li:first-child {
+    @apply pt-16 md:pt-0;
+}
+nav .options ul.links li {
+    @apply mb-9 md:mb-0 text-xl md:text-[1rem] cursor-pointer font-bold md:font-normal text-white md:text-[#7287A7] flex md:justify-between items-center;  
+}
+nav .auth {
+    @apply gap-8;
+}
+nav .auth {
+    @apply hidden md:flex justify-between items-center;
+}
+nav .auth button:first-child {
+    @apply font-bold text-blue-500 block md:inline-block;
+}
+
+nav .auth button:last-child {
+    @apply bg-blue-600 font-bold drop-shadow-md hover:drop-shadow-lg text-white rounded-md px-4 py-2;
+}
