@@ -30,6 +30,10 @@ const login = async (req, res) => {
   if (!user) {
     throw new NotFoundError("Invalid Credentials!!!");
   }
+
+  const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) throw new BadRequestError("Invalid Credentials");
+
   const tokenUser = createTokenUser(user);
   attachCookiesToResponse(res, tokenUser);
 
@@ -43,6 +47,7 @@ const logout = async (req, res) => {
   });
   res.status(StatusCodes.OK).json({ msg: "Logged Out Sucessfully" });
 };
+
 module.exports = {
   login,
   register,
