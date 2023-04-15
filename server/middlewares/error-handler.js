@@ -13,7 +13,11 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     )} field(s), Please choose another value`;
     customErr.statusCode = StatusCodes.BAD_REQUEST;
   }
-  console.log(err);
+  if (err.name === "CastError") {
+    customErr.msg = `No item found with id : ${err.value}`;
+    customErr.statusCode = 404;
+  }
+  console.log(err.name, err.code, err.value);
   res.status(customErr.statusCode).json({ msg: customErr.msg });
 };
 
