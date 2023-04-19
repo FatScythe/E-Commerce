@@ -17,7 +17,7 @@ const reviewSchema = new Schema(
       type: Number,
       min: 1,
       max: 5,
-      required: [true, "Please provide title"],
+      required: [true, "Please provide rating"],
     },
     user: {
       type: Types.ObjectId,
