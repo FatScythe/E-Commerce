@@ -7,10 +7,7 @@ const {
   deleteReview,
 } = require("../controller/reviewCtrl");
 
-const {
-  authenticateUser,
-  authorizePermissions,
-} = require("../middlewares/authentication");
+const { authenticateUser } = require("../middlewares/authentication");
 
 router.route("/").post(authenticateUser, createReview).get(getAllReviews);
 
@@ -18,6 +15,6 @@ router
   .route("/:id")
   .get(getSingleReview)
   .patch(authenticateUser, updateReview)
-  .delete(authenticateUser, authorizePermissions("admin"), deleteReview);
+  .delete(authenticateUser, deleteReview);
 
 module.exports = router;

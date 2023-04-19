@@ -63,7 +63,17 @@ const productSchema = new Schema(
       required: [true, "Please provide a seller"],
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+productSchema.virtual("reviews", {
+  ref: "Reviews",
+  localField: "_id",
+  foreignField: "product",
+  justOne: false,
+});
+
+productSchema.pre("deleteOne", { document: true }, async function (next) {
+  await this.model("Reviews").deleteMany({ product: this._id });
+});
 module.exports = model("Products", productSchema);

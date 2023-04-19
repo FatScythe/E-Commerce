@@ -16,6 +16,7 @@ const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
 const productRouter = require("./routes/productRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
+const storeRouter = require("./routes/storeRoutes");
 
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
@@ -30,6 +31,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/reviews", reviewRouter);
+app.use("/api/v1/stores", storeRouter);
 
 app.use(errorMW);
 app.use(notFoundMW);

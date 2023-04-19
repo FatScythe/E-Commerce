@@ -46,4 +46,4 @@ userSchema.methods.comparePassword = async function (candidatePwd) {
   return isMatch;
 };
 
-module.exports = model("users", userSchema);
+module.exports = model("Users", userSchema);
