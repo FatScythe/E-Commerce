@@ -10,7 +10,7 @@ const getSingleOrder = async (req, res) => {
 };
 
 const getCurrentUserOrders = async (req, res) => {
-  res.status(StatusCodes.OK).json({ msg: "Get Current user Orders" });
+  res.status(StatusCodes.OK).json({ msg: "Get Current User Orders" });
 };
 
 const createOrder = async (req, res) => {
