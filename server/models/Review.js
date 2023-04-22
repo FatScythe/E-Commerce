@@ -33,4 +33,41 @@ const reviewSchema = new Schema(
   { timestamps: true }
 );
 
+reviewSchema.index({ user: 1, product: 1 }, { unique: true });
+
+reviewSchema.statics.calculateRatings = async function (productId) {
+  const result = await this.aggregate([
+    {
+      $match: { product: productId },
+    },
+    {
+      $group: {
+        _id: null,
+        averageRating: { $avg: "$rating" },
+        numOfReviews: { $sum: 1 },
+      },
+    },
+  ]);
+
+  try {
+    await this.model("Products").findOneAndUpdate(
+      { _id: productId },
+      {
+        numOfReviews: result[0]?.numOfReviews || 0,
+        averageRating: Math.ceil(result[0]?.averageRating || 0),
+      }
+    );
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+reviewSchema.post("save", async function () {
+  await this.constructor.calculateRatings(this.product);
+});
+
+reviewSchema.post("deleteOne", async function () {
+  await this.constructor.calculateRatings(this.product);
+});
+
 module.exports = model("Reviews", reviewSchema);

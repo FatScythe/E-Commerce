@@ -5,6 +5,7 @@ const {
   getAllProducts,
   getSingleProducts,
   deleteProduct,
+  likeProduct,
   updateProduct,
   uploadProductImage,
 } = require("../controller/productCtrl");
@@ -28,6 +29,8 @@ router
     [authenticateUser, authorizePermissions("admin", "seller")],
     uploadProductImage
   );
+
+router.route("/like/:id").patch(authenticateUser, likeProduct);
 
 router
   .route("/:id")

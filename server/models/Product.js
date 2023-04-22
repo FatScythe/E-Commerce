@@ -31,6 +31,10 @@ const productSchema = new Schema(
         message: "{VALUE} is not supported",
       },
     },
+    likedBy: {
+      type: [String],
+      default: [],
+    },
     store: {
       type: String,
       default: "Ayeti-Adorn",
