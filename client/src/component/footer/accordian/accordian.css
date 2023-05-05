@@ -1,0 +1,24 @@
+footer .accordian {
+    @apply p-2 mx-auto w-11/12 border-gray-400 border-t;
+}
+
+footer .accordian header{
+    @apply flex justify-between items-center md:cursor-pointer;
+}
+
+footer .accordian article {
+    @apply overflow-hidden first-letter:uppercase lowercase transition-all duration-700;
+}
+
+footer .accordian article ul {
+    @apply first-letter:uppercase lowercase text-xs;
+}
+
+footer .accordian article ul p li a {
+    @apply capitalize underline;
+}
+
+footer .accordian article ul li {
+    @apply capitalize mt-2 cursor-pointer;
+}
+

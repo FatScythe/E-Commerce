@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.App {
+    /* @apply relative; */
+}
+
+@font-face {
+    font-family: 'Monton';
+    src: url("./assets/fonts/Monoton-Regular.ttf");
+    font-weight: 300 900;
+    font-display: swap;
+    font-style: normal;
+}
+
+.monton {
+    font-family: 'Monoton', cursive;
+    font-weight: 900;
+}
+
+button {
+    @apply capitalize;
+}

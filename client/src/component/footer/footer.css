@@ -1,0 +1,15 @@
+footer {
+    @apply capitalize;
+}
+
+footer .accordian-container {
+    @apply mt-6;
+}
+
+footer .legal {
+    @apply flex justify-between items-center gap-2 mx-auto w-fit text-xs cursor-pointer;
+}
+
+footer .legal div {
+    @apply mx-2 md:mx-4;
+}

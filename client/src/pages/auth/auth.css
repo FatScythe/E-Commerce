@@ -1,0 +1,44 @@
+main.auth + footer {
+    @apply hidden;
+}
+
+main.auth {
+    @apply grid grid-flow-col h-screen grid-cols-12;
+}
+
+.auth aside.banner {
+    @apply col-span-3 hidden md:block border border-red-600;
+}
+
+.auth .form {
+    @apply col-span-12 pt-10;
+}
+
+.auth .form .form-wrapper {
+    @apply relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10;
+}
+
+.auth .form .form-wrapper h1 {
+    @apply text-2xl font-semibold text-gray-900 first-letter:capitalize;
+}
+
+.auth .form .form-wrapper p {
+    @apply mt-2 text-normal text-gray-500 first-letter:capitalize;
+}
+
+.auth .form .form-wrapper form .input-wrapper {
+    @apply relative mt-6;
+}
+
+.auth .form .form-wrapper form .input-wrapper input{
+    @apply mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none
+}
+
+.auth .form .form-wrapper form .input-wrapper label{
+    @apply pointer-events-none absolute;
+}
+
+.auth .form .form-wrapper button.submit-btn {
+    @apply w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none first-letter:uppercase
+}
+
