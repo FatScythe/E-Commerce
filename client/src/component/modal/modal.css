@@ -1,0 +1,31 @@
+.modal-container {
+    @apply fixed top-0 grid place-items-center w-full z-40 h-full bg-[rgb(0,0,0,0.7)];
+}
+
+.modal-container .modal {
+    @apply bg-white w-9/12 px-3 py-4 md:w-2/5;
+}
+
+.modal-container .modal .close {
+    @apply flex justify-end mb-2;
+}
+
+.modal-container .modal .question {
+    @apply mt-1 first-letter:capitalize text-center md:text-base;
+}
+
+.modal-container .modal .btns {
+    @apply flex justify-between px-2 md:px-0 w-full md:w-3/4 mx-auto gap-4 mt-5 first-letter:capitalize;
+}
+
+.modal-container .modal .btns button {
+    @apply border py-2 px-8 w-full hover:text-white;
+}
+
+.modal-container .modal .btns .positive {
+    @apply border-black hover:bg-black;
+}
+
+.modal-container .modal .btns .negative{
+    @apply border-red-500 hover:bg-red-600;
+}

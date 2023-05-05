@@ -27,23 +27,12 @@ function App() {
   //     progress: undefined,
   //     theme: "light",
   //   });
-  const { showNav } = useSelector((store) => store.ui);
-  const [modal, setModal] = useState({
-    open: true,
-    question: "",
-    positiveFn: null,
-    negativeFn: null,
-  });
-
-  const showModal = (open = true, question = "", positiveFn, negativeFn) => {
-    setModal({ open, question, positiveFn, negativeFn });
-  };
-
+  const ui = useSelector((store) => store.ui);
   return (
     <div className='App'>
       <Router>
-        <Modal modal={modal} showModal={showModal} />
-        {showNav && <Navbar />}
+        {ui.Modal.open && <Modal />}
+        {ui.showNav && <Navbar />}
 
         {/* <ToastContainer position='top-center' /> */}
         <Routes>
