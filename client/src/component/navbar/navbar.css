@@ -27,11 +27,11 @@ nav .logo .toggle-menu {
 }
 
 nav .logo .toggle-menu.close .line {
-    @apply border border-white h-[2px] rounded-lg w-8 transition-all duration-1000;
+    @apply border border-white h-0.5 rounded-lg w-8 transition-all duration-1000;
 }
 
 nav .logo .toggle-menu.open .line {
-    @apply border border-white h-[2px] rounded-lg w-8 transition-all duration-1000;
+    @apply border border-white h-0.5 rounded-lg w-8 transition-all duration-1000;
 }
 
 nav .logo .toggle-menu.open .line:first-child {
@@ -51,7 +51,28 @@ nav ul.navlinks {
 }
 
 nav ul.navlinks li {
-    @apply block text-xl mt-6 md:mt-0 md:text-normal md:inline-block md:ml-4;
+    @apply block text-xl mt-6 md:mt-0 md:text-normal md:inline-block md:ml-4 md:relative;
+}
+
+nav ul.navlinks .active li::after {
+    @apply h-1 w-1 absolute left-1/2 -bottom-1 bg-black;
+}
+
+nav ul.navlinks .active li {
+    @apply line-through decoration-black md:no-underline text-lg md:text-base;
+}
+
+nav ul.navlinks li::after {
+    content: ""; 
+    @apply h-0.5 w-0 absolute left-0 -bottom-1 bg-black rounded-full transition-all duration-300;
+} 
+
+nav ul.navlinks li:hover::after {
+    @apply md:w-full;
+}
+
+nav ul.navlinks .active li:hover::after {
+    @apply md:w-1;
 }
 
 nav ul.navlinks li.auth {
@@ -79,5 +100,5 @@ nav .options .auth button {
 }
 
 nav .options .auth button:last-child {
-    @apply bg-[#ffd900dc] font-bold rounded-2xl px-4 py-2;
+    @apply bg-yellow-500 font-bold rounded-2xl px-4 py-2;
 }

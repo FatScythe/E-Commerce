@@ -27,6 +27,8 @@
 
 [] Sign In and Sign Out Page
 
+[] Show and hide password
+
 [] Homepage
 
 [] About and contact pages

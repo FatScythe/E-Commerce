@@ -1,7 +1,9 @@
 import Home from "../../pages/home";
-import Store from "../../pages/stores";
+import Store from "../../pages/store";
 import Search from "../../pages/search";
 import Auth from "../../pages/auth";
+import About from "../../pages/about";
+import Contact from "../../pages/contact";
 
 import NotFound from "../../pages/notFound";
 
@@ -25,6 +27,16 @@ export const navLinks = [
     id: 4,
     path: "/auth",
     element: <Auth />,
+  },
+  {
+    id: 5,
+    path: "/about",
+    element: <About />,
+  },
+  {
+    id: 6,
+    path: "/contact",
+    element: <Contact />,
   },
   {
     id: 10,

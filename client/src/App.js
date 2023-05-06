@@ -5,7 +5,6 @@ import Footer from "./component/footer/footer";
 import Navbar from "./component/navbar/navbar";
 import Modal from "./component/modal";
 
-import { useState } from "react";
 // Pages
 import { navLinks } from "./assets/data/navData";
 // Redux

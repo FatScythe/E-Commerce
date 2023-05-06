@@ -1,6 +1,6 @@
 import "./navbar.css";
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { SearchIcon, ShoppingBagIcon, UserIcon } from "../../assets/icons/icon";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNavbar } from "../../features.js/ui/uiSlice";
@@ -20,15 +20,21 @@ const Navbar = () => {
           </div>
         )}
         <h2>
-          ayeti adorn<span>.</span>
+          <Link to='/'>
+            ayeti adorn<span>.</span>
+          </Link>
         </h2>
 
         <div className='flex justify-evenly items-center gap-2 md:hidden'>
           <button>
-            <SearchIcon />
+            <Link to='/search'>
+              <SearchIcon />
+            </Link>
           </button>
           <button>
-            <ShoppingBagIcon />
+            <Link to='/cart'>
+              <ShoppingBagIcon />
+            </Link>
           </button>
           <div
             className={`toggle-menu ${isNavOpen ? "open" : "close"}`}
@@ -42,7 +48,7 @@ const Navbar = () => {
       <div
         className={`navlinks-container ${isNavOpen ? "max-h-full" : "max-h-0"}`}
       >
-        <ul className='navlinks'>
+        <ul className='navlinks' onClick={() => dispatch(toggleNavbar())}>
           <NavLink to='/'>
             <li>home</li>
           </NavLink>
@@ -59,26 +65,40 @@ const Navbar = () => {
             <li>contact</li>
           </NavLink>
 
-          {!isLoggedIn && <li className='auth'>login / register</li>}
+          {!isLoggedIn && (
+            <li className='auth'>
+              <Link to='/auth'>login / register</Link>
+            </li>
+          )}
         </ul>
         <div className='options'>
           <button className='bag'>
-            <ShoppingBagIcon />
+            <Link to='/cart'>
+              <ShoppingBagIcon />
+            </Link>
           </button>
 
           <button className='search'>
-            <SearchIcon />
+            <Link to='/search'>
+              <SearchIcon />
+            </Link>
           </button>
 
           {isLoggedIn && (
             <button className='user' onClick={() => setIsLoggedIn(!isLoggedIn)}>
-              <UserIcon />
+              <Link to='/user'>
+                <UserIcon />
+              </Link>
             </button>
           )}
           {!isLoggedIn && (
             <div className='auth'>
-              <button onClick={() => setIsLoggedIn(!isLoggedIn)}>login</button>
-              <button>sign-up</button>
+              <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+                <Link to='/auth'>login</Link>
+              </button>
+              <button>
+                <Link to='/auth'>sign-up</Link>
+              </button>
             </div>
           )}
         </div>

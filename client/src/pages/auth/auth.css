@@ -14,6 +14,10 @@ main.auth {
     @apply col-span-12 pt-10;
 }
 
+.auth .form .back {
+    @apply bg-white shadow-xl hover:shadow-inner cursor-pointer p-3 w-fit rounded-full m-2;
+}
+
 .auth .form .form-wrapper {
     @apply relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10;
 }
@@ -26,15 +30,15 @@ main.auth {
     @apply mt-2 text-normal text-gray-500 first-letter:capitalize;
 }
 
-.auth .form .form-wrapper form .input-wrapper {
+.auth .form .form-wrapper .input-wrapper {
     @apply relative mt-6;
 }
 
-.auth .form .form-wrapper form .input-wrapper input{
+.auth .form .form-wrapper .input-wrapper input{
     @apply mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none
 }
 
-.auth .form .form-wrapper form .input-wrapper label{
+.auth .form .form-wrapper .input-wrapper label{
     @apply pointer-events-none absolute;
 }
 
