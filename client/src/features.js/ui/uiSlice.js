@@ -3,7 +3,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 const initialState = {
   isNavOpen: false,
   showNav: true,
-  isLoggedIn: true,
+  isLoggedIn: false,
   Modal: {
     open: false,
     question: "",

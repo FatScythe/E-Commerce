@@ -38,7 +38,7 @@ const NotNav = ({ navLinks }) => {
       <div className='options flex justify-between items-center gap-4'>
         {navLinks.auth && <Auth />}
         {navLinks.cart && (
-          <Link to='/auth'>
+          <Link to='/cart'>
             <ShoppingBagIcon />
           </Link>
         )}

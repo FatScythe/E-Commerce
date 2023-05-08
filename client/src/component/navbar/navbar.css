@@ -43,7 +43,7 @@ nav .navlinks-container {
 }
 
 nav ul.navlinks {
-    @apply w-full md:w-fit text-right md:text-center;
+    @apply w-full md:w-fit text-right md:text-center md:mb-2;
 }
 
 nav ul.navlinks li {
@@ -60,7 +60,7 @@ nav ul.navlinks .active li {
 
 nav ul.navlinks li::after {
     content: ""; 
-    @apply h-0.5 w-0 absolute left-0 -bottom-1 bg-black rounded-full transition-all duration-300;
+    @apply h-0.5 w-0 absolute left-0 -bottom-1 bg-black transition-all duration-300;
 } 
 
 nav ul.navlinks li:hover::after {
@@ -92,9 +92,5 @@ nav .options .auth {
 }
 
 nav .options .auth button {
-    @apply mr-2 text-center;
-}
-
-nav .options .auth button:last-child {
     @apply bg-yellow-500 font-bold rounded-2xl px-4 py-2;
 }
