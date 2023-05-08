@@ -7,8 +7,11 @@ import NotNav from "../../component/noNavHeader/wannabeNav";
 // Redux
 import { useDispatch } from "react-redux";
 import { showNav } from "../../features.js/ui/uiSlice";
+// Hooks
+import useTitle from "../../hooks/useTitle";
 
 const Auth = () => {
+  useTitle("Login || Register");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(showNav(false));

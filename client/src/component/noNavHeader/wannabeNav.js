@@ -15,7 +15,7 @@ const NotNav = () => {
   const location = useLocation();
 
   return (
-    <div className='no-nav-header mt-2 md:mt-6 mb-8 flex justify-between items-center'>
+    <div className='no-nav-header mt-2 mx-2 md:mt-6 mb-8 flex justify-between items-center'>
       <div className='flex gap-4 md:basis-1/2 justify-between items-center'>
         <div
           className='back bg-white shadow-xl hover:shadow-inner cursor-pointer p-2 md:p-4 w-fit rounded-full'

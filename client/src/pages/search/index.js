@@ -14,8 +14,10 @@ import {
   closeModal,
   clearSearchHistory,
 } from "../../features.js/ui/uiSlice";
+import useTitle from "../../hooks/useTitle";
 
 const Search = () => {
+  useTitle("Search");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(showNav(false));

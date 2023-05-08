@@ -3,9 +3,12 @@ import { useEffect } from "react";
 // Redux
 import { showNav, showModal, closeModal } from "../../features.js/ui/uiSlice";
 import { useDispatch } from "react-redux";
+// Hooks
+import useTitle from "../../hooks/useTitle";
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  useTitle("Home || Ayeti Adorn");
 
   const question = "lorem ipsum dolor sit amet";
   const positiveFn = () => {

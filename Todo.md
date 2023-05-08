@@ -3,29 +3,29 @@
 
 [] Better Fonts :(
 
-[] Footer Component
+[x] Footer Component
 
-[] Router, routes and routes should be forlooped
+[x] Router, routes and routes should be forlooped
 
 [] UI color combo
 
 [] NotFound Page
 
-[] Search Page 
+[x] Search Page 
 
 [] Cart Page
 
-[] Figure out how to change pages, without Navbar and Footer
+[x] Figure out how to change pages, without Navbar and Footer
 
-[] Create a Title Component 
+[x] Create a Title Component 
 
-[] Create Modal, make it reactive
+[x] Create Modal, make it reactive
 
-[] Create Alert Component or Check for toastify
+[x] Create Alert Component or Check for toastify
 
-[] Setup State Mangement for App UI and data
+[x] Setup State Mangement for App UI and data
 
-[] Sign In and Sign Out Page
+[x] Sign In and Sign Out Page
 
 [] Show and hide password
 
