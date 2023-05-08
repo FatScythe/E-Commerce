@@ -1,8 +1,9 @@
 import "./auth.css";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 // Component
-import ChevronLeft from "../../assets/icons/icon";
+// import { ChevronLeft } from "../../assets/icons/icon";
+import NotNav from "../../component/noNavHeader/wannabeNav";
 // Redux
 import { useDispatch } from "react-redux";
 import { showNav } from "../../features.js/ui/uiSlice";
@@ -26,14 +27,10 @@ const Auth = () => {
   };
 
   return (
-    <main className='auth'>
+    <section className='auth'>
       <aside className='banner'>banner</aside>
-      <section className='form'>
-        <div className='back' title='back-home'>
-          <Link to='/'>
-            <ChevronLeft />
-          </Link>
-        </div>
+      <main className='form'>
+        <NotNav />
         <div className='form-wrapper'>
           <div className='w-full'>
             <div className='text-center'>
@@ -112,8 +109,8 @@ const Auth = () => {
             </p>
           </div>
         </div>
-      </section>
-    </main>
+      </main>
+    </section>
   );
 };
 

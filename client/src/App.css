@@ -3,10 +3,6 @@
 @tailwind utilities;
 
 
-.App {
-    /* @apply relative; */
-}
-
 @font-face {
     font-family: 'Monton';
     src: url("./assets/fonts/Monoton-Regular.ttf");
@@ -18,6 +14,10 @@
 .monton {
     font-family: 'Monoton', cursive;
     font-weight: 900;
+}
+
+.container {
+    @apply max-w-7xl mx-auto px-6;
 }
 
 button {

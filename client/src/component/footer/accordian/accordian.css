@@ -1,5 +1,5 @@
 footer .accordian {
-    @apply p-2 mx-auto w-11/12 border-gray-400 border-t;
+    @apply py-2 mx-auto w-full border-gray-400 border-t;
 }
 
 footer .accordian header{

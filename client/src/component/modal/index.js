@@ -9,7 +9,7 @@ const Modal = () => {
   const { Modal } = useSelector((state) => state.ui);
 
   return (
-    <div className={`modal-container`}>
+    <div className={`modal-container`} onClick={() => dispatch(closeModal())}>
       <div className='modal'>
         <div className='close'>
           <button onClick={() => dispatch(closeModal())}>

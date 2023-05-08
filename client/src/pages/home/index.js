@@ -22,16 +22,20 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <h2>
-      HOME
-      <button
-        onClick={() => {
-          dispatch(showModal({ open: true, question, positiveFn, negativeFn }));
-        }}
-      >
-        ShowNav
-      </button>
-    </h2>
+    <section id='home' className='container'>
+      <h2>
+        HOME
+        <button
+          onClick={() => {
+            dispatch(
+              showModal({ open: true, question, positiveFn, negativeFn })
+            );
+          }}
+        >
+          ShowNav
+        </button>
+      </h2>
+    </section>
   );
 };
 

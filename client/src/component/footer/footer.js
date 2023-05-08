@@ -4,8 +4,8 @@ import { accordianData } from "../../assets/data/accordianData";
 
 const Footer = () => {
   return (
-    <footer>
-      <h1 className='text-center text-lg'>ayeti adorn</h1>
+    <footer id='footer' className='container'>
+      <h1>ayeti adorn</h1>
       <div className='accordian-container'>
         {accordianData.map((accordian) => {
           return <Accordian key={accordian.id} {...accordian} />;

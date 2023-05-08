@@ -1,8 +1,8 @@
-main.auth + footer {
+section.auth + footer {
     @apply hidden;
 }
 
-main.auth {
+section.auth {
     @apply grid grid-flow-col h-screen grid-cols-12;
 }
 
@@ -11,15 +11,11 @@ main.auth {
 }
 
 .auth .form {
-    @apply col-span-12 pt-10;
-}
-
-.auth .form .back {
-    @apply bg-white shadow-xl hover:shadow-inner cursor-pointer p-3 w-fit rounded-full m-2;
+    @apply col-span-12;
 }
 
 .auth .form .form-wrapper {
-    @apply relative mx-auto w-full max-w-md bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10;
+    @apply relative mx-auto w-full max-w-md bg-white px-6 pb-3 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10;
 }
 
 .auth .form .form-wrapper h1 {

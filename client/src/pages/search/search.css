@@ -1,0 +1,68 @@
+
+#search + #footer {
+    @apply hidden;
+}
+
+#search main form .input-container {
+    @apply flex justify-start items-center md:mx-4;
+}
+
+#search main form .input-container input {
+    @apply w-full basis-11/12 mx-auto md:text-base border-0 border-b-2 border-black p-2 placeholder:text-gray-400 focus:outline-none;
+}
+
+#search main form .input-container svg {
+    @apply w-8 h-8;
+}
+
+#search main .search-result {
+    @apply absolute top-12 left-0 right-0 h-screen bg-white w-full;
+}
+
+#search main .search-result .result-items {
+    @apply mt-5;
+}
+
+#search main .search-result .result-items .result-item .title {
+    @apply flex justify-between items-center gap-2;
+}
+
+#search main .search-result .result-items .result-item img {
+    @apply object-contain w-12 h-12 md:h-16 md:w-16;
+}
+
+#search main .no-recent {
+    @apply mt-10 font-bold md:text-lg text-center capitalize;
+}
+
+#search main .recent {
+    @apply mt-10;
+}
+
+#search main .recent .recent-header {
+    @apply flex justify-between items-center md:px-6;
+}
+
+#search main .recent .recent-header h2 {
+    @apply text-base md:text-lg capitalize
+}
+
+#search main .recent .recent-header button {
+    @apply p-2 rounded-full bg-gray-300;
+}
+
+#search main .recent .recent-items {
+    @apply md:grid grid-cols-2 gap-4 mt-5 md:mt-10
+}
+
+#search main .search-result .result-items .result-item, 
+#search main .recent .recent-item {
+    @apply flex justify-between items-center mb-4 p-2 md:px-7 hover:bg-slate-300 rounded-md;
+}
+
+#search main .search-result .result-items .result-item .title h2,
+#search main .recent .recent-item h2 {
+    @apply font-semibold text-sm md:text-normal w-4/5 whitespace-nowrap overflow-hidden text-ellipsis;
+}
+
+

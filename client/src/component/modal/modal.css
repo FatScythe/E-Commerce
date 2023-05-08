@@ -1,13 +1,17 @@
 .modal-container {
-    @apply fixed top-0 grid place-items-center w-full z-40 h-full bg-[rgb(0,0,0,0.7)];
+    @apply fixed top-0 grid place-items-center w-full z-40 h-full bg-[rgb(150,150,150,0.8)];
 }
 
 .modal-container .modal {
-    @apply bg-white w-9/12 px-3 py-4 md:w-2/5;
+    @apply bg-white rounded-lg shadow-md hover:shadow-2xl w-9/12 px-3 py-4 md:w-2/5;
 }
 
 .modal-container .modal .close {
     @apply flex justify-end mb-2;
+}
+
+.modal-container .modal .close button {
+    @apply hover:bg-red-300 rounded-full p-3;
 }
 
 .modal-container .modal .question {
@@ -19,7 +23,7 @@
 }
 
 .modal-container .modal .btns button {
-    @apply border py-2 px-8 w-full hover:text-white;
+    @apply border py-2 px-8 w-full hover:text-white rounded-md;
 }
 
 .modal-container .modal .btns .positive {

@@ -2,6 +2,10 @@ footer {
     @apply capitalize;
 }
 
+footer h1 {
+    @apply text-center text-lg;
+}
+
 footer .accordian-container {
     @apply mt-6;
 }

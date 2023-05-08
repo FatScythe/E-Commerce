@@ -1,13 +1,9 @@
 nav {
-    @apply capitalize relative text-light md:text-dark bg-black md:bg-transparent p-4 md:p-2 md:mx-6 md:my-4 flex items-center flex-col md:flex-row md:justify-between;
+    @apply capitalize relative text-light md:text-dark bg-black md:bg-transparent p-4  md:p-1 md:my-4 flex items-center flex-col md:flex-row md:justify-between;
 }
 
 nav .logo {
-    @apply text-base w-full md:w-fit flex justify-between items-center;
-}
-
-nav .logo {
-    @apply z-10;
+    @apply z-10 text-base w-full md:w-fit flex justify-between items-center;
 }
 
 nav .logo > * {
@@ -31,7 +27,7 @@ nav .logo .toggle-menu.close .line {
 }
 
 nav .logo .toggle-menu.open .line {
-    @apply border border-white h-0.5 rounded-lg w-8 transition-all duration-1000;
+    @apply border border-white h-0.5 rounded-lg w-8 mt-2 transition-all duration-1000;
 }
 
 nav .logo .toggle-menu.open .line:first-child {

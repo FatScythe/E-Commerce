@@ -1,9 +1,10 @@
 import "./notfound.css";
 const NotFound = () => {
+  // Add useEffect to show Nav!!!
   return (
-    <div id='not-found' className='text-red-700 text-xl'>
+    <section id='not-found' className='container text-red-700 text-xl'>
       404? NOT FOUND!!!
-    </div>
+    </section>
   );
 };
 

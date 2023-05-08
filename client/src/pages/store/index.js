@@ -1,6 +1,10 @@
 import "./store.css";
 const StorePage = () => {
-  return <h1>STORES</h1>;
+  return (
+    <section id='store' className='container'>
+      <h1>STORES</h1>
+    </section>
+  );
 };
 
 export default StorePage;

@@ -10,7 +10,7 @@ const Navbar = () => {
   const { isNavOpen } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   return (
-    <nav>
+    <nav className='container'>
       <div className='logo'>
         {isLoggedIn && (
           <div className='icons'>
