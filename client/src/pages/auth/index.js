@@ -44,7 +44,7 @@ const Auth = () => {
     <section className='auth'>
       <aside className='banner'>banner</aside>
       <main className='form'>
-        <NotNav />
+        <NotNav navLinks={{ auth: "auth", search: "search" }} />
         <form onSubmit={(e) => e.preventDefault()}>
           <div className='form-wrapper'>
             <div className='w-full'>

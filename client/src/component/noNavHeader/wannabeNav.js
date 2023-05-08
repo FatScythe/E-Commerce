@@ -6,14 +6,14 @@ import {
   ChevronLeft,
   UserIcon,
   ShoppingBagIcon,
+  SearchIcon,
+  StoreIcon,
 } from "../../assets/icons/icon";
 // Redux
 import { useSelector } from "react-redux";
 
-const NotNav = () => {
-  const { isLoggedIn } = useSelector((store) => store.ui);
+const NotNav = ({ navLinks }) => {
   const location = useLocation();
-
   return (
     <div className='no-nav-header mt-2 mx-2 md:mt-6 mb-8 flex justify-between items-center'>
       <div className='flex gap-4 md:basis-1/2 justify-between items-center'>
@@ -36,19 +36,43 @@ const NotNav = () => {
       </div>
 
       <div className='options flex justify-between items-center gap-4'>
-        {isLoggedIn ? (
-          <Link to='/user'>
-            <UserIcon />
-          </Link>
-        ) : (
+        {navLinks.auth && <Auth />}
+        {navLinks.cart && (
           <Link to='/auth'>
-            <button>Login / Register</button>
+            <ShoppingBagIcon />
           </Link>
         )}
-        <ShoppingBagIcon />
+        {navLinks.search && (
+          <Link to='/search'>
+            <SearchIcon />
+          </Link>
+        )}
+        {navLinks.store && (
+          <Link to='/stores'>
+            <StoreIcon />
+          </Link>
+        )}
       </div>
     </div>
   );
 };
 
 export default NotNav;
+
+const Auth = () => {
+  const { isLoggedIn } = useSelector((store) => store.ui);
+
+  return (
+    <>
+      {isLoggedIn ? (
+        <Link to='/user'>
+          <UserIcon />
+        </Link>
+      ) : (
+        <Link to='/auth'>
+          <button>Login / Register</button>
+        </Link>
+      )}
+    </>
+  );
+};

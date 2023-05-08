@@ -1,13 +1,11 @@
 import "./navbar.css";
-import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { SearchIcon, ShoppingBagIcon, UserIcon } from "../../assets/icons/icon";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNavbar } from "../../features.js/ui/uiSlice";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { isNavOpen } = useSelector((state) => state.ui);
+  const { isNavOpen, isLoggedIn } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
   return (
     <nav className='container'>
@@ -85,7 +83,7 @@ const Navbar = () => {
           </button>
 
           {isLoggedIn && (
-            <button className='user' onClick={() => setIsLoggedIn(!isLoggedIn)}>
+            <button className='user'>
               <Link to='/user'>
                 <UserIcon />
               </Link>
@@ -93,11 +91,8 @@ const Navbar = () => {
           )}
           {!isLoggedIn && (
             <div className='auth'>
-              <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-                <Link to='/auth'>login</Link>
-              </button>
               <button>
-                <Link to='/auth'>sign-up</Link>
+                <Link to='/auth'>sign-in</Link>
               </button>
             </div>
           )}

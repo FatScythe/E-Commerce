@@ -39,7 +39,7 @@ const Search = () => {
 
   return (
     <section id='search' className='container'>
-      <NotNav />
+      <NotNav navLinks={{ store: "stores", cart: "cart" }} />
       <main className='relative'>
         <SearchInput searchText={searchText} setSearchText={setSearchText} />
         {searchText && <SearchResult />}
