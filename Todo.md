@@ -27,7 +27,7 @@
 
 [x] Sign In and Sign Out Page
 
-[] Show and hide password
+[x] Show and hide password
 
 [] Homepage
 
