@@ -13,6 +13,9 @@ module.exports = {
         "text-lg": "1px 4px 0px rgba(0, 0, 0, 0.90)",
         "text-sh": "7px 5px 5px rgba(0, 0, 0, 0.90)",
       },
+      backgroundImage: {
+        hero: "url('/src/assets/images/bg.jpg')",
+      },
       fontFamily: {
         mon: ["Monton", "cursive"],
       },

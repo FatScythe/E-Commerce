@@ -3,19 +3,39 @@ section.auth + footer {
 }
 
 section.auth {
-    @apply grid grid-flow-col h-screen grid-cols-12;
+    @apply h-screen;
+}
+
+section.auth .auth-wrapper {
+    @apply md:flex justify-center items-center mx-4 md:mx-0;
+}
+
+section.auth .inner {
+    @apply md:grid md:grid-flow-col md:h-[80vh] md:basis-4/5 grid-cols-12 md:bg-[255,255,255,0.9] rounded-xl overflow-hidden md:shadow-lg md:hover:shadow-2xl;
 }
 
 .auth aside.banner {
-    @apply col-span-3 hidden md:block border border-red-600;
+    @apply col-span-5 hidden md:flex h-full relative overflow-hidden;
+}
+
+.auth aside.banner img {
+    @apply object-cover md:w-full md:h-full;
+}
+
+.auth aside.banner .btn-container {
+    @apply transition-all duration-500 absolute -bottom-20 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center gap-3 rounded-lg;
+}
+
+.auth aside.banner:hover .btn-container {
+    @apply bottom-5;
 }
 
 .auth .form {
-    @apply col-span-12;
+    @apply col-span-7 py-5;
 }
 
 .auth .form .form-wrapper {
-    @apply relative mx-auto w-full max-w-md bg-white px-6 pb-3 shadow-xl ring-1 ring-gray-900/5 sm:rounded-xl sm:px-10;
+    @apply relative mx-auto w-full max-w-md bg-white px-6 pb-3 shadow-xl md:shadow-none ring-1 md:ring-0 ring-gray-900/5 rounded-xl sm:px-10;
 }
 
 .auth .form .form-wrapper h1 {
