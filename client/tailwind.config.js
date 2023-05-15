@@ -4,8 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        light: "#EFEEE0",
-        dark: "#1D2123",
+        primary: "#11345A",
+        secondary: "#BAE8F2",
+        tomato: "#FF6363",
+        yellowish: "#888883",
       },
       dropShadow: {
         "text-sm": "1px 1px 0px rgba(0, 0, 0, 0.90)",
@@ -14,7 +16,7 @@ module.exports = {
         "text-sh": "7px 5px 5px rgba(0, 0, 0, 0.90)",
       },
       backgroundImage: {
-        hero: "url('/src/assets/images/bg.jpg')",
+        hero: "url('/src/assets/images/a10.jpeg')",
       },
       fontFamily: {
         mon: ["Monton", "cursive"],

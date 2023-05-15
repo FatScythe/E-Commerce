@@ -1,23 +1,16 @@
 import "./auth.css";
-import { useEffect, useState } from "react";
-
-// Redux
-import { useDispatch } from "react-redux";
-import { showNav } from "../../features.js/ui/uiSlice";
+import { useState } from "react";
 // Hooks
 import useTitle from "../../hooks/useTitle";
+import useShowNav from "../../hooks/useShowNav";
 
 // Components
-import NotNav from "../../component/noNavHeader/wannabeNav";
+import NotNav from "../../component/noNavHeader";
 import AuthForm from "./authForm";
 import Banner from "./banner";
 
 const Auth = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(showNav(false));
-  }, [dispatch]);
-
+  useShowNav(false);
   const initialValue = {
     name: "",
     email: "",
@@ -35,7 +28,10 @@ const Auth = () => {
 
   return (
     <section className='auth md:mx-auto md:px-2'>
-      <NotNav navLinks={{ cart: "cart", search: "search" }} />
+      <div className='ml-3 mr-2'>
+        <NotNav navLinks={{ cart: "cart", search: "search", store: "store" }} />
+      </div>
+
       <div className='auth-wrapper'>
         <div className='inner'>
           <Banner />

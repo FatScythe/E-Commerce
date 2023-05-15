@@ -1,17 +1,10 @@
 import "./notfound.css";
-import { useEffect } from "react";
-// Redux
-import { showNav } from "../../features.js/ui/uiSlice";
-import { useDispatch } from "react-redux";
-// Hook
+// Hooks
 import useTitle from "../../hooks/useTitle";
+import useShowNav from "../../hooks/useShowNav";
 const NotFound = () => {
   useTitle("Page Not Found");
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(showNav(true));
-  }, [dispatch]);
-
+  useShowNav();
   return (
     <section id='not-found' className='container text-red-700 text-xl'>
       404? NOT FOUND!!!

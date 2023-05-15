@@ -1,27 +1,26 @@
 import "./search.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // Component
 import { CloseIcon } from "../../assets/icons/icon";
-import NotNav from "../../component/noNavHeader/wannabeNav";
+import NotNav from "../../component/noNavHeader";
 import SearchResult from "./searchResult";
 import SearchInput from "./searchInput";
 import Recent from "./recentSearch";
 // Redux
-import { showNav } from "../../features.js/ui/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   showModal,
   closeModal,
   clearSearchHistory,
 } from "../../features.js/ui/uiSlice";
+// Hooks
 import useTitle from "../../hooks/useTitle";
+import useShowNav from "../../hooks/useShowNav";
 
 const Search = () => {
   useTitle("Search");
+  useShowNav(false);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(showNav(false));
-  }, [dispatch]);
 
   const question = "clear all recent searches?";
   const positiveFn = () => {
@@ -39,7 +38,7 @@ const Search = () => {
 
   return (
     <section id='search' className='container'>
-      <NotNav navLinks={{ store: "stores", cart: "cart" }} />
+      <NotNav navLinks={{ store: "stores", cart: "cart", auth: "auth" }} />
       <main className='relative'>
         <SearchInput searchText={searchText} setSearchText={setSearchText} />
         {searchText && <SearchResult />}

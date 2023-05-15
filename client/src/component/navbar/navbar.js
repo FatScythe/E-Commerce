@@ -1,21 +1,34 @@
 import "./navbar.css";
-// import { useState } from "react";
+// import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { SearchIcon, ShoppingBagIcon, UserIcon } from "../../assets/icons/icon";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleNavbar } from "../../features.js/ui/uiSlice";
 
 const Navbar = () => {
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [navBg, setNavBg] = useState(false);
   const { isNavOpen, isLoggedIn } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
+
+  // const changeNavBg = () => {
+  //   window.scrollY >= 100 ? setNavBg(true) : setNavBg(false);
+  // };
+
+  // useEffect(() => {
+  //   window.addEventListener("scroll", changeNavBg);
+
+  //   return () => window.removeEventListener("scroll", changeNavBg);
+  // }, []);
+
   return (
     <nav className='container'>
       <div className='logo'>
         {isLoggedIn && (
           <div className='icons'>
             <button>
-              <UserIcon />
+              <Link to='/user'>
+                <UserIcon />
+              </Link>
             </button>
           </div>
         )}
@@ -46,15 +59,17 @@ const Navbar = () => {
         </div>
       </div>
       <div
-        className={`navlinks-container ${isNavOpen ? "max-h-full" : "max-h-0"}`}
+        className={`navlinks-container ${
+          isNavOpen ? "max-h-full overflow-hidden" : "max-h-0"
+        }`}
       >
         <ul className='navlinks' onClick={() => dispatch(toggleNavbar())}>
           <NavLink to='/'>
             <li>home</li>
           </NavLink>
 
-          <NavLink to='stores'>
-            <li>stores</li>
+          <NavLink to='products'>
+            <li>products</li>
           </NavLink>
 
           <NavLink to='about'>

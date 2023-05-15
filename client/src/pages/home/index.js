@@ -1,18 +1,10 @@
 import "./home.css";
-import { useEffect } from "react";
-// Redux
-import { showNav } from "../../features.js/ui/uiSlice";
-import { useDispatch } from "react-redux";
 // Hooks
 import useTitle from "../../hooks/useTitle";
-
+import useShowNav from "../../hooks/useShowNav";
 const HomePage = () => {
-  const dispatch = useDispatch();
   useTitle("Home || Ayeti Adorn");
-
-  useEffect(() => {
-    dispatch(showNav());
-  }, [dispatch]);
+  useShowNav();
 
   return (
     <section id='home' className='container'>

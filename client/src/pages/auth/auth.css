@@ -2,16 +2,12 @@ section.auth + footer {
     @apply hidden;
 }
 
-section.auth {
-    @apply h-screen;
-}
-
 section.auth .auth-wrapper {
     @apply md:flex justify-center items-center mx-4 md:mx-0;
 }
 
 section.auth .inner {
-    @apply md:grid md:grid-flow-col md:h-[80vh] md:basis-4/5 grid-cols-12 md:bg-[255,255,255,0.9] rounded-xl overflow-hidden md:shadow-lg md:hover:shadow-2xl;
+    @apply md:bg-white md:grid md:grid-flow-col md:h-[75vh] md:basis-4/5 grid-cols-12 md:bg-[255,255,255,0.9] rounded-xl overflow-hidden md:shadow-lg md:hover:shadow-2xl;
 }
 
 .auth aside.banner {

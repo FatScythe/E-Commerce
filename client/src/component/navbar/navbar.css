@@ -1,9 +1,9 @@
 nav {
-    @apply capitalize relative text-light md:text-dark bg-black md:bg-transparent p-4  md:p-1 md:my-4 flex items-center flex-col md:flex-row md:justify-between;
+    @apply capitalize sticky top-0 z-50 text-white md:text-black bg-primary md:bg-white p-4 md:p-1 md:my-4 flex items-center flex-col md:flex-row md:justify-between;
 }
 
 nav .logo {
-    @apply z-10 text-base w-full md:w-fit flex justify-between items-center;
+    @apply z-30 text-base w-full md:w-fit flex justify-between items-center;
 }
 
 nav .logo > * {
@@ -39,7 +39,7 @@ nav .logo .toggle-menu.open .line:last-child {
 }
 
 nav .navlinks-container {
-    @apply md:max-h-full pr-8 md:pr-0 md:pt-0 md:basis-3/4 flex flex-col items-center md:flex-row justify-center md:justify-between w-screen fixed md:static top-0 left-0 right-0 bottom-0 transition-all md:transition-none duration-300 overflow-hidden bg-yellow-600 md:bg-transparent;
+    @apply md:max-h-full pr-8 md:pr-0 md:pt-0 md:basis-3/4 flex flex-col items-center md:flex-row justify-center md:justify-between w-screen fixed md:static top-0 left-0 right-0 bottom-0 transition-all md:transition-none duration-300 overflow-hidden bg-primary md:bg-white;
 }
 
 nav ul.navlinks {
@@ -47,7 +47,7 @@ nav ul.navlinks {
 }
 
 nav ul.navlinks li {
-    @apply block text-xl mt-6 md:mt-0 md:text-normal md:inline-block md:ml-4 md:relative;
+    @apply block mb-12 md:mb-0 text-3xl mt-6 md:mt-0 md:text-normal md:inline-block md:ml-4 md:relative;
 }
 
 nav ul.navlinks .active li::after {
@@ -60,7 +60,7 @@ nav ul.navlinks .active li {
 
 nav ul.navlinks li::after {
     content: ""; 
-    @apply h-0.5 w-0 absolute left-0 -bottom-1 bg-black transition-all duration-300;
+    @apply h-1 w-0 rounded-xl absolute left-0 -bottom-2 bg-primary transition-all duration-300;
 } 
 
 nav ul.navlinks li:hover::after {

@@ -15,18 +15,18 @@ import { useSelector } from "react-redux";
 const NotNav = ({ navLinks }) => {
   const location = useLocation();
   return (
-    <div className='no-nav-header mt-2 mx-2 md:mt-6 mb-8 flex justify-between items-center'>
-      <div className='flex gap-4 md:basis-1/2 justify-between items-center'>
-        <div
-          className='back bg-white shadow-xl hover:shadow-inner cursor-pointer p-2 md:p-4 w-fit rounded-full'
-          title='back-home'
-        >
-          <Link to='/'>
+    <div className='no-nav-header sticky top-0 bg-white mt-2 md:mt-6 mb-8 flex justify-between items-center'>
+      <div className='flex md:gap-4 md:basis-1/2 justify-between items-center'>
+        <Link to='/'>
+          <div
+            className='back md:bg-white md:shadow-xl md:hover:shadow-inner cursor-pointer md:p-4 w-fit rounded-full'
+            title='back-home'
+          >
             <span>
               <ChevronLeft />
             </span>
-          </Link>
-        </div>
+          </div>
+        </Link>
 
         <div className='page-name'>
           <h4 className='text-base capitalize md:font-bold md:text-lg'>
@@ -36,22 +36,22 @@ const NotNav = ({ navLinks }) => {
       </div>
 
       <div className='options flex justify-between items-center gap-4'>
-        {navLinks.auth && <Auth />}
         {navLinks.cart && (
-          <Link to='/cart'>
+          <Link to='/cart' title='cart'>
             <ShoppingBagIcon />
           </Link>
         )}
         {navLinks.search && (
-          <Link to='/search'>
+          <Link to='/search' title='search'>
             <SearchIcon />
           </Link>
         )}
         {navLinks.store && (
-          <Link to='/stores'>
+          <Link to='/stores' title='stores'>
             <StoreIcon />
           </Link>
         )}
+        {navLinks.auth && <Auth />}
       </div>
     </div>
   );
@@ -65,12 +65,12 @@ const Auth = () => {
   return (
     <>
       {isLoggedIn ? (
-        <Link to='/user'>
+        <Link to='/user' title='user'>
           <UserIcon />
         </Link>
       ) : (
-        <Link to='/auth'>
-          <button>Login / Register</button>
+        <Link to='/auth' title='Sign-In'>
+          <button>Sign-In</button>
         </Link>
       )}
     </>

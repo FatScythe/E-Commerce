@@ -42,6 +42,8 @@
 
 ### BE
 
+[] Add Available Sizes to product
+
 [] Add Social media info to stores
 
 [] Add Verified Status to Store and Verified Badge on the Frontend

@@ -26,6 +26,7 @@ function App() {
   //     progress: undefined,
   //     theme: "light",
   //   });
+
   const ui = useSelector((store) => store.ui);
   return (
     <div className='App'>

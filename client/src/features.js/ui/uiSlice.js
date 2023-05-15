@@ -3,7 +3,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 const initialState = {
   isNavOpen: false,
   showNav: true,
-  isLoggedIn: false,
+  isLoggedIn: true,
   Modal: {
     open: false,
     question: "",
@@ -43,7 +43,7 @@ const uiSlice = createSlice({
     },
 
     addToSearchHistory: (state, { payload }) => {
-      if (current(state).search.searchHistory.length >= 6) {
+      if (current(state).search.searchHistory.length >= 10) {
         state.search.searchHistory.shift();
       }
       state.search.searchHistory.push(payload);

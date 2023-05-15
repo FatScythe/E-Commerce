@@ -1,0 +1,84 @@
+section#products + footer {
+    @apply hidden;
+}
+
+section#products {
+    @apply relative mt-0 md:mt-5 sm:grid sm:grid-cols-12 sm:gap-4 h-screen sm:h-[90vh] sm:overflow-hidden;
+}
+
+section#products aside {
+    @apply fixed sm:bg-white sm:text-black sm:h-full sm:static py-3 sm:py-0 sm:col-span-3 transition-all duration-200;
+}
+
+section#products aside .cancel {
+    @apply text-right sm:hidden;
+}
+
+section#products aside .cancel button {
+    @apply border border-white rounded-full p-3;
+}
+
+section#products aside div:not(:first-child) {
+    @apply mt-3;
+}
+
+section#products aside .search input {
+    @apply border-b border-white sm:border-black bg-transparent focus:border-b-2 w-full outline-none;
+}
+
+section#products aside .display {
+    @apply sm:hidden;
+}
+
+section#products .display button.active {
+    @apply bg-primary p-2 border-2 border-black;
+}
+
+section#products .display button.active svg {
+    @apply text-white;
+}
+
+section#products aside .category h3,
+section#products aside .store h3,
+section#products aside .color h3,
+section#products aside .price h3,
+section#products aside .free-shipping h3 {
+    @apply capitalize font-bold;
+}
+
+section#products aside .store select {
+    @apply capitalize border border-black outline-none bg-transparent;
+}
+
+section#products aside .free-shipping {
+    @apply flex justify-start gap-2 items-center;
+}
+
+section#products aside .clear button {
+    @apply bg-red-500 text-white p-2 rounded hover:scale-95 hover:opacity-80;
+}
+
+section#products main {
+    @apply relative;
+}
+
+section#products main::-webkit-scrollbar {
+    @apply hidden;
+}
+
+section#products main header {
+    @apply capitalize sticky mb-4 flex md:justify-between md:items-center gap-4 md:gap-5 flex-col md:flex-row;
+}
+
+section#products main header .togglers {
+    @apply mt-3 md:flex md:justify-between md:gap-4 items-center md:flex-row;
+}
+
+section#products main header .togglers .display {
+    @apply hidden sm:flex justify-start items-center;
+}
+
+section#products main header .line::after {
+    content: '';
+    @apply border-black block bg-black h-0.5;
+}
