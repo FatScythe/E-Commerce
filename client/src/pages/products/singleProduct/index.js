@@ -1,6 +1,6 @@
 import "./singleProduct.css";
 import { Link } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 // component
 import NotNav from "../../../component/noNavHeader";
 import { ArrowLeft, ArrowRight, LoveIcon } from "../../../assets/icons/icon";
@@ -223,37 +223,29 @@ const AddReviewForm = ({ review, setReview }) => {
 };
 
 const RelatedProducts = () => {
-  const sliderContainer = useRef(null);
   const [current, setCurrent] = useState(0);
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(null);
+  const [cardWidth, setCardWidth] = useState(null);
 
-  // useEffect(() => {
-  //   if (!sliderContainer.current) return;
-  //   getWidth();
-
-  //   console.log(`Here is the width ${width}`, sliderContainer);
-  // }, [width]);
-
-  // const getWidth = () => {
-  //   const newWidth = sliderContainer.current.childNodes[0].offsetWidth;
-  //   setWidth(newWidth);
-  // };
+  const updateWidth = () => {
+    setWidth(window.innerWidth);
+  };
 
   useEffect(() => {
-    window.addEventListener(
-      "resize",
-      setWidth(sliderContainer.current.childNodes[0].offsetWidth)
-    );
+    window.addEventListener("resize", updateWidth);
+    setWidth(window.innerWidth);
+
+    if (width > 640) {
+      setCardWidth(24);
+    } else {
+      setCardWidth(18);
+    }
 
     return () => {
-      window.removeEventListener(
-        "resize",
-        setWidth(sliderContainer.current.childNodes[0].offsetWidth)
-      );
-
-      console.log(width);
+      console.log("dismount");
+      window.removeEventListener("resize", updateWidth);
     };
-  }, [current, width]);
+  }, [width]);
 
   useEffect(() => {
     const number = (current) => {
@@ -272,9 +264,10 @@ const RelatedProducts = () => {
     };
     setCurrent(number);
   }, [current]);
+
   return (
     <footer>
-      <div className='related-products'>
+      <div className='related-products mt-3'>
         <div className='title flex justify-between items-center'>
           <h2 className='text-base capitalize font-semibold'>
             related product
@@ -299,10 +292,9 @@ const RelatedProducts = () => {
         </div>
 
         <div
-          ref={sliderContainer}
           style={{
-            transform: `translateX(-${current * 24}rem)`,
-            width: `${10 * 30}rem`,
+            transform: `translateX(-${current * cardWidth}rem)`,
+            width: `${10 * cardWidth}rem`,
           }}
           className='carousel-container p-4 mt-5 overflow-hidden flex gap-8 items-center transition-all duration-700 ease-in-out'
         >
@@ -310,8 +302,8 @@ const RelatedProducts = () => {
             <div
               className={`w-72 p-2 sm:w-96 overflow-hidden ${
                 index === current + 1
-                  ? "blur-none scale-105 shadow-xl bg-white"
-                  : "scale-90 blur-sm md:blur-none"
+                  ? "blur-none scale-90 shadow-xl bg-white"
+                  : "scale-75 blur--[1px] md:blur-none"
               } transition-all duration-1000 ease-in`}
               key={Math.random() * 1000}
             >

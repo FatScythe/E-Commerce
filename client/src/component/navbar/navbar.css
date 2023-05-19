@@ -60,7 +60,7 @@ nav ul.navlinks .active li {
 
 nav ul.navlinks li::after {
     content: ""; 
-    @apply h-1 w-0 rounded-xl absolute left-0 -bottom-2 bg-primary transition-all duration-300;
+    @apply h-0.5 w-0 rounded-xl absolute left-0 -bottom-2 bg-primary transition-all ease-in-out duration-300;
 } 
 
 nav ul.navlinks li:hover::after {

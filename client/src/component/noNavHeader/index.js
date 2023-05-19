@@ -1,6 +1,6 @@
 // Router
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 // Component
 import {
   ChevronLeft,
@@ -14,10 +14,12 @@ import { useSelector } from "react-redux";
 
 const NotNav = ({ navLinks, name }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   return (
     <div className='no-nav-header sticky top-0 bg-white mt-2 md:mt-6 mb-8 flex justify-between items-center'>
       <div className='flex md:gap-4 md:basis-1/2 justify-between items-center'>
-        <Link to='/'>
+        <button onClick={() => navigate(-1)}>
           <div
             className='back md:bg-white md:shadow-xl md:hover:shadow-inner cursor-pointer md:p-4 w-fit rounded-full'
             title='back-home'
@@ -26,7 +28,7 @@ const NotNav = ({ navLinks, name }) => {
               <ChevronLeft />
             </span>
           </div>
-        </Link>
+        </button>
 
         <div className='page-name'>
           <h4 className='text-base capitalize md:font-bold md:text-lg'>
