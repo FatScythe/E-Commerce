@@ -1,5 +1,6 @@
 import "./products.css";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 // Hooks
 import useTitle from "../../hooks/useTitle";
 import useShowNav from "../../hooks/useShowNav";
@@ -10,9 +11,11 @@ import {
   GridIcon,
   ListIcon,
   Star,
+  ArrowUpRight,
 } from "../../assets/icons/icon";
 // Images
 import img from "../../assets/images/img.png";
+import StarRated from "../../component/star";
 
 const Product = () => {
   useTitle("Products");
@@ -207,20 +210,32 @@ const ProductMainHeader = ({
   );
 };
 
-const ProductCard1 = () => {
+export const ProductCard1 = ({ index }) => {
   return (
     <div className='product-card1 col-span-12 sm:col-span-6 md:col-span-4'>
-      <header>
-        <img src={img} alt='product' className='w-full h-96 object-cover' />
+      <header className='relative'>
+        <div className='overlay flex gap-2 justify-center items-center'>
+          <Link
+            to='/products/123'
+            className='capitalize border border-black rounded-3xl px-3 py-2 flex'
+          >
+            <span>view {index}</span>
+            <ArrowUpRight />
+          </Link>
+        </div>
+        <img
+          src={img}
+          alt='product'
+          className='w-full h-96 object-cover'
+          draggable={false}
+        />
       </header>
       <footer className='capitalize font-semibold'>
-        <div className='flex justify-between items-center'>
-          <p className=''>product name</p>
+        <div className='flex flex-col sm:flex-row gap-2 justify-between items-start sm:items-center'>
+          <p>product name {index}</p>
           <span>$5000.89</span>
         </div>
-        {[...Array(3)].map((item) => {
-          return <Star key={Math.random() * 1000} />;
-        })}
+        <StarRated rating={2.2} />
       </footer>
     </div>
   );
@@ -234,6 +249,7 @@ const ProductCard2 = () => {
           src={img}
           className='w-3/4 md:w-full h-80 object-cover'
           alt='product'
+          draggable={false}
         />
       </header>
       <footer className='md:basis-1/2'>
@@ -252,9 +268,12 @@ const ProductCard2 = () => {
         </p>
 
         <div className='btns mt-2 flex justify-start items-center gap-2'>
-          <button className='border border-black px-3 py-2 rounded-3xl hover:border-0 hover:bg-secondary'>
+          <Link
+            to='/products/123'
+            className='border border-black px-3 py-2 rounded-3xl hover:border-0 hover:bg-secondary'
+          >
             details
-          </button>
+          </Link>
           <button className='border border-black px-3 py-2 rounded-3xl hover:border-0 hover:bg-secondary'>
             store
           </button>

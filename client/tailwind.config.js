@@ -8,6 +8,9 @@ module.exports = {
         secondary: "#BAE8F2",
         tomato: "#FF6363",
         yellowish: "#888883",
+        bkg: "#171819",
+        muted: "#C9CBCF",
+        accent: "#66CCC1",
       },
       dropShadow: {
         "text-sm": "1px 1px 0px rgba(0, 0, 0, 0.90)",

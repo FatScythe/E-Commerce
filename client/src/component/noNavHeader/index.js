@@ -12,7 +12,7 @@ import {
 // Redux
 import { useSelector } from "react-redux";
 
-const NotNav = ({ navLinks }) => {
+const NotNav = ({ navLinks, name }) => {
   const location = useLocation();
   return (
     <div className='no-nav-header sticky top-0 bg-white mt-2 md:mt-6 mb-8 flex justify-between items-center'>
@@ -30,7 +30,7 @@ const NotNav = ({ navLinks }) => {
 
         <div className='page-name'>
           <h4 className='text-base capitalize md:font-bold md:text-lg'>
-            {location.pathname.slice(1)}
+            {name || location.pathname.slice(1)}
           </h4>
         </div>
       </div>

@@ -7,6 +7,7 @@ import User from "../../pages/user";
 import About from "../../pages/about";
 import Contact from "../../pages/contact";
 import Product from "../../pages/products";
+import SingleProduct from "../../pages/products/singleProduct/index.js";
 
 import NotFound from "../../pages/notFound";
 
@@ -58,6 +59,11 @@ export const navLinks = [
   },
   {
     id: 10,
+    path: "/products/:id",
+    element: <SingleProduct />,
+  },
+  {
+    id: 12,
     path: "*",
     element: <NotFound />,
   },

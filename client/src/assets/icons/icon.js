@@ -273,16 +273,126 @@ export const Star = () => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      fill='#FF6363'
+      fill='#000'
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-6 h-6 inline'
+      className='w-6 h-6 inline mr-1'
     >
       <path
         strokeLinecap='round'
         strokeLinejoin='round'
         d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
+      />
+    </svg>
+  );
+};
+
+export const StarEmpty = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='#FFF'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='w-6 h-6 inline mr-1'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z'
+      />
+    </svg>
+  );
+};
+
+export const StarHalf = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      className='w-6 h-6 inline mr-1'
+      viewBox='0 0 24 24'
+    >
+      <g>
+        <path fill='none' d='M0 0h24v24H0z' />
+        <path d='M12 15.968l4.247 2.377-.949-4.773 3.573-3.305-4.833-.573L12 5.275v10.693zm0 2.292l-7.053 3.948 1.575-7.928L.587 8.792l8.027-.952L12 .5l3.386 7.34 8.027.952-5.935 5.488 1.575 7.928L12 18.26z' />{" "}
+      </g>
+    </svg>
+  );
+};
+
+export const LoveIcon = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth='1.5'
+      stroke='currentColor'
+      className='w-6 h-6'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z'
+      />
+    </svg>
+  );
+};
+
+export const ArrowUpRight = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='w-6 h-6'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25'
+      />
+    </svg>
+  );
+};
+
+export const ArrowLeft = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='w-8 h-8'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75'
+      />
+    </svg>
+  );
+};
+
+export const ArrowRight = () => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      fill='none'
+      viewBox='0 0 24 24'
+      strokeWidth={1.5}
+      stroke='currentColor'
+      className='w-8 h-8'
+    >
+      <path
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        d='M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75'
       />
     </svg>
   );
