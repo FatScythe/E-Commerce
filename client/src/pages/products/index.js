@@ -10,7 +10,6 @@ import {
   FilterIcon,
   GridIcon,
   ListIcon,
-  Star,
   ArrowUpRight,
 } from "../../assets/icons/icon";
 // Images
@@ -261,11 +260,7 @@ const ProductCard2 = () => {
           expedita dolor repellendus?
         </p>
 
-        <p className='my-4'>
-          {[...Array(3)].map((item) => {
-            return <Star key={Math.random() * 1000} />;
-          })}
-        </p>
+        <StarRated rating={3.2} />
 
         <div className='btns mt-2 flex justify-start items-center gap-2'>
           <Link

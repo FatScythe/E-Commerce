@@ -1,0 +1,48 @@
+
+#home .carousel {
+    @apply h-[70vh] relative w-full mt-0.5 sm:rounded-md overflow-hidden;
+}
+
+#home .carousel .images {
+    @apply flex justify-center items-center;
+}
+
+#home .carousel .images img {
+    @apply absolute h-full w-full object-cover transition-all duration-700;
+}
+
+#home .carousel .images img.active-slide {
+    @apply opacity-100 top-0 bottom-0 right-0 left-0;
+}
+
+#home .carousel .images img.next-slide {
+    @apply absolute top-0 bottom-0 -right-full opacity-40;
+}
+
+#home .carousel .images img.prev-slide {
+    @apply absolute top-0 bottom-0 -left-full opacity-40;
+}
+
+#home .carousel button.ctrl {
+    @apply absolute hidden sm:block -top-1/2 bg-accent/80 p-5 rounded-full transition-all duration-300 ease-in-out;
+}
+
+#home .carousel:hover button.ctrl {
+    @apply top-1/3;
+}
+
+#home .carousel .toggle {
+    @apply absolute right-2 top-1/3 sm:right-6 sm:top-0 sm:h-fit;
+}
+
+#home .carousel .toggle button.skip {
+    @apply block sm:inline-block h-3 w-3 sm:ml-3 rounded-full mb-3;
+}
+
+#home .carousel .title {
+    @apply absolute bottom-0 bg-secondary/80 p-3 w-full md:w-1/2;
+}
+
+#home .carousel .title h1 {
+    @apply capitalize font-bold text-base sm:text-xl tracking-wide;
+}

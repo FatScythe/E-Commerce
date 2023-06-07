@@ -4,6 +4,7 @@ const { NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
 const createProduct = async (req, res) => {
+  //Only create product when user as a store
   req.body.seller = req.user.userId;
   const product = await Product.create(req.body);
   res.status(StatusCodes.CREATED).json({ product });

@@ -21,7 +21,7 @@ const Navbar = () => {
   // }, []);
 
   return (
-    <nav className='container'>
+    <nav>
       <div className='logo'>
         {isLoggedIn && (
           <div className='icons'>

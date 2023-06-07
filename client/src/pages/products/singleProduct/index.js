@@ -1,16 +1,16 @@
 import "./singleProduct.css";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 // component
 import NotNav from "../../../component/noNavHeader";
-import { ArrowLeft, ArrowRight, LoveIcon } from "../../../assets/icons/icon";
+import { LoveIcon } from "../../../assets/icons/icon";
 import StarRated from "../../../component/star";
-import { ProductCard1 } from "../index";
 // hooks
 import useTitle from "../../../hooks/useTitle";
 import useShowNav from "../../../hooks/useShowNav";
 // image
 import img from "../../../assets/images/a6.jpeg";
+import Slider from "../../../component/slider/slider";
 
 const SingleProduct = () => {
   useShowNav(false);
@@ -21,9 +21,11 @@ const SingleProduct = () => {
     comment: "",
     rating: 0,
     isOpen: false,
+    isModalOpen: false,
   });
   return (
     <section id='single-product' className='container'>
+      {review.isModalOpen && <SizeGuide />}
       <NotNav
         name={"Single Product"}
         navLinks={{ cart: "cart", search: "search", auth: "auth" }}
@@ -42,7 +44,14 @@ const SingleProduct = () => {
           <h3 className='name'>product name</h3>
           <h4 className='price'>$80.00</h4>
           <StarRated rating={2.2} />
-          <button className='size-guide'>size guide</button>
+          <button
+            className='size-guide'
+            onClick={() =>
+              setReview({ ...review, isModalOpen: !review.isModalOpen })
+            }
+          >
+            size guide
+          </button>
           <div className='color'>
             <p className='text-base'>colors</p>
             <div>
@@ -132,7 +141,7 @@ const SingleProduct = () => {
         </div>
       </main>
 
-      <RelatedProducts />
+      <Slider title='related products' />
     </section>
   );
 };
@@ -222,96 +231,12 @@ const AddReviewForm = ({ review, setReview }) => {
   );
 };
 
-const RelatedProducts = () => {
-  const [current, setCurrent] = useState(0);
-  const [width, setWidth] = useState(null);
-  const [cardWidth, setCardWidth] = useState(null);
-
-  const updateWidth = () => {
-    setWidth(window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener("resize", updateWidth);
-    setWidth(window.innerWidth);
-
-    if (width > 640) {
-      setCardWidth(24);
-    } else {
-      setCardWidth(18);
-    }
-
-    return () => {
-      console.log("dismount");
-      window.removeEventListener("resize", updateWidth);
-    };
-  }, [width]);
-
-  useEffect(() => {
-    const number = (current) => {
-      // last is the array.length - 1
-      const last = 10 - 1;
-
-      if (current >= last) {
-        return last;
-      }
-
-      if (current <= 0) {
-        return 0;
-      }
-
-      return current;
-    };
-    setCurrent(number);
-  }, [current]);
-
+const SizeGuide = () => {
   return (
-    <footer>
-      <div className='related-products mt-3'>
-        <div className='title flex justify-between items-center'>
-          <h2 className='text-base capitalize font-semibold'>
-            related product
-          </h2>
-
-          <div className='controls flex justify-between items-center gap-6'>
-            <button
-              onClick={() => setCurrent(current - 1)}
-              className='bg-accent disabled:bg-primary disabled:scale-95 hover:bg-primary text-black hover:text-white disabled:hover:text-black p-3 disabled:p-1 rounded-full disabled:ring-transparent hover:ring-4 ring-accent ring-offset-8'
-              disabled={current === 0}
-            >
-              <ArrowLeft />
-            </button>
-            <button
-              onClick={() => setCurrent(current + 1)}
-              className='bg-accent disabled:bg-primary hover:bg-primary text-black hover:text-white disabled:hover:text-black p-3 disabled:p-1 rounded-full disabled:ring-transparent hover:ring-4 ring-accent ring-offset-8'
-              disabled={current === 9}
-            >
-              <ArrowRight />
-            </button>
-          </div>
-        </div>
-
-        <div
-          style={{
-            transform: `translateX(-${current * cardWidth}rem)`,
-            width: `${10 * cardWidth}rem`,
-          }}
-          className='carousel-container p-4 mt-5 overflow-hidden flex gap-8 items-center transition-all duration-700 ease-in-out'
-        >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
-            <div
-              className={`w-72 p-2 sm:w-96 overflow-hidden ${
-                index === current + 1
-                  ? "blur-none scale-90 shadow-xl bg-white"
-                  : "scale-75 blur--[1px] md:blur-none"
-              } transition-all duration-1000 ease-in`}
-              key={Math.random() * 1000}
-            >
-              <ProductCard1 index={index} />
-            </div>
-          ))}
-        </div>
+    <section className='sguide w-full h-screen bg-black/20 z-30 flex justify-center items-center'>
+      <div className=''>
+        <h1>Size Guide</h1>
       </div>
-    </footer>
+    </section>
   );
 };

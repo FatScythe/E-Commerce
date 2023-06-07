@@ -62,8 +62,7 @@
 }
 
 #single-product main .description h2::after,
-#single-product main .reviews-container h2::after,
-#single-product footer .related-products h2::after {
+#single-product main .reviews-container h2::after {
     content: '';
     @apply block w-14 h-0.5 mt-1 bg-primary;
 }

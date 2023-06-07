@@ -1,0 +1,7 @@
+#verify-email + footer {
+    @apply hidden;
+}
+
+#verify-email {
+    @apply mt-4;
+}

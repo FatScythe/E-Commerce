@@ -8,6 +8,7 @@ import About from "../../pages/about";
 import Contact from "../../pages/contact";
 import Product from "../../pages/products";
 import SingleProduct from "../../pages/products/singleProduct/index.js";
+import VerifyEmail from "../../pages/user/verify";
 
 import NotFound from "../../pages/notFound";
 
@@ -63,7 +64,12 @@ export const navLinks = [
     element: <SingleProduct />,
   },
   {
-    id: 12,
+    id: 11,
+    path: "/user/verify-email",
+    element: <VerifyEmail />,
+  },
+  {
+    id: 14,
     path: "*",
     element: <NotFound />,
   },

@@ -1,5 +1,5 @@
 .modal-container {
-    @apply fixed top-0 grid place-items-center w-full z-40 h-full bg-[rgb(150,150,150,0.8)];
+    @apply fixed top-0 grid place-items-center w-full z-40 h-full bg-black/10;
 }
 
 .modal-container .modal {

@@ -39,10 +39,12 @@
 
 [] Animations!!!
 
+[] Add if() free shipping to single product page
+
 
 ### BE
 
-[] Add Available Sizes to product
+[x] for fe only... Add Available Sizes to product
 
 [] Add Social media info to stores
 

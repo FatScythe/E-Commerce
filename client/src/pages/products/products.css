@@ -85,7 +85,7 @@ section#products main header .line::after {
 
 /* Product Card 1 */
 .product-card1 .overlay {
-    @apply absolute overflow-hidden h-0 left-0 right-0 bottom-0 bg-[rgb(0,0,0,0.4)] transition-all duration-300;
+    @apply absolute overflow-hidden h-0 left-0 right-0 bottom-0 bg-black/40 transition-all duration-300;
 }
 
 .product-card1:hover .overlay {

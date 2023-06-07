@@ -32,6 +32,14 @@ const userSchema = new Schema({
     default: "user",
     required: [true, "Please Provide role"],
   },
+  verificationToken: String,
+  isVerified: {
+    type: Boolean,
+    default: false,
+  },
+  verified: {
+    type: Date,
+  },
 });
 
 userSchema.pre("save", async function () {
