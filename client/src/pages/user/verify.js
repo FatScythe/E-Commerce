@@ -56,7 +56,7 @@ const VerifyEmail = () => {
 
   return (
     <div id='verify-email' className='container mt-20'>
-      <h1 className='text-2xl font-semibold'>Account Confirmed</h1>
+      <h1>Account Confirmed</h1>
       <p>Token: {token}</p>
       <p>Name: {name}</p>
       <button className='mt-10'>

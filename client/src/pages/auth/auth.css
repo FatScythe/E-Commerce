@@ -26,7 +26,7 @@ section.auth .inner {
     @apply bottom-5;
 }
 
-.auth .form {
+.auth .form, .forgot-pwd {
     @apply col-span-7 py-5;
 }
 
@@ -34,7 +34,7 @@ section.auth .inner {
     @apply relative mx-auto w-full max-w-md bg-white px-6 pb-3 shadow-xl md:shadow-none ring-1 md:ring-0 ring-gray-900/5 rounded-xl sm:px-10;
 }
 
-.auth .form .form-wrapper h1 {
+.auth .form .form-wrapper h1, .forgot-pwd h1 {
     @apply text-2xl font-semibold text-gray-900 first-letter:capitalize;
 }
 
@@ -42,19 +42,22 @@ section.auth .inner {
     @apply mt-2 text-normal text-gray-500 first-letter:capitalize;
 }
 
-.auth .form .form-wrapper .input-wrapper {
+.auth .form .form-wrapper .input-wrapper, .forgot-pwd .input-wrapper {
     @apply relative mt-6;
 }
 
-.auth .form .form-wrapper .input-wrapper input{
+.auth .form .form-wrapper .input-wrapper input,
+.forgot-pwd .input-wrapper input {
     @apply mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none
 }
 
-.auth .form .form-wrapper .input-wrapper label{
+.auth .form .form-wrapper .input-wrapper label,
+.forgot-pwd .input-wrapper label{
     @apply pointer-events-none absolute;
 }
 
-.auth .form .form-wrapper button.submit-btn {
+.auth .form .form-wrapper button.submit-btn,
+.forgot-pwd button.submit-btn{
     @apply w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none first-letter:uppercase
 }
 

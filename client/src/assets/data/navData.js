@@ -9,6 +9,8 @@ import Contact from "../../pages/contact";
 import Product from "../../pages/products";
 import SingleProduct from "../../pages/products/singleProduct/index.js";
 import VerifyEmail from "../../pages/user/verify";
+import ForgotPwd from "../../pages/auth/forgotPassword";
+import ResetPwd from "../../pages/user/resetPassword";
 
 import NotFound from "../../pages/notFound";
 
@@ -69,7 +71,17 @@ export const navLinks = [
     element: <VerifyEmail />,
   },
   {
-    id: 14,
+    id: 12,
+    path: "/auth/forgot-password",
+    element: <ForgotPwd />,
+  },
+  {
+    id: 13,
+    path: "/user/reset-password",
+    element: <ResetPwd />,
+  },
+  {
+    id: 18,
     path: "*",
     element: <NotFound />,
   },

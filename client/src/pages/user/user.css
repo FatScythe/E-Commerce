@@ -1,7 +1,37 @@
-#verify-email + footer {
+#verify-email + footer, 
+#reset-pwd + footer {
     @apply hidden;
 }
 
 #verify-email {
     @apply mt-4;
+}
+
+#verify-email h1, 
+#reset-pwd h1 {
+    @apply text-2xl font-semibold text-center capitalize;
+}
+
+p {
+    @apply overflow-hidden text-ellipsis;
+}
+
+#verify-email, #reset-pwd {
+    @apply w-11/12 sm:w-2/3 p-8 mx-auto bg-white/50 shadow-xl rounded-md hover:shadow-md overflow-hidden;
+}
+
+#reset-pwd .input-wrapper {
+    @apply relative mt-6;
+}
+
+#reset-pwd .input-wrapper input {
+    @apply mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none
+}
+
+#reset-pwd .input-wrapper label {
+    @apply pointer-events-none absolute;
+}
+
+#reset-pwd button.submit-btn {
+    @apply w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none first-letter:uppercase
 }

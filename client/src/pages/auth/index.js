@@ -7,7 +7,7 @@ import useShowNav from "../../hooks/useShowNav";
 // Components
 import NotNav from "../../component/noNavHeader";
 import AuthForm from "./authForm";
-import Banner from "./banner";
+import Banner from "../../component/banner/banner";
 
 const Auth = () => {
   useShowNav(false);

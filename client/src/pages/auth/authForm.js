@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
 // Component
 import { EyeClose, EyeOpen } from "../../assets/icons/icon";
@@ -92,9 +93,12 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
               </button>
               .
               {value.isMember && (
-                <button className='block capitalize font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none mx-auto'>
+                <Link
+                  to='/auth/forgot-password'
+                  className='block capitalize font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none mx-auto'
+                >
                   forgot password ?
-                </button>
+                </Link>
               )}
             </p>
           </div>

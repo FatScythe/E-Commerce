@@ -26,6 +26,13 @@ const userSchema = new Schema({
     required: [true, "Please provide password"],
     minLength: [6, "Password cannot be less than 6 characters"],
   },
+  passwordToken: {
+    type: String,
+  },
+  passwordTokenExpirationDate: {
+    type: Date,
+    default: "",
+  },
   role: {
     type: String,
     enum: ["user", "seller", "admin"],
