@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { showNav } from "../features.js/ui/uiSlice";
+import { showNav } from "../features/ui/uiSlice";
 import { useDispatch } from "react-redux";
 const useShowNav = (bool) => {
   const dispatch = useDispatch();

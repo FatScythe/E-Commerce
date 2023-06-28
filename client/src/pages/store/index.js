@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import useTitle from "../../hooks/useTitle";
 //Redux
 import { useDispatch } from "react-redux";
-import { showNav } from "../../features.js/ui/uiSlice";
+import { showNav } from "../../features/ui/uiSlice";
 
 const StorePage = () => {
   useTitle("Store");

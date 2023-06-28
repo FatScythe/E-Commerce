@@ -6,6 +6,10 @@ const app = express();
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+// REMOVE LATER
+app.use(cors());
 
 // Middlewares
 const errorMW = require("./middlewares/error-handler");

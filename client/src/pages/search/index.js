@@ -12,7 +12,7 @@ import {
   showModal,
   closeModal,
   clearSearchHistory,
-} from "../../features.js/ui/uiSlice";
+} from "../../features/ui/uiSlice";
 // Hooks
 import useTitle from "../../hooks/useTitle";
 import useShowNav from "../../hooks/useShowNav";

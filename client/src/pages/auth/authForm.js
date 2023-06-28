@@ -4,18 +4,43 @@ import { Link } from "react-router-dom";
 // Component
 import { EyeClose, EyeOpen } from "../../assets/icons/icon";
 
+// Toastify
+import { toast } from "react-toastify";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser, loginUser } from "../../features/user/userSlice";
+
 const AuthForm = ({ value, setValue, handleToggleMember }) => {
   const passwordInputContainer = useRef(null);
-  const handleShowPassword = () => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((store) => store.user);
+  const handleShowPassword = (e) => {
+    e.preventDefault();
     if (!value.password) return;
     setValue({ ...value, showPassword: !value.showPassword });
     value.showPassword
       ? passwordInputContainer.current.setAttribute("type", "password")
       : passwordInputContainer.current.setAttribute("type", "text");
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email, password, isMember } = value;
+    if (!email || !password || (!isMember && !name)) {
+      toast.error("Please fill out all fields");
+      return;
+    }
+    if (!value.isMember) {
+      dispatch(registerUser({ name, email, password }));
+      return;
+    }
+
+    dispatch(loginUser({ email, password }));
+  };
+
   return (
     <main className='form'>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form onSubmit={handleSubmit}>
         <div className='form-wrapper'>
           <div className='w-full'>
             <div className='text-center'>
@@ -77,8 +102,8 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
               </label>
             </div>
             <div className='my-6'>
-              <button type='submit' className='submit-btn'>
-                sign in
+              <button type='submit' className='submit-btn' disabled={loading}>
+                {value.isMember ? "login" : loading ? "registering" : "sign-in"}
               </button>
             </div>
             <p className='first-letter:uppercase text-center text-sm text-gray-500'>
@@ -86,6 +111,7 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
                 ? "don't have an account yet?"
                 : "already have and account?"}
               <button
+                type='button'
                 onClick={handleToggleMember}
                 className='capitalize font-semibold text-gray-600 hover:underline focus:text-gray-800 focus:outline-none'
               >

@@ -1,7 +1,7 @@
 import "./modal.css";
 import { CloseIcon } from "../../assets/icons/icon";
 // Redux
-import { closeModal } from "../../features.js/ui/uiSlice";
+import { closeModal } from "../../features/ui/uiSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Modal = () => {

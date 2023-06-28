@@ -3,7 +3,7 @@ import "./navbar.css";
 import { NavLink, Link } from "react-router-dom";
 import { SearchIcon, ShoppingBagIcon, UserIcon } from "../../assets/icons/icon";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleNavbar } from "../../features.js/ui/uiSlice";
+import { toggleNavbar } from "../../features/ui/uiSlice";
 
 const Navbar = () => {
   // const [navBg, setNavBg] = useState(false);

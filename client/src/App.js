@@ -11,8 +11,8 @@ import { navLinks } from "./assets/data/navData";
 import { useSelector } from "react-redux";
 
 // Toastify
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   // const notify = () =>
@@ -34,7 +34,7 @@ function App() {
         {ui.Modal.open && <Modal />}
         {ui.showNav && <Navbar />}
 
-        {/* <ToastContainer position='top-center' /> */}
+        <ToastContainer position='top-center' />
         <Routes>
           {navLinks.map((route) => (
             <Route key={route.id} path={route.path} element={route.element} />

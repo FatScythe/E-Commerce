@@ -1,7 +1,7 @@
 // Component
 import { SearchIcon } from "../../assets/icons/icon";
 // Redux
-import { addToSearchHistory } from "../../features.js/ui/uiSlice";
+import { addToSearchHistory } from "../../features/ui/uiSlice";
 import { useDispatch } from "react-redux";
 
 const SearchInput = ({ searchText, setSearchText }) => {

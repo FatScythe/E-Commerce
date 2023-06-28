@@ -3,7 +3,7 @@ const config = require("./emailConfig");
 
 const sendEmail = async ({ to, subject, html }) => {
   let transporter = nodemailer.createTransport(config);
-  console.log(to, subject, html);
+
   return transporter.sendMail({
     from: '"Ayeti Adorn Support 👻"',
     to,
