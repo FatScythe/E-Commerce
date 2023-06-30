@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 // Hooks
 import useTitle from "../../hooks/useTitle";
 import useShowNav from "../../hooks/useShowNav";
+
 // Component
 import {
   CloseIcon,
@@ -12,39 +13,53 @@ import {
   ListIcon,
   ArrowUpRight,
 } from "../../assets/icons/icon";
+
 // Images
 import img from "../../assets/images/img.png";
 import StarRated from "../../component/star";
 
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { gridView, listView } from "../../features/product/productSlice";
+
 const Product = () => {
   useTitle("Products");
   useShowNav();
+  const { isList, filteredProducts, product_loading } = useSelector(
+    (store) => store.product
+  );
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isList, setIsList] = useState(false);
+  console.log(filteredProducts.length);
+  if (filteredProducts.length < 1) {
+    return <div> sorry, no products matched your search.</div>;
+  }
+
+  if (product_loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section id='products' className='container'>
       <ProductAside
         isFilterOpen={isFilterOpen}
         setIsFilterOpen={setIsFilterOpen}
         isList={isList}
-        setIsList={setIsList}
       />
       <main className='col-span-12 sm:col-span-9 overflow-y-scroll overflow-x-hidden'>
         <ProductMainHeader
           isFilterOpen={isFilterOpen}
           setIsFilterOpen={setIsFilterOpen}
           isList={isList}
-          setIsList={setIsList}
         />
 
         <div className='products-container md:mt-5 grid grid-cols-12 gap-6'>
           {!isList &&
-            [...Array(5)].map((item) => (
-              <ProductCard1 key={Math.random() * 1000} />
+            filteredProducts.map((item) => (
+              <ProductCard1 key={item._id} {...item} />
             ))}
           {isList &&
-            [...Array(5)].map((index) => (
-              <ProductCard2 key={Math.random() * 1000} />
+            filteredProducts.map((item) => (
+              <ProductCard2 key={item._id} {...item} />
             ))}
         </div>
       </main>
@@ -54,7 +69,8 @@ const Product = () => {
 
 export default Product;
 
-const ProductAside = ({ isFilterOpen, setIsFilterOpen, isList, setIsList }) => {
+const ProductAside = ({ isFilterOpen, setIsFilterOpen, isList }) => {
+  const dispatch = useDispatch();
   return (
     <aside
       className={`${
@@ -73,13 +89,13 @@ const ProductAside = ({ isFilterOpen, setIsFilterOpen, isList, setIsList }) => {
       </div>
       <div className='display flex justify-start items-center gap-2'>
         <button
-          onClick={() => setIsList(false)}
+          onClick={() => dispatch(gridView())}
           className={`${!isList ? "active" : ""}`}
         >
           <GridIcon />
         </button>
         <button
-          onClick={() => setIsList(true)}
+          onClick={() => dispatch(listView())}
           className={`${isList ? "active" : ""}`}
         >
           <ListIcon />
@@ -162,12 +178,8 @@ const ProductAside = ({ isFilterOpen, setIsFilterOpen, isList, setIsList }) => {
   );
 };
 
-const ProductMainHeader = ({
-  isFilterOpen,
-  setIsFilterOpen,
-  isList,
-  setIsList,
-}) => {
+const ProductMainHeader = ({ isFilterOpen, setIsFilterOpen, isList }) => {
+  const dispatch = useDispatch();
   return (
     <header>
       <div className='togglers'>
@@ -179,13 +191,13 @@ const ProductMainHeader = ({
         </button>
         <div className='display flex justify-between items-center gap-3'>
           <button
-            onClick={() => setIsList(false)}
+            onClick={() => dispatch(gridView())}
             className={`${!isList ? "active" : ""}`}
           >
             <GridIcon />
           </button>
           <button
-            onClick={() => setIsList(true)}
+            onClick={() => dispatch(listView())}
             className={`${isList ? "active" : ""}`}
           >
             <ListIcon />
@@ -209,21 +221,28 @@ const ProductMainHeader = ({
   );
 };
 
-export const ProductCard1 = ({ index }) => {
+export const ProductCard1 = ({
+  id,
+  name,
+  image,
+  price,
+  averageRating,
+  numOfReviews,
+}) => {
   return (
     <div className='product-card1 col-span-12 sm:col-span-6 md:col-span-4'>
       <header className='relative'>
         <div className='overlay flex gap-2 justify-center items-center'>
           <Link
-            to='/products/123'
-            className='capitalize border border-black rounded-3xl px-3 py-2 flex'
+            to={`/products/` + id}
+            className='capitalize border border-black rounded-3xl my-2 px-3 py-2 flex'
           >
-            <span>view {index}</span>
+            <span>{name}</span>
             <ArrowUpRight />
           </Link>
         </div>
         <img
-          src={img}
+          src={"http://localhost:5000" + image}
           alt='product'
           className='w-full h-96 object-cover'
           draggable={false}
@@ -231,10 +250,10 @@ export const ProductCard1 = ({ index }) => {
       </header>
       <footer className='capitalize font-semibold'>
         <div className='flex flex-col sm:flex-row gap-2 justify-between items-start sm:items-center'>
-          <p>product name {index}</p>
-          <span>$5000.89</span>
+          <p>{name}</p>
+          <span>${price}</span>
         </div>
-        <StarRated rating={2.2} />
+        <StarRated rating={averageRating} />
       </footer>
     </div>
   );

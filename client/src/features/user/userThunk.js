@@ -1,7 +1,7 @@
 // Toastify
 import { toast } from "react-toastify";
 
-export const registerUserThunkAPI = async (user, url) => {
+export const registerUserThunk = async (user, url, thunkAPI) => {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -12,20 +12,18 @@ export const registerUserThunkAPI = async (user, url) => {
     const data = await response.json();
 
     if (!response.ok) {
-      toast.error(data.msg);
-      return data;
+      toast(data.msg);
+      return thunkAPI.rejectWithValue(data.msg);
     }
 
     toast.success(data.msg);
-
     return data;
   } catch (error) {
-    console.log(error);
-    return error;
+    return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
 
-export const loginUserThunkAPI = async (user, url) => {
+export const loginUserThunk = async (user, url, thunkAPI) => {
   try {
     const response = await fetch(url, {
       method: "POST",
@@ -37,12 +35,11 @@ export const loginUserThunkAPI = async (user, url) => {
 
     if (!response.ok) {
       toast.error(data.msg);
-      return data;
+      return thunkAPI.rejectWithValue(data.msg);
     }
 
     return data;
   } catch (error) {
-    console.log(error);
     return error;
   }
 };

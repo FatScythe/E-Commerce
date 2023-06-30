@@ -8,26 +8,24 @@ import Modal from "./component/modal";
 // Pages
 import { navLinks } from "./assets/data/navData";
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 // Toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-  // const notify = () =>
-  //   toast.error("Wow so easy!", {
-  //     // position: "top-right",
-  //     autoClose: 5000,
-  //     hideProgressBar: false,
-  //     closeOnClick: true,
-  //     pauseOnHover: true,
-  //     draggable: true,
-  //     progress: undefined,
-  //     theme: "light",
-  //   });
+// Product
+import { fetchProducts } from "./features/product/productSlice";
+import { useEffect } from "react";
 
+function App() {
+  const dispatch = useDispatch();
   const ui = useSelector((store) => store.ui);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  });
+
   return (
     <div className='App'>
       <Router>
@@ -40,7 +38,6 @@ function App() {
             <Route key={route.id} path={route.path} element={route.element} />
           ))}
         </Routes>
-        {/* <button onClick={notify}>Test</button> */}
         <Footer />
       </Router>
     </div>

@@ -2,23 +2,34 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // Toastify
 import { toast } from "react-toastify";
 // Thunk
-import { registerUserThunkAPI, loginUserThunkAPI } from "./userThunk";
+import { registerUserThunk, loginUserThunk } from "./userThunk";
 
 const initialState = {
   loading: false,
   user: {},
 };
 
-export const registerUser = createAsyncThunk("user/registerUser", (user) => {
-  return registerUserThunkAPI(
-    user,
-    "http://localhost:5000/api/v1/auth/register"
-  );
-});
+export const registerUser = createAsyncThunk(
+  "user/registerUser",
+  async (user, thunkAPI) => {
+    return registerUserThunk(
+      user,
+      "http://localhost:5000/api/v1/auth/register",
+      thunkAPI
+    );
+  }
+);
 
-export const loginUser = createAsyncThunk("user/registerUser", (user) => {
-  return loginUserThunkAPI(user, "http://localhost:5000/api/v1/auth/login");
-});
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
+  async (user, thunkAPI) => {
+    return loginUserThunk(
+      user,
+      "http://localhost:5000/api/v1/auth/login",
+      thunkAPI
+    );
+  }
+);
 
 const userSlice = createSlice({
   name: "user",
