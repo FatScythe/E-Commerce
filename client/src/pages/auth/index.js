@@ -2,7 +2,6 @@ import "./auth.css";
 import { useState } from "react";
 // Hooks
 import useTitle from "../../hooks/useTitle";
-import useShowNav from "../../hooks/useShowNav";
 
 // Components
 import NotNav from "../../component/noNavHeader";
@@ -10,7 +9,6 @@ import AuthForm from "./authForm";
 import Banner from "../../component/banner/banner";
 
 const Auth = () => {
-  useShowNav(false);
   const initialValue = {
     name: "",
     email: "",

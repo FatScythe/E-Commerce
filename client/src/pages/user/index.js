@@ -1,10 +1,9 @@
 // Hooks
 import useTitle from "../../hooks/useTitle";
-import useShowNav from "../../hooks/useShowNav";
 // Components
 import NotNav from "../../component/noNavHeader";
+
 const User = () => {
-  useShowNav(false);
   useTitle("User Settings");
   return (
     <section id='user' className='container'>

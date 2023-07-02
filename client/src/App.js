@@ -30,15 +30,27 @@ function App() {
     <div className='App'>
       <Router>
         {ui.Modal.open && <Modal />}
-        {ui.showNav && <Navbar />}
-
         <ToastContainer position='top-center' />
+
         <Routes>
           {navLinks.map((route) => (
-            <Route key={route.id} path={route.path} element={route.element} />
+            <Route
+              key={route.id}
+              path={route.path}
+              element={
+                route.showNav ? (
+                  <>
+                    {ui.showNav && <Navbar />}
+                    {route.element}
+                    <Footer />
+                  </>
+                ) : (
+                  route.element
+                )
+              }
+            />
           ))}
         </Routes>
-        <Footer />
       </Router>
     </div>
   );

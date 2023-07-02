@@ -7,13 +7,11 @@ import { LoveIcon } from "../../../assets/icons/icon";
 import StarRated from "../../../component/star";
 // hooks
 import useTitle from "../../../hooks/useTitle";
-import useShowNav from "../../../hooks/useShowNav";
 // image
 import img from "../../../assets/images/a6.jpeg";
 import Slider from "../../../component/slider/slider";
 
 const SingleProduct = () => {
-  useShowNav(false);
   useTitle("Product Name || Ayeti_Adorn");
 
   const [review, setReview] = useState({

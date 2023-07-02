@@ -4,10 +4,8 @@ import { useState } from "react";
 // Component
 import NotNav from "../../component/noNavHeader";
 import Banner from "../../component/banner/banner";
-import useShowNav from "../../hooks/useShowNav";
 
 const ForgotPwd = () => {
-  useShowNav(false);
   const [email, setEmail] = useState("");
   return (
     <section className='auth md:mx-auto md:px-2'>

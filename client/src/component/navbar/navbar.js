@@ -1,14 +1,13 @@
 import "./navbar.css";
-// import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { SearchIcon, ShoppingBagIcon, UserIcon } from "../../assets/icons/icon";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleNavbar } from "../../features/ui/uiSlice";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
 const Navbar = () => {
   // const [navBg, setNavBg] = useState(false);
-  const { isNavOpen, isLoggedIn } = useSelector((state) => state.ui);
-  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.ui);
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   // const changeNavBg = () => {
   //   window.scrollY >= 100 ? setNavBg(true) : setNavBg(false);
@@ -51,7 +50,7 @@ const Navbar = () => {
           </button>
           <div
             className={`toggle-menu ${isNavOpen ? "open" : "close"}`}
-            onClick={() => dispatch(toggleNavbar())}
+            onClick={() => setIsNavOpen(!isNavOpen)}
           >
             <div className='line mb-1'></div>
             <div className='line'></div>
@@ -63,20 +62,20 @@ const Navbar = () => {
           isNavOpen ? "max-h-full overflow-hidden" : "max-h-0"
         }`}
       >
-        <ul className='navlinks' onClick={() => dispatch(toggleNavbar())}>
+        <ul className='navlinks' onClick={() => setIsNavOpen(!isNavOpen)}>
           <NavLink to='/'>
             <li>home</li>
           </NavLink>
 
-          <NavLink to='products'>
+          <NavLink to='/products'>
             <li>products</li>
           </NavLink>
 
-          <NavLink to='about'>
+          <NavLink to='/about'>
             <li>about</li>
           </NavLink>
 
-          <NavLink to='contact'>
+          <NavLink to='/contact'>
             <li>contact</li>
           </NavLink>
 

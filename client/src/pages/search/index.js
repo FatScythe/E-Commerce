@@ -15,11 +15,9 @@ import {
 } from "../../features/ui/uiSlice";
 // Hooks
 import useTitle from "../../hooks/useTitle";
-import useShowNav from "../../hooks/useShowNav";
 
 const Search = () => {
   useTitle("Search");
-  useShowNav(false);
   const dispatch = useDispatch();
 
   const question = "clear all recent searches?";

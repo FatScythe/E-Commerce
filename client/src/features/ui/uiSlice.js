@@ -1,7 +1,6 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
-  isNavOpen: false,
   showNav: true,
   isLoggedIn: false,
   Modal: {
@@ -22,13 +21,6 @@ const uiSlice = createSlice({
   name: "ui",
   initialState,
   reducers: {
-    toggleNavbar: (state) => {
-      state.isNavOpen = !state.isNavOpen;
-    },
-    showNav: (state, { payload }) => {
-      if (payload === undefined || typeof payload !== "boolean") payload = true;
-      state.showNav = payload;
-    },
     closeModal: (state) => {
       state.Modal.open = false;
     },
@@ -55,8 +47,6 @@ const uiSlice = createSlice({
 });
 
 export const {
-  toggleNavbar,
-  showNav,
   openModal,
   closeModal,
   showModal,

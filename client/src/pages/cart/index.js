@@ -2,7 +2,6 @@ import "./cart.css";
 import { Link } from "react-router-dom";
 // hook
 import useTitle from "../../hooks/useTitle";
-import useShowNav from "../../hooks/useShowNav";
 // component
 import NotNav from "../../component/noNavHeader";
 import { CloseIcon } from "../../assets/icons/icon";
@@ -13,7 +12,6 @@ import { useSelector } from "react-redux";
 
 const Bag = () => {
   useTitle("Cart");
-  useShowNav(false);
   return (
     <section className='container' id='cart'>
       <NotNav navLinks={{ store: "stores", search: "search", auth: "auth" }} />

@@ -3,6 +3,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 // Thunk
 import { productsThunk } from "./productThunk";
+// Categories Enum
+import { categories } from "../../assets/data/productCategories";
 
 const initialState = {
   products: [],
@@ -11,13 +13,21 @@ const initialState = {
     text: "",
     category: "",
     store: "",
-    color: "",
+    color: [],
     price: 0,
+    sort: "a-z",
     min_price: 0,
     max_price: 0,
     shipping: false,
   },
   filteredProducts: [],
+  enumProducts: {
+    categories,
+    maxPrice: 0,
+    minPrice: 0,
+    colors: [],
+    store: [],
+  },
   isList: false,
   singleProduct: {},
 };
@@ -39,17 +49,43 @@ const productSlice = createSlice({
     gridView: (state) => {
       state.isList = false;
     },
+    sort: (state, { payload }) => {
+      console.log(payload, "Sort Reducer");
+    },
   },
   extraReducers: {
     [fetchProducts.pending]: (state) => {
       state.product_loading = true;
     },
     [fetchProducts.fulfilled]: (state, { payload }) => {
-      console.log(state.products);
       state.products = payload.products;
       if (state.products) {
         state.filteredProducts = state.products;
+
+        // Price
+        let priceArray = [];
+        state.filteredProducts.forEach((product) => {
+          priceArray.push(product.price);
+        });
+        priceArray.sort((a, b) => a - b);
+
+        const maxPrice = priceArray[priceArray.length - 1];
+        const minPrice = priceArray[0];
+
+        state.enumProducts.minPrice = minPrice;
+        state.enumProducts.maxPrice = maxPrice;
+        // Color
+        let colorArray = [];
+        state.filteredProducts.forEach((productColor) => {
+          productColor.color.map((color) => colorArray.push(color));
+        });
+
+        let colors = new Set([...colorArray]);
+
+        colorArray = [...colors];
+        state.enumProducts.colors = colorArray;
       }
+
       state.product_loading = false;
     },
     [fetchProducts.rejected]: (state, { payload }) => {
@@ -59,6 +95,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { gridView, listView } = productSlice.actions;
+export const { gridView, listView, sort } = productSlice.actions;
 
 export default productSlice.reducer;
