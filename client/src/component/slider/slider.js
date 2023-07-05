@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 // Components
 import { ArrowLeft, ArrowRight } from "../../assets/icons/icon";
-import { ProductCard1 } from "../../pages/products";
+import { ProductCard1 } from "../../pages/products/productCard";
 
 const Slider = ({ title, array }) => {
   const [current, setCurrent] = useState(0);

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 // Thunk
@@ -13,7 +13,7 @@ const initialState = {
     text: "",
     category: "",
     store: "",
-    color: [],
+    color: "",
     price: 0,
     sort: "a-z",
     min_price: 0,
@@ -23,7 +23,7 @@ const initialState = {
   filteredProducts: [],
   enumProducts: {
     categories,
-    maxPrice: 0,
+    maxPrice: Math.pow(10, 1000),
     minPrice: 0,
     colors: [],
     store: [],
@@ -50,7 +50,81 @@ const productSlice = createSlice({
       state.isList = false;
     },
     sort: (state, { payload }) => {
-      console.log(payload, "Sort Reducer");
+      let filter = [...current(state).filteredProducts];
+
+      if (payload.text !== "") {
+        filter = [...current(state).products].filter(
+          (item) => item.name.toLowerCase() === payload.text
+        );
+      } else {
+        filter = state.products;
+      }
+
+      if (payload.category !== "all") {
+        filter = [...current(state).products].filter(
+          (item) => item.category === payload.category
+        );
+      } else {
+        filter = state.products;
+      }
+
+      if (payload.store !== "all") {
+        filter = filter.filter(
+          (item) => item.store.toLowerCase() === payload.store
+        );
+      }
+
+      if (payload.color !== "") {
+        filter = filter.filter((item) => item.color.includes(payload.color));
+      }
+
+      if (payload.price >= 0) {
+        filter = filter.filter((item) => payload.price >= item.price);
+      }
+
+      if (payload.shipping) {
+        filter = filter.filter((item) => item.freeShipping);
+      }
+
+      if (payload.sort !== "none") {
+        if (payload.sort === "name (a-z)") {
+          filter = filter.sort((a, b) => {
+            if (a.name.toLowerCase() < b.name.toLowerCase()) {
+              return -1;
+            }
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return 1;
+            }
+            return 0;
+          });
+        }
+
+        if (payload.sort === "name (z-a)") {
+          filter = filter.sort((a, b) => {
+            if (a.name.toLowerCase() < b.name.toLowerCase()) {
+              return 1;
+            }
+            if (a.name.toLowerCase() > b.name.toLowerCase()) {
+              return -1;
+            }
+            return 0;
+          });
+        }
+
+        if (payload.sort === "price (lowest)") {
+          filter = filter.sort((a, b) => a.price - b.price);
+        }
+
+        if (payload.sort === "price (highest)") {
+          filter = filter.sort((a, b) => b.price - a.price);
+        }
+      }
+
+      state.filteredProducts = filter;
+    },
+
+    reset: (state) => {
+      state.filteredProducts = state.products;
     },
   },
   extraReducers: {
@@ -95,6 +169,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { gridView, listView, sort } = productSlice.actions;
+export const { gridView, listView, sort, reset } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -11,6 +11,7 @@ const ProductMainHeader = ({
   isList,
   filterOpt,
   setFilterOpt,
+  count,
 }) => {
   const dispatch = useDispatch();
   return (
@@ -36,7 +37,7 @@ const ProductMainHeader = ({
             <ListIcon />
           </button>
         </div>
-        <h3 className='number'> 30 products found</h3>
+        <h3 className='number'> {count} products found</h3>
       </div>
 
       <div className='line w-full md:w-1/2'></div>

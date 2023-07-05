@@ -4,7 +4,7 @@ import { useState } from "react";
 import { CloseIcon, GridIcon, ListIcon } from "../../assets/icons/icon";
 // Redux
 import { useDispatch } from "react-redux";
-import { gridView, listView } from "../../features/product/productSlice";
+import { gridView, listView, reset } from "../../features/product/productSlice";
 
 const ProductAside = ({
   isFilterOpen,
@@ -17,6 +17,8 @@ const ProductAside = ({
   const dispatch = useDispatch();
   const [categoryValue, setCategoryValue] = useState(1);
   const [colorValue, setColorValue] = useState(0);
+  const [searchText, setSearchText] = useState("");
+
   return (
     <aside
       className={` ${
@@ -31,12 +33,22 @@ const ProductAside = ({
         </button>
       </div>
       <div className='search'>
-        <input
-          type='search'
-          placeholder='Search'
-          value={filterOpt.text}
-          onChange={(e) => setFilterOpt({ ...filterOpt, text: e.target.value })}
-        />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            setFilterOpt({
+              ...filterOpt,
+              text: searchText.toLowerCase(),
+            });
+          }}
+        >
+          <input
+            type='search'
+            placeholder='Search'
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+        </form>
       </div>
       <div className='display flex justify-start items-center gap-2'>
         <button
@@ -63,7 +75,11 @@ const ProductAside = ({
                   setFilterOpt({ ...filterOpt, category: item.category });
                   setCategoryValue(item.id);
                 }}
-                className={`${item.id === categoryValue ? "underline" : ""}`}
+                className={`${
+                  item.id === categoryValue
+                    ? "underline font-bold underline-offset-1 decoration-2"
+                    : "hover:underline decoration-primary"
+                }`}
               >
                 {item.category}
               </button>
@@ -81,7 +97,7 @@ const ProductAside = ({
           }
         >
           <option>all</option>
-          <option>ayeti adorn</option>
+          <option>ayeti-adorn</option>
           <option>jum's crotchet</option>
           <option>umar's kaftan</option>
         </select>
@@ -154,9 +170,11 @@ const ProductAside = ({
             });
             setCategoryValue(1);
             setColorValue(0);
+
+            setTimeout(() => dispatch(reset()), 500);
           }}
         >
-          clear filters
+          reset filters
         </button>
       </div>
     </aside>
