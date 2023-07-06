@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { productsThunk } from "./productThunk";
 // Categories Enum
 import { categories } from "../../assets/data/productCategories";
+import url from "../../utils/url";
 
 const initialState = {
   products: [],
@@ -35,7 +36,7 @@ const initialState = {
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
   async (thunkAPI) => {
-    return productsThunk("http://localhost:5000/api/v1/products", thunkAPI);
+    return productsThunk(url + "/api/v1/products", thunkAPI);
   }
 );
 
@@ -51,7 +52,9 @@ const productSlice = createSlice({
     },
     sort: (state, { payload }) => {
       let filter = [...current(state).filteredProducts];
-
+      if (!filter) {
+        filter = [];
+      }
       if (payload.text !== "") {
         filter = [...current(state).products].filter(
           (item) => item.name.toLowerCase() === payload.text

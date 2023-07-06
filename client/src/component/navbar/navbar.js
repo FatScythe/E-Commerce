@@ -6,7 +6,8 @@ import { useState } from "react";
 
 const Navbar = () => {
   // const [navBg, setNavBg] = useState(false);
-  const { isLoggedIn } = useSelector((state) => state.ui);
+
+  const { user } = useSelector((state) => state.user);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   // const changeNavBg = () => {
@@ -22,9 +23,9 @@ const Navbar = () => {
   return (
     <nav>
       <div className='logo'>
-        {isLoggedIn && (
+        {user && (
           <div className='icons'>
-            <button>
+            <button title={user.name}>
               <Link to='/user'>
                 <UserIcon />
               </Link>
@@ -79,7 +80,7 @@ const Navbar = () => {
             <li>contact</li>
           </NavLink>
 
-          {!isLoggedIn && (
+          {!user && (
             <li className='auth'>
               <Link to='/auth'>login / register</Link>
             </li>
@@ -98,14 +99,14 @@ const Navbar = () => {
             </Link>
           </button>
 
-          {isLoggedIn && (
-            <button className='user'>
+          {user && (
+            <button className='user' title={user.name}>
               <Link to='/user'>
                 <UserIcon />
               </Link>
             </button>
           )}
-          {!isLoggedIn && (
+          {!user && (
             <div className='auth'>
               <button>
                 <Link to='/auth'>sign-up</Link>

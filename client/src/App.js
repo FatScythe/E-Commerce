@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 // Components
 import Footer from "./component/footer/footer";
 import Navbar from "./component/navbar/navbar";
@@ -13,16 +14,34 @@ import { useSelector, useDispatch } from "react-redux";
 // Toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// Product
-import { fetchProducts } from "./features/product/productSlice";
 import { useEffect } from "react";
 
+// Redux
+import { fetchProducts } from "./features/product/productSlice";
+import { saveUser, removeUser } from "./features/user/userSlice";
+
+import url from "./utils/url";
 function App() {
   const dispatch = useDispatch();
   const ui = useSelector((store) => store.ui);
 
+  const fetchUser = async () => {
+    try {
+      const response = await fetch(url + "/api/v1/users/show");
+      if (!response.ok) {
+        dispatch(removeUser());
+      }
+      const data = await response.json();
+
+      dispatch(saveUser(data));
+    } catch (error) {
+      console.error(error);
+      dispatch(removeUser());
+    }
+  };
+
   useEffect(() => {
+    fetchUser();
     dispatch(fetchProducts());
   });
 
