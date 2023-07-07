@@ -10,10 +10,13 @@ import { toast } from "react-toastify";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, loginUser } from "../../features/user/userSlice";
+// Router
+import { useNavigate } from "react-router-dom";
 
 const AuthForm = ({ value, setValue, handleToggleMember }) => {
   const passwordInputContainer = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading } = useSelector((store) => store.user);
   const handleShowPassword = (e) => {
     e.preventDefault();
@@ -30,12 +33,12 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
       toast.error("Please fill out all fields");
       return;
     }
-    if (!value.isMember) {
-      dispatch(registerUser({ name, email, password }));
+    if (value.isMember) {
+      dispatch(loginUser({ email, password }));
+      navigate("/products");
       return;
     }
-
-    dispatch(loginUser({ email, password }));
+    dispatch(registerUser({ name, email, password }));
   };
 
   return (

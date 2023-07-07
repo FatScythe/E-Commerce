@@ -1,5 +1,5 @@
 import "./singleProduct.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 // component
 import NotNav from "../../../component/noNavHeader";
@@ -7,12 +7,17 @@ import { LoveIcon } from "../../../assets/icons/icon";
 import StarRated from "../../../component/star";
 // hooks
 import useTitle from "../../../hooks/useTitle";
+import useFetch from "../../../hooks/useFetch";
 // image
-import img from "../../../assets/images/a6.jpeg";
 import Slider from "../../../component/slider/slider";
 
+import url from "../../../utils/url";
+
 const SingleProduct = () => {
-  useTitle("Product Name || Ayeti_Adorn");
+  const { id } = useParams();
+  const { data, pending, error } = useFetch(url + "/api/v1/products/" + id);
+  useTitle(data ? data.product.name : "Ayeti_Adorn || Product " + id);
+  console.log({ data, pending, error });
 
   const [review, setReview] = useState({
     title: "",
@@ -21,27 +26,35 @@ const SingleProduct = () => {
     isOpen: false,
     isModalOpen: false,
   });
+  if (pending) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Something went wrong : (</div>;
+  }
+  const { product } = data;
   return (
     <section id='single-product' className='container'>
       {review.isModalOpen && <SizeGuide />}
       <NotNav
-        name={"Single Product"}
+        name={product.name}
         navLinks={{ cart: "cart", search: "search", auth: "auth" }}
       />
 
       <header>
         <div className='title'>
-          <img src={img} alt='product name' />
+          <img src={product.image} alt={product.name} />
         </div>
 
         <div className='subtitle'>
           <div className='path'>
             <Link to='/'>home</Link>/<Link to='/products'>products</Link>/
-            <span>product name</span>
+            <span>{product.name}</span>
           </div>
-          <h3 className='name'>product name</h3>
-          <h4 className='price'>$80.00</h4>
-          <StarRated rating={2.2} />
+          <h3 className='name'>{product.name}</h3>
+          <h4 className='price'>${product.price}</h4>
+          <StarRated rating={product.averageRating} />
           <button
             className='size-guide'
             onClick={() =>
@@ -53,17 +66,7 @@ const SingleProduct = () => {
           <div className='color'>
             <p className='text-base'>colors</p>
             <div>
-              {[
-                "#000",
-                "#fff",
-                "#5e5eee",
-                "#eed85e",
-                "#33e059",
-                "#c333e0",
-                "#e03398",
-                "#f15656",
-                "#ebd88300",
-              ].map((item, index) => {
+              {product.color.map((item, index) => {
                 return (
                   <button
                     style={{ backgroundColor: item }}
@@ -106,25 +109,23 @@ const SingleProduct = () => {
       <main className='mt-10'>
         <div className='description'>
           <h2 className='text-base capitalize font-semibold'>description</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum
-            nemo nostrum, iure non ut similique qui consectetur esse dolore quia
-            assumenda nihil, obcaecati, eum labore?
-          </p>
+          <p>{product.desc}</p>
         </div>
         <div className='reviews-container mt-5'>
           <h2 className='text-base capitalize font-semibold'>reviews</h2>
-          <div className='reviews mt-6 h-60 overflow-y-scroll'>
-            {[...Array(5)].map((item) => (
-              <p
-                key={Math.random() * 1000}
-                className='bg-slate-200 mb-3 rounded-md p-2'
-              >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. A,
-                perspiciatis!
-              </p>
-            ))}
-          </div>
+          {product.reviews.length > 0 && (
+            <div className='reviews mt-6 h-60 overflow-y-scroll'>
+              {product.reviews.map((item) => (
+                <p
+                  key={Math.random() * 1000}
+                  className='bg-slate-200 mb-3 rounded-md p-2'
+                >
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A,
+                  perspiciatis!
+                </p>
+              ))}
+            </div>
+          )}
 
           <div className='w-full mt-3 flex justify-center items-center'>
             <button

@@ -62,11 +62,11 @@ const NotNav = ({ navLinks, name }) => {
 export default NotNav;
 
 const Auth = () => {
-  const { isLoggedIn } = useSelector((store) => store.ui);
+  const { user } = useSelector((store) => store.user);
 
   return (
     <>
-      {isLoggedIn ? (
+      {user ? (
         <Link to='/user' title='user'>
           <UserIcon />
         </Link>
