@@ -42,6 +42,7 @@ const User = () => {
             </li>
             <li className='my-4'>Edit profile</li>
             <li className='my-4'>Change Password</li>
+            <li className='my-4'>Wishlist</li>
             <li className='my-4'>My Store</li>
             <li className='my-4'>My Products</li>
             <li className='my-4'>Orders</li>

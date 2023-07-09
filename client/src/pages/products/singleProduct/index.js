@@ -1,5 +1,5 @@
 import "./singleProduct.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
 // component
 import NotNav from "../../../component/noNavHeader";
@@ -10,6 +10,11 @@ import useTitle from "../../../hooks/useTitle";
 import useFetch from "../../../hooks/useFetch";
 // image
 import Slider from "../../../component/slider/slider";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../features/cart/cartSlice";
+// Toastify
+import { toast } from "react-toastify";
 
 import url from "../../../utils/url";
 
@@ -17,7 +22,32 @@ const SingleProduct = () => {
   const { id } = useParams();
   const { data, pending, error } = useFetch(url + "/api/v1/products/" + id);
   useTitle(data ? data.product.name : "Ayeti_Adorn || Product " + id);
-  console.log({ data, pending, error });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const cart = useSelector((store) => store.cart);
+
+  const [options, setOptions] = useState({
+    id: "",
+    name: "",
+    image: "",
+    price: 0,
+    color: "",
+    size: "",
+    amount: 1,
+  });
+
+  const [sizeCount, setSizeCount] = useState(-1);
+  const [colorCount, setColorCount] = useState(-1);
+
+  const handleAmountToggle = (operation) => {
+    if (operation === "-" && !options.amount < 1) {
+      setOptions({ options, amount: options.amount - 1 });
+      return;
+    }
+
+    setOptions({ options, amount: options.amount + 1 });
+  };
 
   const [review, setReview] = useState({
     title: "",
@@ -34,6 +64,14 @@ const SingleProduct = () => {
     return <div>Something went wrong : (</div>;
   }
   const { product } = data;
+
+  let cartPayload = {
+    ...options,
+    name: product.name,
+    image: product.image,
+    id: product._id,
+    price: product.price,
+  };
   return (
     <section id='single-product' className='container'>
       {review.isModalOpen && <SizeGuide />}
@@ -71,7 +109,11 @@ const SingleProduct = () => {
                   <button
                     style={{ backgroundColor: item }}
                     key={index}
-                    className={`${index === 0 ? "active" : ""}`}
+                    onClick={() => {
+                      setColorCount(index);
+                      setOptions({ ...options, color: item });
+                    }}
+                    className={`${index === colorCount ? "active" : ""}`}
                   ></button>
                 );
               })}
@@ -80,20 +122,54 @@ const SingleProduct = () => {
           <div>
             <p>size (see size guide to confirm)</p>
             <div className='size-opt'>
-              <button className='active'>xl</button>
-              <button>xxl</button>
-              <button>xs</button>
-              <button>s</button>
-              <button>m</button>
-              <button>l</button>
+              {["xl", "xxl", "xs", "s", "m", "l"].map((size, index) => {
+                return (
+                  <button
+                    key={index + 1}
+                    onClick={() => {
+                      setOptions({ ...options, size });
+                      setSizeCount(index);
+                    }}
+                    className={`${sizeCount === index && "active"}`}
+                  >
+                    {size}
+                  </button>
+                );
+              })}
             </div>
           </div>
           <div className='btns flex flex-col gap-4'>
             <div className='add-to-cart flex flex-col sm:flex-row items-center justify-between gap-2'>
               <div className='amount font-bold sm:basis-1/5 border border-black py-2 px-2 text-base flex justify-center items-center gap-10 w-full'>
-                <button>-</button> <span>0</span> <button>+</button>
+                <button
+                  onClick={() => handleAmountToggle("-")}
+                  disabled={options.amount < 1}
+                  className='disabled:text-gray-500'
+                >
+                  -
+                </button>
+                <span>{options.amount}</span>
+                <button onClick={() => handleAmountToggle("+")}>+</button>
               </div>
-              <button className='bg-black text-white py-2 text-base sm:basis-4/5 w-full'>
+              <button
+                onClick={() => {
+                  const { cartItems } = cart;
+                  if (
+                    cartItems.some((e) => e.name === cartPayload.name) &&
+                    cartItems.some((e) => e.color === cartPayload.color) &&
+                    cartItems.some((e) => e.size === cartPayload.size)
+                  ) {
+                    navigate("/cart");
+                    return;
+                  }
+                  if (!options.size && !options.color) {
+                    toast.error("Please provide size and color");
+                    return;
+                  }
+                  dispatch(addToCart(cartPayload));
+                }}
+                className='bg-black text-white py-2 text-base sm:basis-4/5 w-full'
+              >
                 add to cart
               </button>
             </div>
