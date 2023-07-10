@@ -20,8 +20,11 @@ import url from "../../../utils/url";
 
 const SingleProduct = () => {
   const { id } = useParams();
+
   const { data, pending, error } = useFetch(url + "/api/v1/products/" + id);
+
   useTitle(data ? data.product.name : "Ayeti_Adorn || Product " + id);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,11 +45,11 @@ const SingleProduct = () => {
 
   const handleAmountToggle = (operation) => {
     if (operation === "-" && !options.amount < 1) {
-      setOptions({ options, amount: options.amount - 1 });
+      setOptions({ ...options, amount: options.amount - 1 });
       return;
     }
 
-    setOptions({ options, amount: options.amount + 1 });
+    setOptions({ ...options, amount: options.amount + 1 });
   };
 
   const [review, setReview] = useState({
@@ -63,6 +66,7 @@ const SingleProduct = () => {
   if (error) {
     return <div>Something went wrong : (</div>;
   }
+
   const { product } = data;
 
   let cartPayload = {
@@ -71,6 +75,7 @@ const SingleProduct = () => {
     image: product.image,
     id: product._id,
     price: product.price,
+    shipping: product.freeShipping ? 2 : 0,
   };
   return (
     <section id='single-product' className='container'>
@@ -143,7 +148,7 @@ const SingleProduct = () => {
               <div className='amount font-bold sm:basis-1/5 border border-black py-2 px-2 text-base flex justify-center items-center gap-10 w-full'>
                 <button
                   onClick={() => handleAmountToggle("-")}
-                  disabled={options.amount < 1}
+                  disabled={options.amount <= 1}
                   className='disabled:text-gray-500'
                 >
                   -
@@ -154,11 +159,7 @@ const SingleProduct = () => {
               <button
                 onClick={() => {
                   const { cartItems } = cart;
-                  if (
-                    cartItems.some((e) => e.name === cartPayload.name) &&
-                    cartItems.some((e) => e.color === cartPayload.color) &&
-                    cartItems.some((e) => e.size === cartPayload.size)
-                  ) {
+                  if (cartItems.some((e) => e.name === cartPayload.name)) {
                     navigate("/cart");
                     return;
                   }
@@ -167,6 +168,9 @@ const SingleProduct = () => {
                     return;
                   }
                   dispatch(addToCart(cartPayload));
+                  setColorCount(-1);
+                  setSizeCount(-1);
+                  toast.success("Added " + cartPayload.name + " to bag");
                 }}
                 className='bg-black text-white py-2 text-base sm:basis-4/5 w-full'
               >

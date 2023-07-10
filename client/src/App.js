@@ -21,6 +21,7 @@ import { fetchProducts } from "./features/product/productSlice";
 import { saveUser, removeUser } from "./features/user/userSlice";
 
 import url from "./utils/url";
+import User from "./pages/user";
 function App() {
   const dispatch = useDispatch();
   const ui = useSelector((store) => store.ui);
@@ -67,8 +68,18 @@ function App() {
                   route.element
                 )
               }
-            />
+            >
+              <Route path='home' element={<User component={<User />} />} />
+              <Route
+                path='edit-profile'
+                element={<User component={<div>Edit Profile</div>} />}
+              />
+            </Route>
           ))}
+          {/* <Route path='/user' element={<User />}>
+            <Route path='home' element={<div>Home</div>} />
+            <Route path='edit-profile' element={<div>Edit Profile</div>} />
+          </Route> */}
         </Routes>
       </Router>
     </div>

@@ -4,16 +4,14 @@ import { useState } from "react";
 import useTitle from "../../hooks/useTitle";
 // Components
 import { CloseIcon, HamburgerIcon, LogoutIcon } from "../../assets/icons/icon";
-
-// import NotNav from "../../component/noNavHeader";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 
 const User = () => {
   useTitle("User");
   const { user } = useSelector((store) => store.user);
   const [openNav, setOpenNav] = useState(false);
-  // console.log(user);
+  console.log(user);
   if (!user) {
     return <Navigate to='/' />;
   }
@@ -22,13 +20,13 @@ const User = () => {
     <section id='user' className='relative sm:grid grid-cols-12'>
       <aside
         className={`absolute sm:static transition-all duration-300  sm:col-span-3 h-screen bg-blue-500 py-4 ${
-          openNav ? "left-0 w-3/5" : "-left-full w-0"
+          openNav ? "left-0 w-3/5" : "-left-full"
         }`}
       >
         {/* logo Here maybe?? AYETI ADORN*/}
         <h4 className='title mb-10 flex flex-col md:flex-row justify-center items-center gap-5'>
           <img
-            className='h-24 w-24rounded-full'
+            className='h-24 w-24 rounded-full'
             src='http://localhost:3000/img.png'
             alt='name'
           />
@@ -37,10 +35,16 @@ const User = () => {
 
         <nav className='bg-transparent p-0'>
           <ul className='ml-4 w-full bg-transparent'>
-            <li className='w-full my-4 p-3 rounded-l-md  text-black font-bold   bg-white'>
-              Home
-            </li>
-            <li className='my-4'>Edit profile</li>
+            <NavLink to='/user/home'>
+              <li className='w-full my-4 p-3 rounded-l-md font-bold bg-white'>
+                Home
+              </li>
+            </NavLink>
+
+            <NavLink to='/user/edit-profile'>
+              <li className='my-4'>Edit profile</li>
+            </NavLink>
+
             <li className='my-4'>Change Password</li>
             <li className='my-4'>Wishlist</li>
             <li className='my-4'>My Store</li>

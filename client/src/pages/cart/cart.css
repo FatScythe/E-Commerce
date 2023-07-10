@@ -2,6 +2,14 @@
   @apply hidden;
 }
 
+#cart .bag-items .no-item {
+    @apply w-full h-[50vh] flex flex-col justify-center items-center gap-5;
+}
+
+#cart .bag-items .no-item span svg {
+    @apply w-36 h-36 text-red-500;
+}
+
 #cart .bag-items .bag-item:last-child {
     @apply border-b border-black;
 }

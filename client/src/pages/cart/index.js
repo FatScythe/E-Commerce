@@ -1,95 +1,160 @@
 import "./cart.css";
+import { useEffect } from "react";
+
 import { Link } from "react-router-dom";
 // hook
 import useTitle from "../../hooks/useTitle";
 // component
 import NotNav from "../../component/noNavHeader";
-import { CloseIcon } from "../../assets/icons/icon";
-// images
-import img from "../../assets/images/img.png";
+import { CloseIcon, ShoppingBagIcon } from "../../assets/icons/icon";
 // redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  clearCart,
+  removeItem,
+  toggleAmount,
+  calculateTotal,
+} from "../../features/cart/cartSlice";
+import { closeModal, showModal } from "../../features/ui/uiSlice";
 
 const Bag = () => {
   useTitle("Cart");
+  const { user } = useSelector((state) => state.user);
+  const { cartItems } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const question = "clear all shopping bag items?";
+  const positiveFn = () => {
+    dispatch(clearCart());
+    dispatch(closeModal());
+  };
+  const negativeFn = () => {
+    dispatch(closeModal());
+  };
+
+  useEffect(() => {
+    dispatch(calculateTotal());
+  });
+
   return (
     <section className='container' id='cart'>
       <NotNav navLinks={{ store: "stores", search: "search", auth: "auth" }} />
+      {cartItems.length > 0 && (
+        <div className='w-full flex justify-end items-end mt-3 mb-5'>
+          <button
+            onClick={() =>
+              dispatch(
+                showModal({ open: true, question, positiveFn, negativeFn })
+              )
+            }
+            className='bg-red-400 px-2 py-3 hover:bg-red-300 shadow-md rounded-md sm:text-base text-white'
+          >
+            clear cart
+          </button>
+        </div>
+      )}
       <div className='bag-items'>
-        <BagItem />
-        <BagItem />
+        {!cartItems.length > 0 && (
+          <div className='no-item'>
+            <span>
+              <ShoppingBagIcon />
+            </span>
+            <p className='text-base sm:text-lg'>No item in shopping bag</p>
+          </div>
+        )}
+        {cartItems.length > 0 &&
+          cartItems.map((item) => <BagItem key={item.id} {...item} />)}
       </div>
 
-      <BagTotal />
+      {cartItems.length > 0 && <BagTotal user={user} />}
     </section>
   );
 };
 export default Bag;
 
-const BagItem = () => {
+const BagItem = ({ id, name, image, price, amount, size, color }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className='bag-item'>
       <div className='title-wrapper'>
-        <img src={img} alt='product-name' draggable={false} />
+        <img src={image} alt={name} draggable={false} />
         <div className='title'>
-          <p>product name</p>
+          <p>{name}</p>
           <p>
-            size:<span>XL</span>
+            size:<span className='uppercase'>{size}</span>
           </p>
           <p>
-            color:<span>Red</span>
+            color:
+            <span
+              title={color}
+              style={{ backgroundColor: color }}
+              className='h-4 w-4 rounded-full'
+            ></span>
           </p>
           <div className='controls'>
-            <button className='increase'>+</button>
-            <div className='number'>0</div>
-            <button className='decrease'>-</button>
+            <button
+              className='decrease'
+              onClick={() => dispatch(toggleAmount({ id, type: "-" }))}
+            >
+              -
+            </button>
+            <div className='number'>{amount}</div>
+            <button
+              className='increase'
+              onClick={() => dispatch(toggleAmount({ id, type: "+" }))}
+            >
+              +
+            </button>
           </div>
         </div>
       </div>
 
       <div className='subtitle-wrapper'>
-        <button>
+        <button onClick={() => dispatch(removeItem(id))}>
           <CloseIcon />
         </button>
-        <p>$50.00</p>
+        <p>${price}</p>
       </div>
     </div>
   );
 };
 
-const BagTotal = () => {
-  const { isLoggedIn } = useSelector((state) => state.ui);
+const BagTotal = ({ user }) => {
+  const cart = useSelector((store) => store.cart);
+  const { amount, total, shipping } = cart;
+  let grandTotal = total + shipping;
+  grandTotal = Number(grandTotal).toFixed(0);
 
   return (
     <div className='bag-total'>
       <div className='bag-calc'>
         <div className='detail'>
-          <p className='title'>products in cart:</p>
-          <span className='amount'>2 items</span>
+          <p className='title'>products in bag:</p>
+          <span className='amount'>{amount} items</span>
         </div>
 
         <div className='detail'>
           <p className='title'>shipping:</p>
-          <span className='amount'>$2.50</span>
+          <span className='amount'>${shipping}</span>
         </div>
 
         <div className='detail'>
           <p className='title'>sub-total:</p>
-          <span className='amount'>$39.4</span>
+          <span className='amount'>${total}</span>
         </div>
 
         <div className='detail'>
           <p className='title'>grand total:</p>
-          <span className='amount'>$41.9</span>
+          <span className='amount'>${grandTotal}</span>
         </div>
       </div>
 
       <div className='bag-proceed'>
         <div>
-          <button>{isLoggedIn ? "proceed to checkout" : "sign in"}</button>
+          <button>{user ? "proceed to checkout" : "sign in"}</button>
         </div>
         <div className='link'>
-          <Link>continue shopping</Link>
+          <Link to='/products'>continue shopping</Link>
         </div>
       </div>
     </div>
