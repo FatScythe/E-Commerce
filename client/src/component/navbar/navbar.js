@@ -101,7 +101,7 @@ const Navbar = () => {
 
           {user && (
             <button className='user' title={user.name}>
-              <Link to='/user'>
+              <Link to='/user/settings'>
                 <UserIcon />
               </Link>
             </button>

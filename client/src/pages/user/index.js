@@ -5,7 +5,7 @@ import useTitle from "../../hooks/useTitle";
 // Components
 import { CloseIcon, HamburgerIcon, LogoutIcon } from "../../assets/icons/icon";
 import { useSelector } from "react-redux";
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink, Route, Routes } from "react-router-dom";
 
 const User = () => {
   useTitle("User");
@@ -35,21 +35,29 @@ const User = () => {
 
         <nav className='bg-transparent p-0'>
           <ul className='ml-4 w-full bg-transparent'>
-            <NavLink to='/user/home'>
-              <li className='w-full my-4 p-3 rounded-l-md font-bold bg-white'>
-                Home
-              </li>
+            <NavLink to='/user/settings'>
+              <li>Settings</li>
             </NavLink>
 
             <NavLink to='/user/edit-profile'>
-              <li className='my-4'>Edit profile</li>
+              <li>Edit profile</li>
             </NavLink>
 
-            <li className='my-4'>Change Password</li>
-            <li className='my-4'>Wishlist</li>
-            <li className='my-4'>My Store</li>
-            <li className='my-4'>My Products</li>
-            <li className='my-4'>Orders</li>
+            <NavLink to='/user/wishlist'>
+              <li>Wishlist</li>
+            </NavLink>
+
+            <NavLink to='/user/store'>
+              <li>My Store</li>
+            </NavLink>
+
+            <NavLink to='/user/products'>
+              <li>My Products</li>
+            </NavLink>
+
+            <NavLink to='/user/orders'>
+              <li>Orders</li>
+            </NavLink>
           </ul>
         </nav>
 
@@ -64,6 +72,35 @@ const User = () => {
         >
           {openNav ? <CloseIcon /> : <HamburgerIcon />}
         </button>
+
+        <div className='m-4'>
+          <Routes>
+            <Route
+              path='settings'
+              element={<div className='text-xl '>Settings</div>}
+            />
+            <Route
+              path='edit-profile'
+              element={<div className='text-xl '>Edit Profile</div>}
+            />
+            <Route
+              path='wishlist'
+              element={<div className='text-xl '>WishList</div>}
+            />
+            <Route
+              path='store'
+              element={<div className='text-xl '>My Store</div>}
+            />
+            <Route
+              path='products'
+              element={<div className='text-xl '>My Products</div>}
+            />
+            <Route
+              path='orders'
+              element={<div className='text-xl '>Orders</div>}
+            />
+          </Routes>
+        </div>
       </main>
     </section>
   );

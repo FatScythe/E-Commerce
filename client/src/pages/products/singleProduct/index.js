@@ -20,15 +20,19 @@ import url from "../../../utils/url";
 
 const SingleProduct = () => {
   const { id } = useParams();
+  const cart = useSelector((store) => store.cart);
+  const { user } = useSelector((store) => store.user);
 
-  const { data, pending, error } = useFetch(url + "/api/v1/products/" + id);
+  const { data, pending, error } = useFetch(
+    user ? url + "/api/v1/products/auth/" + id : url + "/api/v1/products/" + id
+  );
+
+  console.log(data, pending, error);
 
   useTitle(data ? data.product.name : "Ayeti_Adorn || Product " + id);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const cart = useSelector((store) => store.cart);
 
   const [options, setOptions] = useState({
     id: "",
@@ -179,8 +183,17 @@ const SingleProduct = () => {
             </div>
 
             <button className='like bg-gray-300 flex gap-3 justify-center items-center py-2 text-base w-full'>
-              <LoveIcon />
-              add to wishlist
+              {user ? (
+                <>
+                  {data.liked ? "love" : "unloved"}
+                  add to wishlist
+                </>
+              ) : (
+                <>
+                  <LoveIcon />
+                  add to wishlist
+                </>
+              )}
             </button>
           </div>
         </div>

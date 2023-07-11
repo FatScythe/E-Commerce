@@ -1,27 +1,23 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
+import { useEffect } from "react";
 // Components
 import Footer from "./component/footer/footer";
 import Navbar from "./component/navbar/navbar";
 import Modal from "./component/modal";
-
 // Pages
 import { navLinks } from "./assets/data/navData";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-
 // Toastify
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
-
 // Redux
 import { fetchProducts } from "./features/product/productSlice";
 import { saveUser, removeUser } from "./features/user/userSlice";
 
 import url from "./utils/url";
-import User from "./pages/user";
+
 function App() {
   const dispatch = useDispatch();
   const ui = useSelector((store) => store.ui);
@@ -60,7 +56,7 @@ function App() {
               element={
                 route.showNav ? (
                   <>
-                    {ui.showNav && <Navbar />}
+                    <Navbar />
                     {route.element}
                     <Footer />
                   </>
@@ -68,18 +64,8 @@ function App() {
                   route.element
                 )
               }
-            >
-              <Route path='home' element={<User component={<User />} />} />
-              <Route
-                path='edit-profile'
-                element={<User component={<div>Edit Profile</div>} />}
-              />
-            </Route>
+            ></Route>
           ))}
-          {/* <Route path='/user' element={<User />}>
-            <Route path='home' element={<div>Home</div>} />
-            <Route path='edit-profile' element={<div>Edit Profile</div>} />
-          </Route> */}
         </Routes>
       </Router>
     </div>

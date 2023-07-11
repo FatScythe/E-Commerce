@@ -1,3 +1,4 @@
+// Pages
 import Home from "../../pages/home";
 import Store from "../../pages/store";
 import Search from "../../pages/search";
@@ -12,6 +13,7 @@ import VerifyEmail from "../../pages/user/verify";
 import ForgotPwd from "../../pages/auth/forgotPassword";
 import ResetPwd from "../../pages/user/resetPassword";
 
+// Not Found : ( 404
 import NotFound from "../../pages/notFound";
 
 export const navLinks = [
@@ -59,7 +61,7 @@ export const navLinks = [
   },
   {
     id: 8,
-    path: "/user",
+    path: "/user/*",
     showNav: false,
     element: <User />,
   },

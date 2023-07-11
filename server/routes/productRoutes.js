@@ -4,6 +4,7 @@ const {
   createProduct,
   getAllProducts,
   getSingleProducts,
+  getSingleProductsAuth,
   deleteProduct,
   likeProduct,
   updateProduct,
@@ -31,6 +32,8 @@ router
   );
 
 router.route("/like/:id").patch(authenticateUser, likeProduct);
+
+router.route("/auth/:id").get(authenticateUser, getSingleProductsAuth);
 
 router
   .route("/:id")
