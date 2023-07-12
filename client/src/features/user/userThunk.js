@@ -43,3 +43,20 @@ export const loginUserThunk = async (user, url, thunkAPI) => {
     return error;
   }
 };
+
+export const logoutUserThunk = async (url, thunkAPI) => {
+  try {
+    const response = await fetch(url);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      toast.error(data.msg);
+      return thunkAPI.rejectWithValue(data.msg);
+    }
+
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

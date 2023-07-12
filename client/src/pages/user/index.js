@@ -4,13 +4,15 @@ import { useState } from "react";
 import useTitle from "../../hooks/useTitle";
 // Components
 import { CloseIcon, HamburgerIcon, LogoutIcon } from "../../assets/icons/icon";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import { logoutUser } from "../../features/user/userSlice";
 
 const User = () => {
   useTitle("User");
   const { user } = useSelector((store) => store.user);
   const [openNav, setOpenNav] = useState(false);
+  const dispatch = useDispatch();
   console.log(user);
   if (!user) {
     return <Navigate to='/' />;
@@ -61,7 +63,10 @@ const User = () => {
           </ul>
         </nav>
 
-        <button className='mt-3 bg-tomato text-white flex justify-center items-center my-0 mx-auto px-3 py-2 w-3/4 rounded-md'>
+        <button
+          className='mt-3 bg-tomato text-white flex justify-center items-center my-0 mx-auto px-3 py-2 w-3/4 rounded-md'
+          onClick={() => dispatch(logoutUser())}
+        >
           <span>logout</span> <LogoutIcon />
         </button>
       </aside>

@@ -2,7 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 // Thunk
-import { productsThunk } from "./productThunk";
+import { productsThunk, singleProductThunk } from "./productThunk";
 // Categories Enum
 import { categories } from "../../assets/data/productCategories";
 import url from "../../utils/url";
@@ -30,13 +30,27 @@ const initialState = {
     store: [],
   },
   isList: false,
-  singleProduct: {},
+  singleProduct: null,
+  singleProduct_loading: false,
 };
 
 export const fetchProducts = createAsyncThunk(
   "product/fetchProducts",
   async (thunkAPI) => {
     return productsThunk(url + "/api/v1/products", thunkAPI);
+  }
+);
+
+export const fetchSingleProduct = createAsyncThunk(
+  "product/fetchSingleProduct",
+  async (thunkAPI) => {
+    const { user, id } = thunkAPI;
+    return singleProductThunk(
+      user
+        ? url + "/api/v1/products/auth/" + id
+        : url + "/api/v1/products/" + id,
+      thunkAPI
+    );
   }
 );
 
@@ -130,45 +144,59 @@ const productSlice = createSlice({
       state.filteredProducts = state.products;
     },
   },
-  extraReducers: {
-    [fetchProducts.pending]: (state) => {
-      state.product_loading = true;
-    },
-    [fetchProducts.fulfilled]: (state, { payload }) => {
-      state.products = payload.products;
-      if (state.products) {
-        state.filteredProducts = state.products;
+  extraReducers(builder) {
+    builder
+      //Fetch Products
+      .addCase(fetchProducts.pending, (state) => {
+        state.product_loading = true;
+      })
+      .addCase(fetchProducts.fulfilled, (state, { payload }) => {
+        state.products = payload.products;
+        if (state.products) {
+          state.filteredProducts = state.products;
 
-        // Price
-        let priceArray = [];
-        state.filteredProducts.forEach((product) => {
-          priceArray.push(product.price);
-        });
-        priceArray.sort((a, b) => a - b);
+          // Price
+          let priceArray = [];
+          state.filteredProducts.forEach((product) => {
+            priceArray.push(product.price);
+          });
+          priceArray.sort((a, b) => a - b);
 
-        const maxPrice = priceArray[priceArray.length - 1];
-        const minPrice = priceArray[0];
+          const maxPrice = priceArray[priceArray.length - 1];
+          const minPrice = priceArray[0];
 
-        state.enumProducts.minPrice = minPrice;
-        state.enumProducts.maxPrice = maxPrice;
-        // Color
-        let colorArray = [];
-        state.filteredProducts.forEach((productColor) => {
-          productColor.color.map((color) => colorArray.push(color));
-        });
+          state.enumProducts.minPrice = minPrice;
+          state.enumProducts.maxPrice = maxPrice;
+          // Color
+          let colorArray = [];
+          state.filteredProducts.forEach((productColor) => {
+            productColor.color.map((color) => colorArray.push(color));
+          });
 
-        let colors = new Set([...colorArray]);
+          let colors = new Set([...colorArray]);
 
-        colorArray = [...colors];
-        state.enumProducts.colors = colorArray;
-      }
+          colorArray = [...colors];
+          state.enumProducts.colors = colorArray;
+        }
 
-      state.product_loading = false;
-    },
-    [fetchProducts.rejected]: (state, { payload }) => {
-      state.product_loading = false;
-      toast.error(payload.msg);
-    },
+        state.product_loading = false;
+      })
+      .addCase(fetchProducts.rejected, (state, { payload }) => {
+        state.product_loading = false;
+        toast.error(payload.msg);
+      })
+      // Single Products
+      .addCase(fetchSingleProduct.pending, (state) => {
+        state.singleProduct_loading = true;
+      })
+      .addCase(fetchSingleProduct.fulfilled, (state, { payload }) => {
+        state.singleProduct = payload;
+        state.singleProduct_loading = false;
+      })
+      .addCase(fetchSingleProduct.rejected, (state, { payload }) => {
+        state.product_loading = false;
+        toast.error(payload.msg);
+      });
   },
 });
 

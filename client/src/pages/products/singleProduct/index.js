@@ -1,38 +1,41 @@
 import "./singleProduct.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // component
 import NotNav from "../../../component/noNavHeader";
 import { LoveIcon } from "../../../assets/icons/icon";
 import StarRated from "../../../component/star";
+import Reviews from "./reviews";
+import Slider from "../../../component/slider/slider";
+
 // hooks
 import useTitle from "../../../hooks/useTitle";
-import useFetch from "../../../hooks/useFetch";
-// image
-import Slider from "../../../component/slider/slider";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../features/cart/cartSlice";
 // Toastify
 import { toast } from "react-toastify";
+import { fetchSingleProduct } from "../../../features/product/productSlice";
 
 import url from "../../../utils/url";
 
 const SingleProduct = () => {
-  const { id } = useParams();
+  let { id } = useParams();
   const cart = useSelector((store) => store.cart);
   const { user } = useSelector((store) => store.user);
-
-  const { data, pending, error } = useFetch(
-    user ? url + "/api/v1/products/auth/" + id : url + "/api/v1/products/" + id
+  const { singleProduct, singleProduct_loading } = useSelector(
+    (store) => store.product
   );
-
-  console.log(data, pending, error);
-
-  useTitle(data ? data.product.name : "Ayeti_Adorn || Product " + id);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    dispatch(fetchSingleProduct({ id, user }));
+  }, [dispatch, id, user]);
+
+  useTitle(
+    singleProduct ? singleProduct.product.name : "Ayeti_Adorn || Product " + id
+  );
 
   const [options, setOptions] = useState({
     id: "",
@@ -56,22 +59,42 @@ const SingleProduct = () => {
     setOptions({ ...options, amount: options.amount + 1 });
   };
 
-  const [review, setReview] = useState({
-    title: "",
-    comment: "",
-    rating: 0,
-    isOpen: false,
-    isModalOpen: false,
-  });
-  if (pending) {
+  const handleWishList = async () => {
+    if (!user) {
+      toast.error("Please Login");
+      navigate("/auth");
+      return;
+    }
+
+    try {
+      const response = await fetch(url + "/api/v1/products/like/" + id, {
+        method: "PATCH",
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.msg);
+        return;
+      }
+      dispatch(fetchSingleProduct({ id, user }));
+      toast.success(data.msg);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const [sizeGuide, setSizeGuide] = useState(false);
+
+  if (singleProduct_loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (!singleProduct_loading & !singleProduct) {
     return <div>Something went wrong : (</div>;
   }
 
-  const { product } = data;
+  const { product } = singleProduct;
 
   let cartPayload = {
     ...options,
@@ -83,7 +106,7 @@ const SingleProduct = () => {
   };
   return (
     <section id='single-product' className='container'>
-      {review.isModalOpen && <SizeGuide />}
+      {sizeGuide && <SizeGuide />}
       <NotNav
         name={product.name}
         navLinks={{ cart: "cart", search: "search", auth: "auth" }}
@@ -102,12 +125,7 @@ const SingleProduct = () => {
           <h3 className='name'>{product.name}</h3>
           <h4 className='price'>${product.price}</h4>
           <StarRated rating={product.averageRating} />
-          <button
-            className='size-guide'
-            onClick={() =>
-              setReview({ ...review, isModalOpen: !review.isModalOpen })
-            }
-          >
+          <button className='size-guide' onClick={() => setSizeGuide(true)}>
             size guide
           </button>
           <div className='color'>
@@ -182,11 +200,21 @@ const SingleProduct = () => {
               </button>
             </div>
 
-            <button className='like bg-gray-300 flex gap-3 justify-center items-center py-2 text-base w-full'>
+            <button
+              className='like bg-gray-300 flex gap-3 justify-center items-center py-2 text-base w-full'
+              onClick={() => handleWishList()}
+            >
               {user ? (
                 <>
-                  {data.liked ? "love" : "unloved"}
-                  add to wishlist
+                  {singleProduct.liked ? (
+                    <>
+                      <LoveIcon color={true} /> remove from wishlist
+                    </>
+                  ) : (
+                    <>
+                      <LoveIcon /> add to wishlist
+                    </>
+                  )}
                 </>
               ) : (
                 <>
@@ -204,33 +232,7 @@ const SingleProduct = () => {
           <h2 className='text-base capitalize font-semibold'>description</h2>
           <p>{product.desc}</p>
         </div>
-        <div className='reviews-container mt-5'>
-          <h2 className='text-base capitalize font-semibold'>reviews</h2>
-          {product.reviews.length > 0 && (
-            <div className='reviews mt-6 h-60 overflow-y-scroll'>
-              {product.reviews.map((item) => (
-                <p
-                  key={Math.random() * 1000}
-                  className='bg-slate-200 mb-3 rounded-md p-2'
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. A,
-                  perspiciatis!
-                </p>
-              ))}
-            </div>
-          )}
-
-          <div className='w-full mt-3 flex justify-center items-center'>
-            <button
-              className='bg-black text-white hover:bg-tomato px-3 py-2 rounded-3xl'
-              onClick={() => setReview({ ...review, isOpen: !review.isOpen })}
-            >
-              add a review
-            </button>
-          </div>
-
-          <AddReviewForm review={review} setReview={setReview} />
-        </div>
+        <Reviews />
       </main>
 
       <Slider title='related products' />
@@ -239,89 +241,6 @@ const SingleProduct = () => {
 };
 
 export default SingleProduct;
-
-const Rating = ({ review, setReview }) => {
-  const [hover, setHover] = useState(0);
-
-  return (
-    <div className='rating'>
-      {[...Array(5)].map((star, index) => {
-        index += 1;
-        return (
-          <button
-            key={index}
-            onMouseEnter={() => setHover(index)}
-            onMouseDown={() => setHover(review.rating)}
-            onClick={() => setReview({ ...review, rating: index })}
-          >
-            <span
-              className={`${
-                index <= (review.rating || hover) ? "text-tomato" : "text-white"
-              } text-lg mr-2`}
-            >
-              &#9733;
-            </span>
-          </button>
-        );
-      })}
-    </div>
-  );
-};
-
-const AddReviewForm = ({ review, setReview }) => {
-  return (
-    <div
-      className={`add-review w-full sm:w-2/4 mx-auto ${
-        review.isOpen ? "max-h-[32rem]" : "max-h-0"
-      } overflow-hidden transition-all duration-1000`}
-    >
-      <div className='rating mt-3 bg-gray-300 py-3 flex justify-center items-center gap-4 capitalize'>
-        <p>your rating*</p>
-        <Rating review={review} setReview={setReview} />
-      </div>
-
-      <form className='capitalize'>
-        <div className='mt-3 flex flex-col justify-between items-start'>
-          <label htmlFor='title' className='font-semibold text-base'>
-            title
-          </label>
-          <input
-            type='text'
-            value={review.title}
-            onChange={(e) => setReview({ ...review, title: e.target.value })}
-            placeholder='Add review title *'
-            className='w-full outline-none border border-black p-2 placeholder:pl-2'
-          />
-        </div>
-
-        <div className='mt-3 flex flex-col justify-between items-start'>
-          <label htmlFor='comment' className='font-semibold text-base'>
-            comment
-          </label>
-          <textarea
-            name='comment'
-            id='comment'
-            cols='30'
-            rows='10'
-            value={review.comment}
-            onChange={(e) => setReview({ ...review, comment: e.target.value })}
-            placeholder='Add review *'
-            className='w-full outline-none border border-black p-2 placeholder:pl-2 resize-none'
-          ></textarea>
-        </div>
-
-        <div className='mt-3 flex justify-end items-center'>
-          <button
-            type='submit'
-            className='w-fit bg-black text-white px-3 py-2 hover:opacity-70 hover:scale-95'
-          >
-            submit
-          </button>
-        </div>
-      </form>
-    </div>
-  );
-};
 
 const SizeGuide = () => {
   return (

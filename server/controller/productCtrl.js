@@ -83,7 +83,6 @@ const likeProduct = async (req, res) => {
   }
 
   if (product.likedBy.includes(req.user.userId)) {
-    console.log(product.likedBy, "before");
     liked = false;
     product.likedBy = await product.likedBy.filter(
       (user) => user !== req.user.userId
@@ -96,7 +95,11 @@ const likeProduct = async (req, res) => {
 
   res
     .status(StatusCodes.OK)
-    .json({ msg: `${liked ? "Liked" : "Unliked"} this product` });
+    .json({
+      msg: `${
+        liked ? "Product added to wishlist" : "Product remove from wishlist"
+      }`,
+    });
 };
 
 const uploadProductImage = async (req, res) => {
