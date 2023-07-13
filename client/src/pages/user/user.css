@@ -37,6 +37,10 @@ p {
 }
 
 /* User Dashboard */
+#user aside .back-home svg {
+    @apply h-10 w-10 text-white;
+}
+
 #user ul li {
     @apply my-4 p-0 transition-all duration-500;
 }

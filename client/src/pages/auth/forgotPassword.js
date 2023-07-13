@@ -5,8 +5,42 @@ import { useState } from "react";
 import NotNav from "../../component/noNavHeader";
 import Banner from "../../component/banner/banner";
 
+// Toastify
+import { toast } from "react-toastify";
+
+// Utils
+import url from "../../utils/url";
+
 const ForgotPwd = () => {
   const [email, setEmail] = useState("");
+
+  async function handleForgotPwd(e) {
+    e.preventDefault();
+    if (!email) {
+      toast.error("Please input a valid email");
+      return;
+    }
+
+    try {
+      const response = await fetch(url + "/api/v1/auth/forgot-password", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.msg);
+        return;
+      }
+      setEmail("");
+      toast.success(data.msg);
+    } catch (error) {
+      toast.error(error);
+      console.error(error);
+    }
+  }
   return (
     <section className='auth md:mx-auto md:px-2'>
       <div className='ml-3 mr-2'>
@@ -35,7 +69,10 @@ const ForgotPwd = () => {
                 </label>
               </div>
 
-              <button type='submit' className='submit-btn mt-6'>
+              <button
+                onClick={(e) => handleForgotPwd(e)}
+                className='submit-btn mt-6'
+              >
                 get reset password link
               </button>
             </form>

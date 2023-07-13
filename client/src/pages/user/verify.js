@@ -1,25 +1,47 @@
 import "./user.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+// Component
 import { ErrorIcon } from "../../assets/icons/icon";
+// Utils
+import url from "../../utils/url";
+// Toastify
+import { toast } from "react-toastify";
 
 const VerifyEmail = () => {
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const queryParameters = new URLSearchParams(window.location.search);
-  const token = queryParameters.get("token");
-  const name = queryParameters.get("email");
+  const verificationToken = queryParameters.get("token");
+  const email = queryParameters.get("email");
 
-  const verifyToken = () => {
-    console.log(token, name);
-    // setLoading(true);
-    // Make the post request and then setError to true in the catch block
+  const verifyEmail = async () => {
+    setLoading(true);
+
+    try {
+      const response = await fetch(url + "/api/v1/auth/verify-email", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ verificationToken, email }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setLoading(false);
+        console.log(data.msg);
+        return;
+      }
+      setLoading(false);
+      toast.success(data.msg);
+    } catch (error) {
+      setError(true);
+      console.error(error);
+    }
   };
 
   useEffect(() => {
-    // If the top level user is still loading do not run this fn
-    verifyToken();
-  });
+    verifyEmail();
+  }, []);
 
   if (error) {
     return (
@@ -57,8 +79,7 @@ const VerifyEmail = () => {
   return (
     <div id='verify-email' className='container mt-20'>
       <h1>Account Confirmed</h1>
-      <p>Token: {token}</p>
-      <p>Name: {name}</p>
+      <p>Email: {email}</p>
       <button className='mt-10'>
         <Link
           to='/auth'

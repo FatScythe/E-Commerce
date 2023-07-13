@@ -2,21 +2,47 @@ import "./user.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Toastify
+import { toast } from "react-toastify";
+
+// Utils
+import url from "../../utils/url";
+
 const ResetPwd = () => {
   const queryParameters = new URLSearchParams(window.location.search);
-  const token = queryParameters.get("token");
+  const passwordToken = queryParameters.get("token");
   const email = queryParameters.get("email");
 
   const [newPassword, setNewPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const changePassword = () => {
-    console.log(token, email);
-    //    Send email, passwordToken, newPassword;
-    // and finally take them back to the login page
+  const changePassword = async (e) => {
+    e.preventDefault();
+    if (!newPassword || newPassword.length < 6) {
+      toast.error("Please input a valid password");
+      return;
+    }
 
-    navigate("/auth");
+    try {
+      const response = await fetch(url + "/api/v1/auth/reset-password", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ email, passwordToken, newPassword }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.msg);
+        return;
+      }
+
+      toast.success(data.msg);
+      navigate("/auth");
+    } catch (error) {
+      toast.error(error);
+      console.error(error);
+    }
   };
 
   return (
@@ -24,7 +50,6 @@ const ResetPwd = () => {
       <h1 className='text-2xl font-semibold text-center capitalize'>
         reset password
       </h1>
-      <p>Token: {token}</p>
       <p>Email: {email}</p>
       <form>
         <div className='input-wrapper'>
@@ -41,11 +66,7 @@ const ResetPwd = () => {
           ></label>
         </div>
 
-        <button
-          type='submit'
-          className='submit-btn mt-6'
-          onClick={changePassword}
-        >
+        <button className='submit-btn mt-6' onClick={(e) => changePassword(e)}>
           new password
         </button>
       </form>

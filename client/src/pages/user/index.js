@@ -3,9 +3,14 @@ import { useState } from "react";
 // Hooks
 import useTitle from "../../hooks/useTitle";
 // Components
-import { CloseIcon, HamburgerIcon, LogoutIcon } from "../../assets/icons/icon";
+import {
+  ChevronLeft,
+  CloseIcon,
+  HamburgerIcon,
+  LogoutIcon,
+} from "../../assets/icons/icon";
 import { useSelector, useDispatch } from "react-redux";
-import { Navigate, NavLink, Route, Routes } from "react-router-dom";
+import { Navigate, NavLink, Link, Route, Routes } from "react-router-dom";
 import { logoutUser } from "../../features/user/userSlice";
 
 const User = () => {
@@ -17,7 +22,7 @@ const User = () => {
   if (!user) {
     return <Navigate to='/' />;
   }
-
+  <Navigate to='/user/settings' />;
   return (
     <section id='user' className='relative sm:grid grid-cols-12'>
       <aside
@@ -25,12 +30,17 @@ const User = () => {
           openNav ? "left-0 w-3/5" : "-left-full"
         }`}
       >
+        <div className='back-home' title='home-page'>
+          <Link to='/'>
+            <ChevronLeft />
+          </Link>
+        </div>
         {/* logo Here maybe?? AYETI ADORN*/}
         <h4 className='title mb-10 flex flex-col md:flex-row justify-center items-center gap-5'>
           <img
             className='h-24 w-24 rounded-full'
-            src='http://localhost:3000/img.png'
-            alt='name'
+            src={user.avatar}
+            alt={user.name}
           />
           <p className='font-semibold text-white capitalize'>abdullahi fahm</p>
         </h4>

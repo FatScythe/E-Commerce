@@ -23,7 +23,7 @@ const SingleProduct = () => {
   let { id } = useParams();
   const cart = useSelector((store) => store.cart);
   const { user } = useSelector((store) => store.user);
-  const { singleProduct, singleProduct_loading } = useSelector(
+  const { singleProduct, singleProduct_loading, products } = useSelector(
     (store) => store.product
   );
   const dispatch = useDispatch();
@@ -235,7 +235,10 @@ const SingleProduct = () => {
         <Reviews />
       </main>
 
-      <Slider title='related products' />
+      <Slider
+        title='related products'
+        array={products.filter((product) => product.id === id)}
+      />
     </section>
   );
 };

@@ -20,11 +20,15 @@ const Review = () => {
     comment: "",
     rating: 0,
     isOpen: false,
+    type: "add",
+    reviewId: "",
   });
   let { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { data, pending, error } = useFetch(url + "/api/v1/reviews");
+
   const handleDeleteReview = async (reviewId) => {
     try {
       const response = await fetch(url + "/api/v1/reviews/" + reviewId, {
@@ -44,6 +48,61 @@ const Review = () => {
     }
   };
 
+  const handleReview = async (e, review) => {
+    e.preventDefault();
+
+    const { title, comment, rating } = review;
+    if (!user) {
+      toast.error("Please Login");
+      navigate("/auth");
+      return;
+    }
+
+    if (!title || !comment || !rating) {
+      toast.error("Please fill all field");
+      return;
+    }
+
+    let baseUrl = url + "/api/v1/reviews/";
+    if (review.type === "edit") {
+      baseUrl = baseUrl + review.reviewId;
+    }
+
+    try {
+      const response = await fetch(baseUrl, {
+        method: review.type === "add" ? "POST" : "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ product: id, title, comment, rating }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.msg);
+        return;
+      }
+      toast.success(
+        `Review has been ${review.type === "add" ? "added" : "updated"}`
+      );
+      dispatch(fetchSingleProduct({ id, user }));
+    } catch (error) {
+      console.error(error);
+    }
+    setReview({ ...review, isOpen: false, type: "add" });
+  };
+
+  const handleEditReview = (payload) => {
+    const { title, comment, rating, _id } = payload;
+    setReview({
+      title,
+      comment,
+      rating,
+      isOpen: true,
+      reviewId: _id,
+      type: "edit",
+    });
+  };
+
   if (pending) {
     return <div>Loading...</div>;
   }
@@ -52,16 +111,21 @@ const Review = () => {
     return <div>Something went wrong : )</div>;
   }
 
+  if (data) {
+    return <div>Everything dey ooo</div>;
+  }
+
   const { count, reviews } = data;
+  console.log(reviews);
   return (
-    <div className='reviews-container mt-5'>
+    <div className='reviews-container my-5'>
       <h2 className='text-base capitalize font-semibold'>reviews ({count})</h2>
       {reviews.length > 0 ? (
-        <div className='reviews mt-6 h-60 overflow-y-scroll'>
+        <div className='reviews mt-6 h-80 overflow-y-scroll'>
           {reviews.map((review) => {
             return (
               <div
-                className='bg-slate-50 pl-2 p-1 border-0 border-l-4 border-secondary'
+                className='bg-slate-50 pl-2 p-1 border-0 border-l-4 border-secondary mb-4'
                 key={review._id}
               >
                 <div>
@@ -82,7 +146,10 @@ const Review = () => {
 
                       {review.user._id === user._id ? (
                         <div className='flex justify-between gap-2 items-center'>
-                          <button className='bg-secondary p-2 rounded-full'>
+                          <button
+                            className='bg-secondary p-2 rounded-full'
+                            onClick={() => handleEditReview(review)}
+                          >
                             <EditIcon />
                           </button>
                           <button
@@ -120,52 +187,18 @@ const Review = () => {
         </button>
       </div>
 
-      <AddReviewForm review={review} setReview={setReview} id={id} />
+      <AddReviewForm
+        review={review}
+        setReview={setReview}
+        handleReview={handleReview}
+      />
     </div>
   );
 };
 
 export default Review;
 
-const AddReviewForm = ({ review, setReview, id }) => {
-  const { user } = useSelector((store) => store.user);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-  const handleAddReview = async (e, review) => {
-    e.preventDefault();
-
-    const { title, comment, rating } = review;
-    if (!user) {
-      toast.error("Please Login");
-      navigate("/auth");
-      return;
-    }
-
-    if (!title || !comment || !rating) {
-      toast.error("Please fill all field");
-      return;
-    }
-
-    try {
-      const response = await fetch(url + "/api/v1/reviews", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ product: id, title, comment, rating }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast.error(data.msg);
-        return;
-      }
-      toast.success("Review has been added");
-      dispatch(fetchSingleProduct({ id, user }));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+const AddReviewForm = ({ review, setReview, handleReview }) => {
   return (
     <div
       className={`add-review w-full sm:w-2/4 mx-auto ${
@@ -210,7 +243,7 @@ const AddReviewForm = ({ review, setReview, id }) => {
         <div className='mt-3 flex justify-end items-center'>
           <button
             className='w-fit bg-black text-white px-3 py-2 hover:opacity-70 hover:scale-95'
-            onClick={(e) => handleAddReview(e, review)}
+            onClick={(e) => handleReview(e, review)}
           >
             submit
           </button>

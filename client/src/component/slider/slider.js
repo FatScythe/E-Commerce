@@ -75,16 +75,16 @@ const Slider = ({ title, array }) => {
           }}
           className='carousel-container p-4 mt-5 overflow-hidden flex gap-8 items-center transition-all duration-700 ease-in-out'
         >
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((index) => (
+          {array.map((item, index) => (
             <div
               className={`w-72 p-2 sm:w-96 overflow-hidden ${
                 index === current + 1
                   ? "blur-none scale-90 shadow-xl bg-white"
                   : "scale-75 blur--[1px] md:blur-none"
               } transition-all duration-1000 ease-in-out`}
-              key={Math.random() * 1000}
+              key={item._id}
             >
-              <ProductCard1 index={index} />
+              <ProductCard1 {...item} />
             </div>
           ))}
         </div>
