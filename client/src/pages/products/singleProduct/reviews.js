@@ -1,13 +1,13 @@
 import "./singleProduct.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // Redux
 import { fetchSingleProduct } from "../../../features/product/productSlice";
+import { fetchReviews } from "../../../features/review/reviewSlice";
 import { useSelector, useDispatch } from "react-redux";
 // Toastify
 import { toast } from "react-toastify";
-// Hooks
-import useFetch from "../../../hooks/useFetch";
+
 import url from "../../../utils/url";
 // Component
 import StarRated from "../../../component/star";
@@ -24,10 +24,13 @@ const Review = () => {
     reviewId: "",
   });
   let { user } = useSelector((store) => store.user);
+  let { allReviews, reviews_status } = useSelector((store) => store.review);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { data, pending, error } = useFetch(url + "/api/v1/reviews");
+  useEffect(() => {
+    dispatch(fetchReviews());
+  }, [dispatch]);
 
   const handleDeleteReview = async (reviewId) => {
     try {
@@ -103,20 +106,16 @@ const Review = () => {
     });
   };
 
-  if (pending) {
+  if (reviews_status === "pending") {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (reviews_status === "err") {
     return <div>Something went wrong : )</div>;
   }
 
-  if (data) {
-    return <div>Everything dey ooo</div>;
-  }
-
-  const { count, reviews } = data;
-  console.log(reviews);
+  const { count, reviews } = allReviews;
+  // console.log(reviews, count);
   return (
     <div className='reviews-container my-5'>
       <h2 className='text-base capitalize font-semibold'>reviews ({count})</h2>
@@ -130,21 +129,13 @@ const Review = () => {
               >
                 <div>
                   <div className='flex gap-1 mb-2 items-center'>
-                    <img
-                      className='h-12 w-12 rounded-full object-cover border border-red-300'
-                      src={review.user.avatar}
-                      alt=''
-                    />
-
                     <div className='flex justify-between items-center w-full'>
                       <h3 className='capitalize'>
-                        <span className='font-semibold'>
-                          {review.user.name}
-                        </span>
+                        <span className='font-semibold'>{review.name}</span>
                         <StarRated rating={review.rating} />
                       </h3>
 
-                      {review.user._id === user._id ? (
+                      {review.user === user._id ? (
                         <div className='flex justify-between gap-2 items-center'>
                           <button
                             className='bg-secondary p-2 rounded-full'
@@ -195,6 +186,8 @@ const Review = () => {
     </div>
   );
 };
+
+// const { count, reviews } = allReviews;
 
 export default Review;
 

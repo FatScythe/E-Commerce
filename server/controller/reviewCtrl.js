@@ -6,7 +6,7 @@ const { checkPermissions } = require("../utils");
 
 const createReview = async (req, res) => {
   const { product: productId } = req.body;
-  const { userId } = req.user;
+  const { userId, name } = req.user;
   const isProductValid = await Product.findOne({ _id: productId });
 
   if (!isProductValid) {
@@ -23,21 +23,17 @@ const createReview = async (req, res) => {
   }
 
   req.body.user = userId;
+  req.body.name = name;
   const review = await Review.create(req.body);
 
   res.status(StatusCodes.CREATED).json({ review });
 };
 
 const getAllReviews = async (req, res) => {
-  const reviews = await Review.find({})
-    .populate({
-      path: "user",
-      select: "name avatar",
-    })
-    .populate({
-      path: "product",
-      select: "name store",
-    });
+  const reviews = await Review.find({}).populate({
+    path: "product",
+    select: "name store",
+  });
   res.status(StatusCodes.OK).send({ count: reviews.length, reviews });
 };
 

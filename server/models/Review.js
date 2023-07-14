@@ -24,6 +24,10 @@ const reviewSchema = new Schema(
       ref: "Users",
       required: [true, "Please provide a user"],
     },
+    name: {
+      type: String,
+      required: [true, "Please provide user name"],
+    },
     product: {
       type: Types.ObjectId,
       ref: "Products",
