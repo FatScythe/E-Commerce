@@ -23,7 +23,6 @@ const createReview = async (req, res) => {
   }
 
   req.body.user = userId;
-  req.body.name = name;
   const review = await Review.create(req.body);
 
   res.status(StatusCodes.CREATED).json({ review });
@@ -33,7 +32,7 @@ const getAllReviews = async (req, res) => {
   const reviews = await Review.find({})
     .populate({
       path: "user",
-      select: "name avatar",
+      select: "name avatar role",
     })
     .populate({
       path: "product",

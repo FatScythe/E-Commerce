@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // Component
@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser, loginUser } from "../../features/user/userSlice";
+
 // Router
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +18,7 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
   const passwordInputContainer = useRef(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector((store) => store.user);
+  const { loading, user } = useSelector((store) => store.user);
   const handleShowPassword = (e) => {
     e.preventDefault();
     if (!value.password) return;
@@ -33,13 +34,21 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
       toast.error("Please fill out all fields");
       return;
     }
+
     if (value.isMember) {
       dispatch(loginUser({ email, password }));
-      navigate("/products");
       return;
     }
     dispatch(registerUser({ name, email, password }));
   };
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    }
+  }, [user, navigate]);
 
   return (
     <main className='form'>
@@ -106,7 +115,13 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
             </div>
             <div className='my-6'>
               <button type='submit' className='submit-btn' disabled={loading}>
-                {value.isMember ? "login" : loading ? "registering" : "sign-in"}
+                {value.isMember
+                  ? loading
+                    ? "loading"
+                    : "login"
+                  : loading
+                  ? "registering"
+                  : "sign-in"}
               </button>
             </div>
             <p className='first-letter:uppercase text-center text-sm text-gray-500'>

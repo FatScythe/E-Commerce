@@ -237,7 +237,7 @@ const SingleProduct = () => {
 
       <Slider
         title='related products'
-        array={products.filter((product) => product.id === id)}
+        array={products.filter((product) => product.id !== id)}
       />
     </section>
   );

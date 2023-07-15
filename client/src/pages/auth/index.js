@@ -13,7 +13,7 @@ const Auth = () => {
     name: "",
     email: "",
     password: "",
-    isMember: false,
+    isMember: true,
     showPassword: false,
   };
 

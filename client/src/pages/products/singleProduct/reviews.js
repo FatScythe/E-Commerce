@@ -115,7 +115,7 @@ const Review = () => {
   }
 
   const { count, reviews } = allReviews;
-  // console.log(reviews, count);
+
   return (
     <div className='reviews-container my-5'>
       <h2 className='text-base capitalize font-semibold'>reviews ({count})</h2>
@@ -129,29 +129,26 @@ const Review = () => {
               >
                 <div>
                   <div className='flex gap-1 mb-2 items-center'>
+                    <img
+                      className='h-12 w-12 rounded-full object-cover border border-red-300'
+                      src={review.user.avatar}
+                      alt={review.user.name}
+                    />
                     <div className='flex justify-between items-center w-full'>
                       <h3 className='capitalize'>
-                        <span className='font-semibold'>{review.name}</span>
+                        <span className='font-semibold'>
+                          {review.user.name}
+                        </span>
                         <StarRated rating={review.rating} />
                       </h3>
 
-                      {review.user === user._id ? (
-                        <div className='flex justify-between gap-2 items-center'>
-                          <button
-                            className='bg-secondary p-2 rounded-full'
-                            onClick={() => handleEditReview(review)}
-                          >
-                            <EditIcon />
-                          </button>
-                          <button
-                            className='bg-tomato p-2 rounded-full'
-                            onClick={() => handleDeleteReview(review._id)}
-                          >
-                            <TrashIcon />
-                          </button>
-                        </div>
-                      ) : (
-                        <div></div>
+                      {user && (
+                        <EditDeleteReview
+                          review={review}
+                          user={user}
+                          handleEditReview={handleEditReview}
+                          handleDeleteReview={handleDeleteReview}
+                        />
                       )}
                     </div>
                   </div>
@@ -187,9 +184,50 @@ const Review = () => {
   );
 };
 
-// const { count, reviews } = allReviews;
-
 export default Review;
+
+const EditDeleteReview = ({
+  review,
+  user,
+  handleEditReview,
+  handleDeleteReview,
+}) => {
+  if (user.role === "admin") {
+    return (
+      <div className='flex justify-between gap-2 items-center'>
+        <button
+          className='bg-secondary p-2 rounded-full'
+          onClick={() => handleEditReview(review)}
+        >
+          <EditIcon />
+        </button>
+        <button
+          className='bg-tomato p-2 rounded-full'
+          onClick={() => handleDeleteReview(review._id)}
+        >
+          <TrashIcon />
+        </button>
+      </div>
+    );
+  }
+  if (user.userId === review.user._id)
+    return (
+      <div className='flex justify-between gap-2 items-center'>
+        <button
+          className='bg-secondary p-2 rounded-full'
+          onClick={() => handleEditReview(review)}
+        >
+          <EditIcon />
+        </button>
+        <button
+          className='bg-tomato p-2 rounded-full'
+          onClick={() => handleDeleteReview(review._id)}
+        >
+          <TrashIcon />
+        </button>
+      </div>
+    );
+};
 
 const AddReviewForm = ({ review, setReview, handleReview }) => {
   return (
