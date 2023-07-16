@@ -66,7 +66,7 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
                   placeholder='Name'
                   onChange={(e) => setValue({ ...value, name: e.target.value })}
                   value={value.name}
-                  className='peer'
+                  className='peer mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none'
                 />
                 <label
                   htmlFor='name'

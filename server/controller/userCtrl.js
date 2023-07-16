@@ -38,7 +38,7 @@ const updateUser = async (req, res) => {
 
   await user.save();
 
-  res.status(StatusCodes.OK).json({ user });
+  res.status(StatusCodes.OK).json({ msg: "Profile sucessfully updated" });
 };
 
 const updateUserPassword = async (req, res) => {

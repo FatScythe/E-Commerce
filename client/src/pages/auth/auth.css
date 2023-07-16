@@ -48,7 +48,7 @@ section.auth .inner {
 
 .auth .form .form-wrapper .input-wrapper input,
 .forgot-pwd .input-wrapper input {
-    @apply mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none
+    @apply mt-1 w-full border-b-2 border-gray-300 px-0 py-1 placeholder:text-transparent focus:border-gray-500 focus:outline-none;
 }
 
 .auth .form .form-wrapper .input-wrapper label,
@@ -58,6 +58,6 @@ section.auth .inner {
 
 .auth .form .form-wrapper button.submit-btn,
 .forgot-pwd button.submit-btn{
-    @apply w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none first-letter:uppercase
+    @apply w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none first-letter:uppercase;
 }
 
