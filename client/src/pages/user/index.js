@@ -60,6 +60,7 @@ const User = () => {
             className='h-32 w-32 rounded-full'
             src={user.avatar}
             alt={user.name}
+            loading='eager'
           />
           <p className='font-semibold text-white capitalize'>{user.name}</p>
         </h4>

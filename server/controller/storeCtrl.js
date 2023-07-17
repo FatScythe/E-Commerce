@@ -8,7 +8,7 @@ const { checkPermissions } = require("../utils");
 const createStore = async (req, res) => {
   req.body.owner = req.user.userId;
 
-  if (!req.user.role === "admin") {
+  if (req.user.role !== "admin") {
     await User.findOneAndUpdate({ _id: req.user.userId }, { role: "seller" });
   }
 
@@ -54,8 +54,12 @@ const updateStore = async (req, res) => {
 const deleteStore = async (req, res) => {
   const { id: storeId } = req.params;
   const store = await Store.findOne({ _id: storeId });
+  const user = await User.findOne({ _id: store.owner });
   if (!store) throw new NotFoundError(`No store with id: ${storeId}`);
   checkPermissions(req.user, store.owner);
+  if (req.user.role !== "admin") {
+    await User.findOneAndUpdate({ _id: store.owner }, { role: "user" });
+  }
 
   await store.deleteOne();
   res.status(StatusCodes.OK).json({ msg: "Deleted sucessfully" });

@@ -38,6 +38,8 @@ const EditProfile = ({ user }) => {
     setValue({ ...value, loading: true });
     if (!email || !name) {
       toast.error("Please fill all fields");
+      setValue({ ...value, loading: false });
+
       return;
     }
     const response = await fetch(url + "/api/v1/users/update", {
@@ -50,7 +52,6 @@ const EditProfile = ({ user }) => {
 
     if (!response.ok) {
       setValue({ ...value, loading: false });
-
       toast.error(data.msg);
       return;
     }

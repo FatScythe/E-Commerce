@@ -7,6 +7,7 @@ export const productsThunk = async (url, thunkAPI) => {
       return thunkAPI.rejectWithValue(data.msg);
     }
 
+    console.log(data, "In product thunk");
     return data;
   } catch (error) {
     return error;

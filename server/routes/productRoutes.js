@@ -3,6 +3,7 @@ const router = require("express").Router();
 const {
   createProduct,
   getAllProducts,
+  getMyProducts,
   getSingleProducts,
   getSingleProductsAuth,
   deleteProduct,
@@ -23,6 +24,13 @@ router
     createProduct
   )
   .get(getAllProducts);
+
+router
+  .route("/my-products")
+  .get(
+    [authenticateUser, authorizePermissions("admin", "seller")],
+    getMyProducts
+  );
 
 router
   .route("/upload")

@@ -4,7 +4,6 @@ const { NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
 const createProduct = async (req, res) => {
-  //Only create product when user as a store
   req.body.seller = req.user.userId;
   const product = await Product.create(req.body);
   res.status(StatusCodes.CREATED).json({ product });
@@ -13,6 +12,13 @@ const createProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
   const products = await Product.find({});
   const count = await Product.countDocuments({});
+
+  res.status(StatusCodes.OK).json({ count, products });
+};
+
+const getMyProducts = async (req, res) => {
+  const products = await Product.find({ seller: req.user.userId });
+  const count = await Product.countDocuments({ seller: req.user.userId });
 
   res.status(StatusCodes.OK).json({ count, products });
 };
@@ -93,13 +99,11 @@ const likeProduct = async (req, res) => {
 
   await product.save();
 
-  res
-    .status(StatusCodes.OK)
-    .json({
-      msg: `${
-        liked ? "Product added to wishlist" : "Product remove from wishlist"
-      }`,
-    });
+  res.status(StatusCodes.OK).json({
+    msg: `${
+      liked ? "Product added to wishlist" : "Product remove from wishlist"
+    }`,
+  });
 };
 
 const uploadProductImage = async (req, res) => {
@@ -110,6 +114,7 @@ const uploadProductImage = async (req, res) => {
 module.exports = {
   createProduct,
   getAllProducts,
+  getMyProducts,
   getSingleProducts,
   getSingleProductsAuth,
   deleteProduct,

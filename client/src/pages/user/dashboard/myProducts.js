@@ -4,7 +4,7 @@ const MyProducts = ({ user }) => {
   if (user.role === "user") {
     return <Navigate to='/' />;
   }
-  return <div>My products</div>;
+  return <section id='my-products'></section>;
 };
 
 export default MyProducts;
