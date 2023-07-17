@@ -46,5 +46,5 @@ p {
 }
 
 #user ul .active li {
-    @apply w-full px-3 py-4 rounded-l-md font-bold bg-white;
+    @apply w-full px-3 py-4 rounded-l-md font-bold bg-white text-black;
 }
