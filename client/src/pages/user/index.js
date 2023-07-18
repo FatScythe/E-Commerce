@@ -46,7 +46,7 @@ const User = () => {
     <section id='user' className='relative sm:grid grid-cols-12'>
       <aside
         className={`absolute sm:static transition-all duration-300  sm:col-span-3 h-screen bg-blue-400 py-4 ${
-          openNav ? "left-0 sm:left-full w-3/5 sm:w-full" : "-left-full"
+          openNav ? "left-0 sm:left-full w-5/6 sm:w-full" : "-left-full"
         } z-10`}
       >
         <div className='back-home' title='home-page'>
@@ -55,9 +55,9 @@ const User = () => {
           </Link>
         </div>
         {/* logo Here maybe?? AYETI ADORN*/}
-        <h4 className='title mb-10 flex flex-col md:flex-row justify-center items-center gap-5'>
+        <h4 className='title m-5 sm:mb-10 flex flex-col md:flex-row justify-center items-center gap-5'>
           <img
-            className='h-32 w-32 rounded-full'
+            className='h-20 sm:h-32 w-20 sm:w-32 rounded-full'
             src={user.avatar}
             alt={user.name}
             loading='eager'
@@ -66,7 +66,12 @@ const User = () => {
         </h4>
 
         <nav className='bg-transparent p-0'>
-          <ul className='ml-4 w-full bg-transparent'>
+          <ul
+            className='ml-4 w-full bg-transparent'
+            onClick={() => {
+              setOpenNav(false);
+            }}
+          >
             <NavLink to='/user/settings'>
               <li>Settings</li>
             </NavLink>
@@ -108,13 +113,13 @@ const User = () => {
         </nav>
 
         <button
-          className='mt-3 bg-tomato text-white flex justify-center items-center my-0 mx-auto px-3 py-2 w-3/4 rounded-md'
+          className='sm:mt-3 bg-tomato text-white flex justify-center items-center my-0 mx-auto px-3 py-2 w-3/4 rounded-md'
           onClick={() => dispatch(logoutUser())}
         >
           <span>logout</span> <LogoutIcon />
         </button>
       </aside>
-      <main className='sm:col-span-9 h-screen p-4'>
+      <main className='sm:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
         <div className='flex justify-between item-center mb-20'>
           <h2 className='capitalize font-semibold text-xl sm:text-2xl'>
             {location.pathname.slice(6) || "dashboard"}

@@ -67,7 +67,7 @@ const Auth = () => {
   return (
     <>
       {user ? (
-        <Link to='/user' title='user'>
+        <Link to='/user/settings' title='user'>
           <UserIcon />
         </Link>
       ) : (
