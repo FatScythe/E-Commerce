@@ -27,7 +27,7 @@ const productSchema = new Schema(
       type: String,
       required: [true, "Please provide product category"],
       enum: {
-        values: ["men", "women", "unisex"],
+        values: ["men", "women", "unisex", "kids"],
         message: "{VALUE} is not supported",
       },
     },

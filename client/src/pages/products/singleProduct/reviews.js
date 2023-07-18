@@ -114,14 +114,18 @@ const Review = () => {
     return <div>Something went wrong : )</div>;
   }
 
-  const { count, reviews } = allReviews;
+  const { reviews } = allReviews;
+
+  const productReview = reviews.filter((review) => review.product._id === id);
 
   return (
     <div className='reviews-container my-5'>
-      <h2 className='text-base capitalize font-semibold'>reviews ({count})</h2>
-      {reviews.length > 0 ? (
+      <h2 className='text-base capitalize font-semibold'>
+        reviews ({productReview.length})
+      </h2>
+      {productReview.length > 0 ? (
         <div className='reviews mt-6 h-80 overflow-y-scroll'>
-          {reviews.map((review) => {
+          {productReview.map((review) => {
             return (
               <div
                 className='bg-slate-50 pl-2 p-1 border-0 border-l-4 border-secondary mb-4'
