@@ -2,13 +2,11 @@ import "./singleProduct.css";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // Redux
-import { fetchSingleProduct } from "../../../features/product/productSlice";
-import { fetchReviews } from "../../../features/review/reviewSlice";
+import { fetchReviews, reviewCrud } from "../../../features/review/reviewSlice";
 import { useSelector, useDispatch } from "react-redux";
 // Toastify
 import { toast } from "react-toastify";
 
-import url from "../../../utils/url";
 // Component
 import StarRated from "../../../component/star";
 import { EditIcon, TrashIcon } from "../../../assets/icons/icon";
@@ -22,6 +20,7 @@ const Review = () => {
     isOpen: false,
     type: "add",
     reviewId: "",
+    productId: id,
   });
   let { user } = useSelector((store) => store.user);
   let { allReviews, reviews_status } = useSelector((store) => store.review);
@@ -33,22 +32,10 @@ const Review = () => {
   }, [dispatch]);
 
   const handleDeleteReview = async (reviewId) => {
-    try {
-      const response = await fetch(url + "/api/v1/reviews/" + reviewId, {
-        method: "DELETE",
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        toast.error(data.msg);
-        return;
-      }
-
-      toast.success(data.msg);
-      dispatch(fetchSingleProduct({ id, user }));
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(reviewCrud({ ...review, reviewId, type: "delete" }));
+    setTimeout(() => {
+      dispatch(fetchReviews());
+    }, 3000);
   };
 
   const handleReview = async (e, review) => {
@@ -60,43 +47,23 @@ const Review = () => {
       navigate("/auth");
       return;
     }
-
     if (!title || !comment || !rating) {
       toast.error("Please fill all field");
       return;
     }
 
-    let baseUrl = url + "/api/v1/reviews/";
-    if (review.type === "edit") {
-      baseUrl = baseUrl + review.reviewId;
-    }
-
-    try {
-      const response = await fetch(baseUrl, {
-        method: review.type === "add" ? "POST" : "PATCH",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ product: id, title, comment, rating }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast.error(data.msg);
-        return;
-      }
-      toast.success(
-        `Review has been ${review.type === "add" ? "added" : "updated"}`
-      );
-      dispatch(fetchSingleProduct({ id, user }));
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(reviewCrud(review));
     setReview({ ...review, isOpen: false, type: "add" });
+
+    setTimeout(() => {
+      dispatch(fetchReviews());
+    }, 3000);
   };
 
   const handleEditReview = (payload) => {
     const { title, comment, rating, _id } = payload;
     setReview({
+      ...review,
       title,
       comment,
       rating,
@@ -173,7 +140,16 @@ const Review = () => {
       <div className='w-full mt-3 flex justify-center items-center'>
         <button
           className='bg-black text-white hover:bg-tomato px-3 py-2 rounded-3xl'
-          onClick={() => setReview({ ...review, isOpen: !review.isOpen })}
+          onClick={() =>
+            setReview({
+              ...review,
+              title: "",
+              comment: "",
+              rating: 0,
+              type: "add",
+              isOpen: !review.isOpen,
+            })
+          }
         >
           add a review
         </button>
@@ -280,7 +256,7 @@ const AddReviewForm = ({ review, setReview, handleReview }) => {
             className='w-fit bg-black text-white px-3 py-2 hover:opacity-70 hover:scale-95'
             onClick={(e) => handleReview(e, review)}
           >
-            submit
+            {review.type === "add" ? "submit" : "update"}
           </button>
         </div>
       </form>
