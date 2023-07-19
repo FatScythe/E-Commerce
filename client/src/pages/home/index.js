@@ -4,6 +4,8 @@ import useTitle from "../../hooks/useTitle";
 // Component
 import Carousel from "./carousel";
 import Slider from "../../component/slider/slider";
+import Error1 from "../../component/loaders/error";
+// Redux
 import { useSelector } from "react-redux";
 
 const HomePage = () => {
@@ -15,11 +17,13 @@ const HomePage = () => {
       <main className='mt-6'>
         {product_loading ? (
           <div>Loading...</div>
-        ) : (
+        ) : products.length > 0 ? (
           <Slider
             title='now on sale'
             array={products.filter((product) => product.featured)}
           />
+        ) : (
+          <Error1 />
         )}
       </main>
     </section>

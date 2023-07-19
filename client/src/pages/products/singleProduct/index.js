@@ -15,7 +15,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../features/cart/cartSlice";
 // Toastify
 import { toast } from "react-toastify";
-import { fetchSingleProduct } from "../../../features/product/productSlice";
+import {
+  fetchProducts,
+  fetchSingleProduct,
+} from "../../../features/product/productSlice";
 
 import url from "../../../utils/url";
 
@@ -77,6 +80,7 @@ const SingleProduct = () => {
         toast.error(data.msg);
         return;
       }
+      dispatch(fetchProducts());
       dispatch(fetchSingleProduct({ id, user }));
       toast.success(data.msg);
     } catch (error) {

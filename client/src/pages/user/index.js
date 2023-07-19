@@ -47,7 +47,7 @@ const User = () => {
       <aside
         className={`absolute sm:static transition-all duration-300  sm:col-span-3 h-screen bg-blue-400 py-4 ${
           openNav ? "left-0 sm:left-full w-5/6 sm:w-full" : "-left-full"
-        } z-10`}
+        } z-10 `}
       >
         <div className='back-home' title='home-page'>
           <Link to='/'>
