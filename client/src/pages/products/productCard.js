@@ -7,20 +7,27 @@ import { useSelector } from "react-redux";
 // Component
 import { ArrowUpRight } from "../../assets/icons/icon";
 import StarRated from "../../component/star";
+import Loader1 from "../../component/loaders/loader1";
+import Error1 from "../../component/loaders/error";
+
 // Images
 import img from "../../assets/images/img.png";
 
 const ProductCard = () => {
-  const { isList, filteredProducts, product_loading } = useSelector(
+  const { isList, filteredProducts, product_loading, products } = useSelector(
     (store) => store.product
   );
 
   if (product_loading) {
-    return <div>Loading...</div>;
+    return <Loader1 />;
   }
 
-  if (filteredProducts.length < 1) {
-    return <div> sorry, no products matched your search.</div>;
+  if (!products) {
+    return <Error1 />;
+  }
+
+  if (!filteredProducts.length > 0) {
+    return <div>No items matched your search</div>;
   }
 
   return (

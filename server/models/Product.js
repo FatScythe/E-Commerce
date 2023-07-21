@@ -15,7 +15,7 @@ const productSchema = new Schema(
     },
     image: {
       type: String,
-      default: "./img.png",
+      default: "/img.png",
       required: [true, "Please provide product image"],
     },
     desc: {

@@ -17,7 +17,7 @@ const HomePage = () => {
       <main className='mt-6'>
         {product_loading ? (
           <div>Loading...</div>
-        ) : products.length > 0 ? (
+        ) : products ? (
           <Slider
             title='now on sale'
             array={products.filter((product) => product.featured)}

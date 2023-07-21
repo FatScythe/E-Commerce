@@ -1,25 +1,28 @@
 import "./singleProduct.css";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-// component
+
+// Component
 import NotNav from "../../../component/noNavHeader";
 import { LoveIcon } from "../../../assets/icons/icon";
 import StarRated from "../../../component/star";
 import Reviews from "./reviews";
 import Slider from "../../../component/slider/slider";
+import Error1 from "../../../component/loaders/error";
+import Loader1 from "../../../component/loaders/loader1";
 
-// hooks
+// Hooks
 import useTitle from "../../../hooks/useTitle";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../features/cart/cartSlice";
-// Toastify
-import { toast } from "react-toastify";
 import {
   fetchProducts,
   fetchSingleProduct,
 } from "../../../features/product/productSlice";
-
+// Toastify
+import { toast } from "react-toastify";
+// Utils
 import url from "../../../utils/url";
 
 const SingleProduct = () => {
@@ -91,11 +94,11 @@ const SingleProduct = () => {
   const [sizeGuide, setSizeGuide] = useState(false);
 
   if (singleProduct_loading) {
-    return <div>Loading...</div>;
+    return <Loader1 />;
   }
 
   if (!singleProduct_loading & !singleProduct) {
-    return <div>Something went wrong : (</div>;
+    return <Error1 />;
   }
 
   const { product } = singleProduct;

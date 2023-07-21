@@ -100,7 +100,7 @@ const ChangePassword = () => {
           <button
             type='submit'
             className='w-full rounded-md bg-black px-3 py-4 text-white focus:bg-gray-600 focus:outline-none first-letter:uppercase'
-            disable={value.loading}
+            disabled={value.loading}
           >
             {value.loading ? "updating" : "change password"}
           </button>

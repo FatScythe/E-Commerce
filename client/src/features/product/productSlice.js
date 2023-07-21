@@ -66,9 +66,12 @@ const productSlice = createSlice({
     },
     sort: (state, { payload }) => {
       let filter = [...current(state).filteredProducts];
-      if (!filter) {
-        filter = [];
+
+      if (!state.products) {
+        state.filteredProducts = [];
+        return;
       }
+
       if (payload.text !== "") {
         filter = [...current(state).products].filter(
           (item) => item.name.toLowerCase() === payload.text

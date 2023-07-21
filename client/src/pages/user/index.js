@@ -47,7 +47,7 @@ const User = () => {
       <aside
         className={`absolute sm:static transition-all duration-300  sm:col-span-3 h-screen bg-blue-400 py-4 ${
           openNav ? "left-0 sm:left-full w-5/6 sm:w-full" : "-left-full"
-        } z-10 `}
+        } z-10`}
       >
         <div className='back-home' title='home-page'>
           <Link to='/'>
@@ -119,8 +119,8 @@ const User = () => {
           <span>logout</span> <LogoutIcon />
         </button>
       </aside>
-      <main className='sm:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
-        <div className='flex justify-between item-center mb-20'>
+      <main className='relative sm:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
+        <div className='flex justify-between item-center mb-10 sm:mb-20'>
           <h2 className='capitalize font-semibold text-xl sm:text-2xl'>
             {location.pathname.slice(6) || "dashboard"}
           </h2>

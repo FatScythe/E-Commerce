@@ -1,10 +1,15 @@
 const Product = require("../models/Product");
+const Store = require("../models/Store");
 const { checkPermissions } = require("../utils");
 const { NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
 const createProduct = async (req, res) => {
   req.body.seller = req.user.userId;
+  const storeName = await Store.findOne({ owner: req.body.seller });
+  if (storeName) {
+    req.body.store = storeName.name;
+  }
   const product = await Product.create(req.body);
   res.status(StatusCodes.CREATED).json({ product });
 };
