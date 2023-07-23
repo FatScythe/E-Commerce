@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 export const Step1 = ({ product, setProduct }) => {
@@ -80,7 +80,8 @@ export const Step1 = ({ product, setProduct }) => {
 };
 
 export const Step2 = ({ product, setProduct }) => {
-  const [value, setValue] = useState({ src: "#", loading: false });
+  const [value, setValue] = useState({ loading: false, fileLink: "" });
+  const productImage = useRef(null);
   console.log(value);
   const handleProductImage = async (e) => {
     setValue({ ...value, loading: true });
@@ -88,12 +89,20 @@ export const Step2 = ({ product, setProduct }) => {
       setValue({ ...value, loading: true });
       const formData = new FormData();
       let imageFile;
-      if (e.target.files && e.target.files[0]) {
-        imageFile = e.target.files[0];
-        let src = URL.createObjectURL(e.target.files[0]);
-        console.log(src);
-        setValue({ ...value, src: src });
+      if (!e.target.files && !e.target.files[0]) {
+        toast.error("No image selected");
+        return;
       }
+      productImage.current.setAttribute(
+        "src",
+        URL.createObjectURL(e.target.files[0])
+      );
+
+      console.log(productImage.current);
+
+      imageFile = e.target.files[0];
+
+      setValue({ ...value });
 
       if (!imageFile.type.startsWith("image")) {
         setValue({ ...value, loading: false });
@@ -111,8 +120,8 @@ export const Step2 = ({ product, setProduct }) => {
       imageFile = undefined;
       setValue({ ...value, loading: false });
     } catch (error) {
-      // showAlert(true, "danger", "Unable to upload");
-      // setIsEditing(false);
+      toast.error("Unable to upload");
+      setValue({ ...value, loading: false });
       console.error(error);
     }
   };
@@ -127,7 +136,12 @@ export const Step2 = ({ product, setProduct }) => {
           >
             Product Image
           </label>
-          <img className='w-40 h-40' src={value.src} alt={product.name} />
+          <img
+            className='w-60 h-40 object-cover mb-2'
+            ref={productImage}
+            src='#'
+            alt={product.name}
+          />
           <input
             onChange={(e) => handleProductImage(e)}
             type='file'

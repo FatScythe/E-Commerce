@@ -36,7 +36,9 @@ const User = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  console.log(user);
+  // console.log(user);
+  // console.log(process.env.REACT_APP_API_SECRET, "env");
+
   if (!user) {
     return <Navigate to='/' />;
   }
