@@ -1,4 +1,4 @@
-import "./dashboard.css";
+import "../dashboard/dashboard.css";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -11,12 +11,10 @@ import useFetch from "../../../hooks/useFetch";
 import Loader1 from "../../../component/loaders/loader1";
 import { ProductCard1 } from "../../products/productCard";
 import Error1 from "../../../component/loaders/error";
-import { Step1, Step2, Step3, Step4 } from "./steps";
-import {
-  ChevronLeft,
-  ChevronRight,
-  CloseIcon,
-} from "../../../assets/icons/icon";
+import Step1 from "./step1";
+import Step2 from "./step2";
+import Step3 from "./step3";
+import { CloseIcon } from "../../../assets/icons/icon";
 
 // Utils
 import url from "../../../utils/url";
@@ -50,6 +48,7 @@ const MyProducts = ({ user }) => {
     return <Error1 />;
   }
   const { products, count } = data;
+
   return (
     <section id='my-products'>
       {product.open && <AddProduct product={product} setProduct={setProduct} />}
@@ -129,9 +128,6 @@ const AddProduct = ({ product, setProduct }) => {
           )}
           {product.step === 2 && (
             <Step3 product={product} setProduct={setProduct} />
-          )}
-          {product.step === 3 && (
-            <Step4 product={product} setProduct={setProduct} />
           )}
         </div>
         {/* 

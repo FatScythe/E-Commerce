@@ -25,7 +25,7 @@ import Settings from "./dashboard/settings";
 import AllUsers from "./dashboard/allUsers";
 import ChangePassword from "./dashboard/password";
 import WishList from "./dashboard/wishlist";
-import MyProducts from "./dashboard/myProducts";
+import MyProducts from "./myProducts";
 import MyStore from "./dashboard/myStore";
 import Orders from "./dashboard/orders";
 
@@ -36,8 +36,7 @@ const User = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  // console.log(user);
-  // console.log(process.env.REACT_APP_API_SECRET, "env");
+  console.log(user);
 
   if (!user) {
     return <Navigate to='/' />;
