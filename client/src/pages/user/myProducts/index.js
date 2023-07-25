@@ -35,7 +35,13 @@ const MyProducts = ({ user }) => {
     color: ["#000"],
     inventory: 1,
     freeShipping: false,
+    type: "add",
+    productId: "",
   });
+
+  const handleEdit = (productDetails) => {
+    console.log(productDetails);
+  };
   if (user.role === "user") {
     return <Navigate to='/' />;
   }
@@ -67,7 +73,7 @@ const MyProducts = ({ user }) => {
       <div className='wrapper md:mt-5 grid grid-cols-12 gap-6'>
         {products.length > 0 ? (
           products.map((product) => (
-            <Card key={product._id} product={product} />
+            <Card key={product._id} product={product} handleEdit={handleEdit} />
           ))
         ) : (
           <div className='text-xl capitalize italic w-full text-center'>
@@ -81,11 +87,14 @@ const MyProducts = ({ user }) => {
 
 export default MyProducts;
 
-const Card = ({ product }) => {
+const Card = ({ product, handleEdit }) => {
   return (
     <div className='col-span-12 sm:col-span-6 lg:col-span-4'>
       <ProductCard1 {...product} />
-      <button className='block my-5 bg-black text-white border-2 hover:border-black hover:bg-transparent hover:text-black rounded-3xl w-full p-4  transition-all duration-500 ease-in-out'>
+      <button
+        className='block my-5 bg-black text-white border-2 hover:border-black hover:bg-transparent hover:text-black rounded-3xl w-full p-4  transition-all duration-500 ease-in-out'
+        onClick={() => handleEdit(product)}
+      >
         edit product
       </button>
       <button className='block my-5 bg-tomato hover:bg-secondary hover:text-black text-white rounded-3xl w-full p-4  transition-all duration-500 ease-in-out'>
@@ -119,7 +128,7 @@ const AddProduct = ({ product, setProduct }) => {
           </button>
         </div>
 
-        <div className='container relative h-full'>
+        <div className='container relative overflow-y-scroll h-5/6'>
           {product.step === 0 && (
             <Step1 product={product} setProduct={setProduct} />
           )}

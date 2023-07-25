@@ -1,4 +1,3 @@
-// import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
 const Step1 = ({ product, setProduct }) => {
@@ -13,7 +12,7 @@ const Step1 = ({ product, setProduct }) => {
     setProduct({ ...product, step: 1 });
   };
   return (
-    <div>
+    <div id='step-1'>
       <form className='sm:w-9/12 mx-auto'>
         <div className='relative my-3'>
           <input

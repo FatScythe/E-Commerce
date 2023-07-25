@@ -7,3 +7,7 @@
 #user main #my-products #add-product .title svg {
     @apply w-10 h-10;
 }
+
+#user main #my-products #add-product #step-3 .colors button.active {
+    @apply ring-2 ring-tomato ring-offset-2 w-7 h-7;
+}
