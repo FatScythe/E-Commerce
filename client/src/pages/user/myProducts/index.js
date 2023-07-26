@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 // Redux
-// import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { crudProducts } from "../../../features/product/productSlice";
 // Hooks
 import useFetch from "../../../hooks/useFetch";
 
@@ -19,17 +20,22 @@ import { CloseIcon } from "../../../assets/icons/icon";
 // Utils
 import url from "../../../utils/url";
 
+// Toastify
+import { toast } from "react-toastify";
+
 const MyProducts = ({ user }) => {
   const { data, pending, error } = useFetch(
     url + "/api/v1/products/my-products"
   );
+
+  const dispatch = useDispatch();
 
   const [product, setProduct] = useState({
     open: false,
     step: 0,
     name: "",
     price: 0,
-    image: "",
+    image: "/img.png",
     desc: "",
     category: "unisex",
     color: ["#000"],
@@ -39,9 +45,61 @@ const MyProducts = ({ user }) => {
     productId: "",
   });
 
-  const handleEdit = (productDetails) => {
-    console.log(productDetails);
+  const handleProduct = () => {
+    const { name, price, desc } = product;
+
+    if (!name || !price || !desc) {
+      toast.error("Please fill all field");
+      return;
+    }
+
+    dispatch(crudProducts(product));
+    setProduct({ ...product, open: false, type: "add", productId: "" });
+
+    //  setTimeout(() => {
+    //   // change fetch format
+    //    dispatch(fetchMyProducts)
+    //  }, 3000);
   };
+
+  const handleEditProduct = (productDetails) => {
+    const {
+      _id,
+      name,
+      price,
+      image,
+      desc,
+      category,
+      color,
+      inventory,
+      freeShipping,
+    } = productDetails;
+
+    setProduct({
+      ...product,
+      open: true,
+      step: 2,
+      name,
+      price,
+      image,
+      desc,
+      category,
+      color,
+      inventory,
+      freeShipping,
+      type: "edit",
+      productId: _id,
+    });
+  };
+
+  const handleDeleteProduct = (productId) => {
+    dispatch(crudProducts({ ...product, productId, type: "delete" }));
+    //  setTimeout(() => {
+    //   // change fetch format
+    //    dispatch(fetchMyProducts)
+    //  }, 3000);
+  };
+
   if (user.role === "user") {
     return <Navigate to='/' />;
   }
@@ -57,7 +115,13 @@ const MyProducts = ({ user }) => {
 
   return (
     <section id='my-products'>
-      {product.open && <AddProduct product={product} setProduct={setProduct} />}
+      {product.open && (
+        <AddProduct
+          product={product}
+          setProduct={setProduct}
+          handleProduct={handleProduct}
+        />
+      )}
       <header className='flex justify-between items-center mb-5 sm:mb-10'>
         <h3 className='italic capitalize sm:text-lg'>
           no. of products --- {count}
@@ -73,7 +137,12 @@ const MyProducts = ({ user }) => {
       <div className='wrapper md:mt-5 grid grid-cols-12 gap-6'>
         {products.length > 0 ? (
           products.map((product) => (
-            <Card key={product._id} product={product} handleEdit={handleEdit} />
+            <Card
+              key={product._id}
+              product={product}
+              handleEditProduct={handleEditProduct}
+              handleDeleteProduct={handleDeleteProduct}
+            />
           ))
         ) : (
           <div className='text-xl capitalize italic w-full text-center'>
@@ -87,24 +156,27 @@ const MyProducts = ({ user }) => {
 
 export default MyProducts;
 
-const Card = ({ product, handleEdit }) => {
+const Card = ({ product, handleEditProduct, handleDeleteProduct }) => {
   return (
     <div className='col-span-12 sm:col-span-6 lg:col-span-4'>
       <ProductCard1 {...product} />
       <button
         className='block my-5 bg-black text-white border-2 hover:border-black hover:bg-transparent hover:text-black rounded-3xl w-full p-4  transition-all duration-500 ease-in-out'
-        onClick={() => handleEdit(product)}
+        onClick={() => handleEditProduct(product)}
       >
         edit product
       </button>
-      <button className='block my-5 bg-tomato hover:bg-secondary hover:text-black text-white rounded-3xl w-full p-4  transition-all duration-500 ease-in-out'>
+      <button
+        className='block my-5 bg-tomato hover:bg-secondary hover:text-black text-white rounded-3xl w-full p-4  transition-all duration-500 ease-in-out'
+        onClick={() => handleDeleteProduct(product._id)}
+      >
         delete product
       </button>
     </div>
   );
 };
 
-const AddProduct = ({ product, setProduct }) => {
+const AddProduct = ({ product, setProduct, handleProduct }) => {
   useEffect(() => {
     if (product.step > 3) {
       setProduct({ ...product, step: 0 });
@@ -136,7 +208,11 @@ const AddProduct = ({ product, setProduct }) => {
             <Step2 product={product} setProduct={setProduct} />
           )}
           {product.step === 2 && (
-            <Step3 product={product} setProduct={setProduct} />
+            <Step3
+              product={product}
+              setProduct={setProduct}
+              handleProduct={handleProduct}
+            />
           )}
         </div>
         {/* 

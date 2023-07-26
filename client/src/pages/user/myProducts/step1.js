@@ -32,8 +32,11 @@ const Step1 = ({ product, setProduct }) => {
           </label>
         </div>
 
-        <div className=''>
-          <label htmlFor='product-price' className='text-sm text-gray-800'>
+        <div className='my-4'>
+          <label
+            htmlFor='product-price'
+            className='text-sm sm:text-base text-gray-800 block'
+          >
             Product Price
           </label>
           <input
@@ -42,7 +45,7 @@ const Step1 = ({ product, setProduct }) => {
               setProduct({ ...product, price: e.target.value });
             }}
             value={product.price}
-            className='text-lg mt-1 w-full border-b-2 border-gray-300 px-0 py-1  focus:border-gray-500 focus:outline-none'
+            className='text-base sm:text-lg mt-1 w-1/2 border-b-2 border-gray-300 px-0 py-1  focus:border-gray-500 focus:outline-none'
           />
         </div>
 

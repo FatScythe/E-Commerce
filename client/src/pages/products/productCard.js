@@ -69,7 +69,7 @@ export const ProductCard1 = ({
           </Link>
         </div>
         <img
-          src={"http://localhost:5000" + image}
+          src={image}
           alt='product'
           className='w-full h-96 object-cover'
           draggable={false}

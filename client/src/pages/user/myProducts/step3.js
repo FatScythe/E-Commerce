@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../dashboard/dashboard.css";
-const Step3 = ({ product, setProduct }) => {
+const Step3 = ({ product, setProduct, handleProduct }) => {
   const [colorCount, setColorCount] = useState(0);
   const [color, setColor] = useState("");
 
@@ -39,6 +39,23 @@ const Step3 = ({ product, setProduct }) => {
         >
           add
         </button>
+      </div>
+
+      <div className='my-6'>
+        <label
+          htmlFor='inventory'
+          className='text-sm sm:text-base block text-gray-800'
+        >
+          Inventory (Number of item in store)
+        </label>
+        <input
+          type='number'
+          onChange={(e) => {
+            setProduct({ ...product, inventory: e.target.value });
+          }}
+          value={product.inventory}
+          className='text-lg mt-1 w-1/2 border-b-2 border-gray-300 px-0 py-1  focus:border-gray-500 focus:outline-none'
+        />
       </div>
 
       <div className='colors my-5'>
@@ -96,7 +113,8 @@ const Step3 = ({ product, setProduct }) => {
         </button>
         <button
           type='button'
-          className='w-fit rounded-md bg-secondary px-6 py-2 text-black focus:bg-gray-600 focus:outline-none first-letter:uppercase'
+          className='w-fit rounded-md bg-black hover:bg-black/60 px-6 py-2 text-white focus:bg-gray-600 focus:outline-none first-letter:uppercase'
+          onClick={handleProduct}
         >
           submit
         </button>

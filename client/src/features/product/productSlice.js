@@ -2,7 +2,11 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 // Thunk
-import { productsThunk, singleProductThunk } from "./productThunk";
+import {
+  productsThunk,
+  singleProductThunk,
+  crudProductThunk,
+} from "./productThunk";
 // Categories Enum
 import { categories } from "../../assets/data/productCategories";
 import url from "../../utils/url";
@@ -49,6 +53,18 @@ export const fetchSingleProduct = createAsyncThunk(
       user
         ? url + "/api/v1/products/auth/" + id
         : url + "/api/v1/products/" + id,
+      thunkAPI
+    );
+  }
+);
+
+export const crudProducts = createAsyncThunk(
+  "product/addProducts",
+  async (thunkAPI) => {
+    return crudProductThunk(
+      thunkAPI.type === "add"
+        ? url + "/api/v1/products"
+        : url + "/api/v1/products/" + thunkAPI.productId,
       thunkAPI
     );
   }
