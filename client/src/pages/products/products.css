@@ -58,12 +58,10 @@ section#products aside .clear button {
     @apply bg-red-500 text-white p-2 rounded hover:scale-95 hover:opacity-80;
 }
 
-section#products main {
-    @apply relative;
-}
 
-section#products main::-webkit-scrollbar {
-    @apply hidden;
+
+section#products main {
+    @apply relative sm:overflow-hidden;
 }
 
 section#products main header {
@@ -81,6 +79,30 @@ section#products main header .togglers .display {
 section#products main header .line::after {
     content: '';
     @apply border-black block bg-black h-0.5;
+}
+
+/*  product container */
+section#products .products-container {
+    @apply overflow-y-scroll h-full sm:px-4;
+}
+
+section#products .products-container::-webkit-scrollbar {
+    @apply w-0 sm:w-2 md:w-3;
+}
+
+section#products .products-container::-webkit-scrollbar-track {
+    background: #888;
+    border-radius: 5px;
+}
+
+
+section#products .products-container::-webkit-scrollbar-thumb {
+    background: #000;
+    margin: 0 10px;
+}
+
+section#products .products-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* Product Card 1 */

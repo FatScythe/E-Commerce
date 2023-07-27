@@ -48,7 +48,7 @@ const User = () => {
       <aside
         className={`absolute sm:static transition-all duration-300  sm:col-span-3 h-screen bg-blue-400 py-4 ${
           openNav ? "left-0 sm:left-full w-5/6 sm:w-full" : "-left-full"
-        } z-10`}
+        } z-20`}
       >
         <div className='back-home' title='home-page'>
           <Link to='/'>
@@ -58,7 +58,7 @@ const User = () => {
         {/* logo Here maybe?? AYETI ADORN*/}
         <h4 className='title m-5 sm:mb-10 flex flex-col md:flex-row justify-center items-center gap-5'>
           <img
-            className='h-20 sm:h-32 w-20 sm:w-32 rounded-full'
+            className='h-20 sm:h-32 w-20 sm:w-32 rounded-full object-cover'
             src={user.avatar}
             alt={user.name}
             loading='eager'
@@ -103,7 +103,9 @@ const User = () => {
 
             {user.role !== "user" && (
               <NavLink to='/user/products'>
-                <li>My Products</li>
+                <li>
+                  {user.role === "admin" ? "All Products" : "My Products"}
+                </li>
               </NavLink>
             )}
 
@@ -120,8 +122,8 @@ const User = () => {
           <span>logout</span> <LogoutIcon />
         </button>
       </aside>
-      <main className='relative sm:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
-        <div className='flex justify-between item-center mb-10 sm:mb-20'>
+      <main className='relative w-full sm:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
+        <div className='flex justify-between item-center sticky z-10 px-3 left-0 top-0 w-full'>
           <h2 className='capitalize font-semibold text-xl sm:text-2xl'>
             {location.pathname.slice(6) || "dashboard"}
           </h2>
@@ -133,7 +135,7 @@ const User = () => {
           </button>
         </div>
 
-        <div className='m-4'>
+        <div className='mt-20'>
           <Routes>
             <Route path='settings' element={<Settings />} />
             <Route path='users' element={<AllUsers user={user} />} />

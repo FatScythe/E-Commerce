@@ -25,7 +25,8 @@ import { toast } from "react-toastify";
 
 const MyProducts = ({ user }) => {
   const { data, pending, error } = useFetch(
-    url + "/api/v1/products/my-products"
+    url + "/api/v1/products/my-products",
+    5000
   );
 
   const dispatch = useDispatch();
@@ -55,11 +56,6 @@ const MyProducts = ({ user }) => {
 
     dispatch(crudProducts(product));
     setProduct({ ...product, open: false, type: "add", productId: "" });
-
-    //  setTimeout(() => {
-    //   // change fetch format
-    //    dispatch(fetchMyProducts)
-    //  }, 3000);
   };
 
   const handleEditProduct = (productDetails) => {
@@ -94,10 +90,6 @@ const MyProducts = ({ user }) => {
 
   const handleDeleteProduct = (productId) => {
     dispatch(crudProducts({ ...product, productId, type: "delete" }));
-    //  setTimeout(() => {
-    //   // change fetch format
-    //    dispatch(fetchMyProducts)
-    //  }, 3000);
   };
 
   if (user.role === "user") {
@@ -193,7 +185,7 @@ const AddProduct = ({ product, setProduct, handleProduct }) => {
       <div className='bg-white h-5/6 w-full mx-2 sm:w-4/5 rounded-lg shadow-md relative'>
         <div className='title flex justify-between items-center py-2 sm:py-5 mx-10'>
           <h1 className='text-lg font-semibold capitalize text-center basis-3/4'>
-            add a product
+            add a product: step( {product.step + 1} / 3)
           </h1>
           <button onClick={() => setProduct({ ...product, open: false })}>
             <CloseIcon />
@@ -215,26 +207,6 @@ const AddProduct = ({ product, setProduct, handleProduct }) => {
             />
           )}
         </div>
-        {/* 
-        <footer className='absolute bg-red-300 left-0 bottom-0 w-full gap-3 flex justify-end items-center pt-4 border-0 border-t-2'>
-          <div className='step text-base mr-5'>Step {product.step + 1}</div>
-          <div className='flex justify-between gap-4 items-center mr-3'>
-            <button
-              disabled={product.step === 0}
-              onClick={() => setProduct({ ...product, step: product.step - 1 })}
-              className='bg-primary p-3 rounded-full disabled:bg-transparent'
-            >
-              <ChevronLeft />
-            </button>
-            <button
-              disabled={product.step === 3}
-              onClick={() => setProduct({ ...product, step: product.step + 1 })}
-              className='bg-primary p-3 rounded-full disabled:bg-transparent'
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        </footer> */}
       </div>
     </main>
   );

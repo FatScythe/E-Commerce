@@ -8,10 +8,15 @@ import url from "../../../utils/url";
 import { useDispatch } from "react-redux";
 import { saveUser, removeUser } from "../../../features/user/userSlice";
 
+// Component
+import { EditIcon } from "../../../assets/icons/icon";
+
 const EditProfile = ({ user }) => {
+  const [image, setImage] = useState(null);
   const [value, setValue] = useState({
     name: user.name,
     email: user.email,
+    avatar: user.avatar,
     loading: false,
   });
 
@@ -32,38 +37,124 @@ const EditProfile = ({ user }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleAvatar = async () => {
+    setValue({ ...value, loading: true });
+
+    const formData = new FormData();
+    formData.append("file", image);
+    formData.append("upload_preset", process.env.REACT_APP_PRESET);
+    formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+    formData.append("folder", "Ayeti-Adorn/users");
+
+    try {
+      toast.loading("Uploading image...");
+
+      // UPLOADING TO CLOUDINARY
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error("Unable to upload Image");
+        setValue({ ...value, loading: false });
+        return;
+      }
+
+      toast.dismiss();
+
+      return data.secure_url;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleSubmit = async (e, uplodedImageURL = user.avatar) => {
     e.preventDefault();
     const { name, email } = value;
-    setValue({ ...value, loading: true });
-    if (!email || !name) {
-      toast.error("Please fill all fields");
-      setValue({ ...value, loading: false });
+    try {
+      if (!email || !name) {
+        toast.error("Please fill all fields");
+        setValue({ ...value, loading: false });
+        return;
+      }
 
+      // UPLOADING TO SERVER
+      const response = await fetch(url + "/api/v1/users/update", {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name, email, avatar: uplodedImageURL }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setValue({ ...value, loading: false });
+        toast.error(data.msg);
+        return;
+      }
+      toast.dismiss();
+
+      setValue({ ...value, loading: false });
+      fetchUser();
+      toast.success(data.msg);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 1048576) {
+      toast.error("Image size must not be more than 1MB");
       return;
     }
-    const response = await fetch(url + "/api/v1/users/update", {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ name, email }),
-    });
+    setImage(file);
 
-    const data = await response.json();
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-    if (!response.ok) {
-      setValue({ ...value, loading: false });
-      toast.error(data.msg);
-      return;
-    }
-
-    setValue({ ...value, loading: false });
-    fetchUser();
-    toast.success(data.msg);
+    reader.onload = () => {
+      setValue({ ...value, avatar: reader.result });
+    };
+    const avatarUrl = await handleAvatar();
+    handleSubmit(e, avatarUrl);
   };
 
   return (
     <section id='edit-prof'>
       <form className='sm:w-9/12 mr-auto' onSubmit={(e) => handleSubmit(e)}>
+        <div className='mt-6 flex flex-col md:flex-row justify-start gap-5 items-center'>
+          <img
+            src={value.avatar}
+            alt={value.name}
+            className='w-60 h-60 rounded-full object-cover border-blue-400 border-4 border-b-0 p-1'
+          />
+
+          <div>
+            <input
+              id='hidden-input'
+              type='file'
+              className='hidden'
+              onChange={handleImageChange}
+              accept='image/*'
+            />
+
+            <label htmlFor='hidden-input' className='cursor-pointer w-2/6'>
+              <div className='mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none flex justify-center items-center gap-1'>
+                <EditIcon /> Upload an image
+              </div>
+            </label>
+          </div>
+          {/* <button type='button'>change profile picture</button> */}
+        </div>
+
         <div className='relative mt-6'>
           <input
             type='text'

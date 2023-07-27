@@ -23,7 +23,7 @@ const showCurrentUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { name, email } = req.body;
+  const { name, email, avatar } = req.body;
 
   if (!name || !email) {
     throw new BadRequestError("Please fill all fields");
@@ -35,6 +35,7 @@ const updateUser = async (req, res) => {
 
   user.name = name;
   user.email = email;
+  user.avatar = avatar;
 
   await user.save();
 

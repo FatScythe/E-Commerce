@@ -2,8 +2,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 const Step2 = ({ product, setProduct }) => {
-  const [image, setImage] = useState(null);
-  const [url, setUrl] = useState("");
+  const [image, setImage] = useState();
+  const [url, setUrl] = useState(product.image);
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
 
@@ -43,6 +43,12 @@ const Step2 = ({ product, setProduct }) => {
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
+    if (!file) return;
+
+    if (file.size > 3145728) {
+      toast.error("Image size must not be more than 3MB");
+      return;
+    }
     setImage(file);
 
     const reader = new FileReader();
@@ -105,8 +111,11 @@ const Step2 = ({ product, setProduct }) => {
         ) : (
           url && (
             <div className='pb-8 pt-4'>
+              <p className='italic font-semibold sm:text-base my-3'>
+                Current Image
+              </p>
               <img
-                className='object-cover w-full'
+                className='object-cover w-1/2 h-64'
                 src={url}
                 alt={product.name}
               />

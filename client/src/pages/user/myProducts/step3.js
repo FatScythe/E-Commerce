@@ -41,23 +41,6 @@ const Step3 = ({ product, setProduct, handleProduct }) => {
         </button>
       </div>
 
-      <div className='my-6'>
-        <label
-          htmlFor='inventory'
-          className='text-sm sm:text-base block text-gray-800'
-        >
-          Inventory (Number of item in store)
-        </label>
-        <input
-          type='number'
-          onChange={(e) => {
-            setProduct({ ...product, inventory: e.target.value });
-          }}
-          value={product.inventory}
-          className='text-lg mt-1 w-1/2 border-b-2 border-gray-300 px-0 py-1  focus:border-gray-500 focus:outline-none'
-        />
-      </div>
-
       <div className='colors my-5'>
         {product.color.map((item, index) => {
           return (
@@ -85,6 +68,23 @@ const Step3 = ({ product, setProduct, handleProduct }) => {
         >
           delete color
         </button>
+      </div>
+
+      <div className='my-6'>
+        <label
+          htmlFor='inventory'
+          className='text-sm sm:text-base block text-gray-800'
+        >
+          Inventory (Number of item in store)
+        </label>
+        <input
+          type='number'
+          onChange={(e) => {
+            setProduct({ ...product, inventory: e.target.value });
+          }}
+          value={product.inventory}
+          className='text-lg mt-1 w-1/2 border-b-2 border-gray-300 px-0 py-1  focus:border-gray-500 focus:outline-none'
+        />
       </div>
 
       <div className='flex justify-start items-center gap-2'>
