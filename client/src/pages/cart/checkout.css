@@ -1,0 +1,38 @@
+
+#checkout form label {
+    @apply font-normal block mb-4;
+}
+
+ #checkout form div {
+    @apply mb-8;
+}
+
+#checkout form input,
+#checkout form select {
+    @apply outline-none border border-gray-400 bg-transparent w-full h-12 rounded-md text-black p-4;
+
+}
+
+#checkout form select,
+#checkout form .postal input {
+    @apply h-16 placeholder:pl-2;
+}
+
+
+#checkout form .email .update {
+    @apply flex justify-start items-center gap-2 mt-4;
+}
+
+#checkout form .email .update input {
+    @apply w-fit;
+}
+
+
+#checkout form .location {
+    @apply flex justify-between sm:flex-col sm:gap-2 sm:items-stretch items-center gap-4;
+}
+
+#checkout form .location .country,
+#checkout form .location .postal {
+    @apply basis-1/2 sm:basis-full;
+}

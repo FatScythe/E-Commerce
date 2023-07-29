@@ -1,7 +1,7 @@
 import "./cart.css";
 import { useEffect } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // hook
 import useTitle from "../../hooks/useTitle";
 // component
@@ -65,13 +65,18 @@ const Bag = () => {
           cartItems.map((item) => <BagItem key={item.id} {...item} />)}
       </div>
 
-      {cartItems.length > 0 && <BagTotal user={user} />}
+      {cartItems.length > 0 && (
+        <div className='bag-total'>
+          <BagTotal />
+          <BagLinks user={user} />
+        </div>
+      )}
     </section>
   );
 };
 export default Bag;
 
-const BagItem = ({ id, name, image, price, amount, size, color }) => {
+export const BagItem = ({ id, name, image, price, amount, size, color }) => {
   const dispatch = useDispatch();
 
   return (
@@ -119,43 +124,56 @@ const BagItem = ({ id, name, image, price, amount, size, color }) => {
   );
 };
 
-const BagTotal = ({ user }) => {
+export const BagTotal = () => {
   const cart = useSelector((store) => store.cart);
+
   const { amount, total, shipping } = cart;
   let grandTotal = total + shipping;
   grandTotal = Number(grandTotal).toFixed(0);
 
   return (
-    <div className='bag-total'>
-      <div className='bag-calc'>
-        <div className='detail'>
-          <p className='title'>products in bag:</p>
-          <span className='amount'>{amount} items</span>
-        </div>
-
-        <div className='detail'>
-          <p className='title'>shipping:</p>
-          <span className='amount'>${shipping}</span>
-        </div>
-
-        <div className='detail'>
-          <p className='title'>sub-total:</p>
-          <span className='amount'>${total}</span>
-        </div>
-
-        <div className='detail'>
-          <p className='title'>grand total:</p>
-          <span className='amount'>${grandTotal}</span>
-        </div>
+    <div className='bag-calc'>
+      <div className='detail'>
+        <p className='title'>products in bag:</p>
+        <span className='amount'>{amount} items</span>
       </div>
 
-      <div className='bag-proceed'>
-        <div>
-          <button>{user ? "proceed to checkout" : "sign in"}</button>
-        </div>
-        <div className='link'>
-          <Link to='/products'>continue shopping</Link>
-        </div>
+      <div className='detail'>
+        <p className='title'>shipping:</p>
+        <span className='amount'>${shipping}</span>
+      </div>
+
+      <div className='detail'>
+        <p className='title'>sub-total:</p>
+        <span className='amount'>${total}</span>
+      </div>
+
+      <div className='detail'>
+        <p className='title'>grand total:</p>
+        <span className='amount'>${grandTotal}</span>
+      </div>
+    </div>
+  );
+};
+
+const BagLinks = ({ user }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    if (!user) {
+      return navigate("/auth");
+    }
+
+    navigate("/checkout");
+  };
+  return (
+    <div className='bag-proceed'>
+      <div>
+        <button onClick={handleClick}>
+          {user ? "proceed to checkout" : "sign in"}
+        </button>
+      </div>
+      <div className='link'>
+        <Link to='/products'>continue shopping</Link>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import SingleProduct from "../../pages/products/singleProduct/index.js";
 import VerifyEmail from "../../pages/user/verify";
 import ForgotPwd from "../../pages/auth/forgotPassword";
 import ResetPwd from "../../pages/user/resetPassword";
+import Checkout from "../../pages/cart/checkout";
 
 // Not Found : ( 404
 import NotFound from "../../pages/notFound";
@@ -58,6 +59,12 @@ export const navLinks = [
     path: "/cart",
     showNav: false,
     element: <Cart />,
+  },
+  {
+    id: 7.1,
+    path: "/checkout",
+    showNav: false,
+    element: <Checkout />,
   },
   {
     id: 8,

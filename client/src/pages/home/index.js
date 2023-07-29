@@ -7,6 +7,7 @@ import Slider from "../../component/slider/slider";
 import Error1 from "../../component/loaders/error";
 // Redux
 import { useSelector } from "react-redux";
+import Newsletter from "./newsletter";
 
 const HomePage = () => {
   useTitle("Home || Ayeti Adorn");
@@ -25,6 +26,7 @@ const HomePage = () => {
         ) : (
           <Error1 />
         )}
+        <Newsletter />
       </main>
     </section>
   );

@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 // Redux
 import { fetchProducts } from "./features/product/productSlice";
 import { saveUser, removeUser } from "./features/user/userSlice";
+import { calculateTotal } from "./features/cart/cartSlice";
 
 import url from "./utils/url";
 
@@ -40,6 +41,7 @@ function App() {
   useEffect(() => {
     fetchUser();
     dispatch(fetchProducts());
+    dispatch(calculateTotal());
   });
 
   return (

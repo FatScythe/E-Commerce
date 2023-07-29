@@ -124,6 +124,8 @@ const EditProfile = ({ user }) => {
       setValue({ ...value, avatar: reader.result });
     };
     const avatarUrl = await handleAvatar();
+    console.log(avatarUrl);
+    if (!avatarUrl) return;
     handleSubmit(e, avatarUrl);
   };
 
@@ -146,13 +148,12 @@ const EditProfile = ({ user }) => {
               accept='image/*'
             />
 
-            <label htmlFor='hidden-input' className='cursor-pointer w-2/6'>
+            <label htmlFor='hidden-input' className='cursor-pointer sm:w-2/6'>
               <div className='mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none flex justify-center items-center gap-1'>
                 <EditIcon /> Upload an image
               </div>
             </label>
           </div>
-          {/* <button type='button'>change profile picture</button> */}
         </div>
 
         <div className='relative mt-6'>
