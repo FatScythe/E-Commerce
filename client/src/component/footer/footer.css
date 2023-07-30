@@ -11,7 +11,7 @@ footer .accordian-container {
 }
 
 footer .legal {
-    @apply flex justify-between items-center gap-2 mx-auto w-fit text-xs cursor-pointer;
+    @apply flex justify-between items-center gap-2 mx-auto w-fit text-gray-500 cursor-pointer;
 }
 
 footer .legal div {
