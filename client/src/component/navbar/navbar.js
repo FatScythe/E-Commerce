@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   return (
-    <nav>
+    <nav id='top-nav'>
       <Ad />
       <div className='flex items-center flex-col md:flex-row md:justify-between'>
         <div className='logo'>
