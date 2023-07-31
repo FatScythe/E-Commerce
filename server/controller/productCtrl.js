@@ -111,11 +111,6 @@ const likeProduct = async (req, res) => {
   });
 };
 
-const uploadProductImage = async (req, res) => {
-  // PERHAPS ON THE FRONTEND
-  // checkPermissions(req.user, product.seller);
-  res.status(StatusCodes.OK).send("Upload Product Image");
-};
 module.exports = {
   createProduct,
   getAllProducts,
@@ -124,6 +119,5 @@ module.exports = {
   getSingleProductsAuth,
   deleteProduct,
   updateProduct,
-  uploadProductImage,
   likeProduct,
 };

@@ -9,7 +9,6 @@ const {
   deleteProduct,
   likeProduct,
   updateProduct,
-  uploadProductImage,
 } = require("../controller/productCtrl");
 
 const {
@@ -30,13 +29,6 @@ router
   .get(
     [authenticateUser, authorizePermissions("admin", "seller")],
     getMyProducts
-  );
-
-router
-  .route("/upload")
-  .post(
-    [authenticateUser, authorizePermissions("admin", "seller")],
-    uploadProductImage
   );
 
 router.route("/like/:id").patch(authenticateUser, likeProduct);
