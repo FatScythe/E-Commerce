@@ -42,13 +42,18 @@ p {
 }
 
 #user .user-nav ul li {
-    @apply my-4 p-0 border-0 transition-all duration-500;
+    @apply my-5 p-0 flex justify-start items-center gap-2 border-0 transition-all duration-500;
+}
+
+#user .user-nav ul li span:last-child {
+    @apply sm:hidden md:flex
 }
 
 #user .user-nav ul .active li {
     @apply w-full px-3 py-4 rounded-l-md font-bold border-2 border-transparent border-r-white bg-white text-black;
 }
 
+/* Orders Page */
 #user #order ul li {
     @apply p-4 border-0 border-transparent w-full transition-all duration-200 ease-in-out;
 }

@@ -4,10 +4,18 @@ import { useState } from "react";
 import useTitle from "../../hooks/useTitle";
 // Components
 import {
+  BookmarkIcon,
+  ChangeIcon,
   ChevronLeft,
   CloseIcon,
   HamburgerIcon,
   LogoutIcon,
+  PencilIcon,
+  ProductIcon,
+  SettingsIcon,
+  ShoppingBagIcon,
+  StoreIcon,
+  UserIcon,
 } from "../../assets/icons/icon";
 import { useSelector, useDispatch } from "react-redux";
 import { Navigate, NavLink, Link, Route, Routes } from "react-router-dom";
@@ -38,7 +46,7 @@ const User = () => {
   return (
     <section id='user' className='relative sm:grid grid-cols-12'>
       <aside
-        className={`absolute sm:static transition-all duration-300  sm:col-span-3 h-screen bg-blue-400 py-4 ${
+        className={`absolute sm:static transition-all duration-300 sm:col-span-2  md:col-span-3 h-screen bg-blue-400 py-4 ${
           openNav ? "left-0 sm:left-full w-5/6 sm:w-full" : "-left-full"
         } z-20`}
       >
@@ -50,7 +58,7 @@ const User = () => {
         {/* logo Here maybe?? AYETI ADORN*/}
         <h4 className='title m-5 sm:mb-10 flex flex-col md:flex-row justify-center items-center gap-5'>
           <img
-            className='h-20 sm:h-32 w-20 sm:w-32 rounded-full object-cover'
+            className='h-20 sm:h-10 sm:w-10 md:h-32 w-20 md:w-32 rounded-full object-cover'
             src={user.avatar}
             alt={user.name}
             loading='eager'
@@ -66,43 +74,83 @@ const User = () => {
             }}
           >
             <NavLink to='/user/settings'>
-              <li>Settings</li>
+              <li>
+                <span>
+                  <SettingsIcon className='w-6 h-6' />
+                </span>
+                <span>Settings</span>
+              </li>
             </NavLink>
 
             {user.role === "admin" && (
               <NavLink to='/user/users'>
-                <li>All Users</li>
+                <li>
+                  <span>
+                    <UserIcon className='w-6 h-6' />
+                  </span>
+                  <span> All Users</span>
+                </li>
               </NavLink>
             )}
 
             <NavLink to='/user/edit-profile'>
-              <li>Edit profile</li>
+              <li>
+                <span>
+                  <PencilIcon className='w-6 h-6' />
+                </span>
+                <span> Edit profile</span>
+              </li>
             </NavLink>
 
             <NavLink to='/user/change-password'>
-              <li>Change Password</li>
+              <li>
+                <span>
+                  <ChangeIcon className='w-6 h-6' />
+                </span>
+                <span>Change Password </span>
+              </li>
             </NavLink>
 
             <NavLink to='/user/wishlist'>
-              <li>Wishlist</li>
+              <li>
+                <span>
+                  <BookmarkIcon className='w-6 h-6' />
+                </span>
+                <span>Wishlist</span>
+              </li>
             </NavLink>
 
             {user.role !== "user" && (
               <NavLink to='/user/store'>
-                <li>My Store</li>
+                <li>
+                  <span>
+                    <StoreIcon />
+                  </span>
+                  <span>My Store</span>
+                </li>
               </NavLink>
             )}
 
             {user.role !== "user" && (
               <NavLink to='/user/products'>
                 <li>
-                  {user.role === "admin" ? "All Products" : "My Products"}
+                  <span>
+                    <ProductIcon className='w-6 h-6' />
+                  </span>
+                  <span>
+                    {user.role === "admin" ? "All Products" : "My Products"}
+                  </span>
                 </li>
               </NavLink>
             )}
 
             <NavLink to='/user/orders'>
-              <li>Orders</li>
+              <li>
+                <span>
+                  <ShoppingBagIcon />
+                </span>
+                <span>Orders</span>
+              </li>
             </NavLink>
           </ul>
         </nav>
@@ -111,10 +159,10 @@ const User = () => {
           className='sm:mt-3 bg-tomato text-white flex justify-center items-center my-0 mx-auto px-3 py-2 w-3/4 rounded-md'
           onClick={() => dispatch(logoutUser())}
         >
-          <span>logout</span> <LogoutIcon />
+          <span className='sm:hidden md:flex'>logout</span> <LogoutIcon />
         </button>
       </aside>
-      <main className='relative w-full sm:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
+      <main className='relative w-full sm:col-span-10 md:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
         <div className='float-right fixed z-50 px-3 right-0 top-4 w-fit'>
           <button
             className='sm:hidden bg-bkg text-secondary p-4 rounded-full'

@@ -6,7 +6,7 @@ const Orders = ({ user }) => {
   const navigate = useNavigate();
   useEffect(() => {
     navigate("/user/orders/purchased");
-  }, [user]);
+  }, []);
 
   return (
     <section id='order' className='container'>
@@ -40,22 +40,30 @@ const Card = () => {
   return (
     <div className='flex my-2 justify-between items-center border border-transparent border-t-black border-b-black'>
       <div className='flex justify-between items-center'>
-        <img src='/img.png' className='w-40 h-40 object-cover' />
+        <img
+          src='/img.png'
+          alt=''
+          className=' w-10 h-10 sm:w-40 sm:h-40 object-cover'
+        />
         <div className='flex flex-col justify-between items-start gap-4'>
           <div>
-            <h2 className='font-bold'>Completed</h2>
-            <p className='font-semibold'>Order #4452426</p>
+            <h2 className='font-bold text-sm sm:text-normal'>Completed</h2>
+            <p className='font-semibold text-sm sm:text-normal'>
+              Order #4452426
+            </p>
           </div>
 
-          <h4 className='italic font-medium'>01.07.2023</h4>
+          <h4 className='italic font-medium text-sm sm:text-normal'>
+            01.07.2023
+          </h4>
         </div>
       </div>
 
       <div className='flex flex-col justify-between items-center gap-3'>
-        <h2>Product name</h2>
+        <h2 className='text-xs sm:text-normal'>Product name</h2>
         <div className=''>
-          <p className='bg-red-500 w-5 h-5 rounded-full mb-2'></p>
-          <p>XL</p>
+          <p className='bg-red-500 w-3 h-3 sm:w-5 sm:h-5 rounded-full mb-2 text-sm sm:text-normal'></p>
+          <p className='text-xs sm:text-normal'>XL</p>
         </div>
       </div>
     </div>
