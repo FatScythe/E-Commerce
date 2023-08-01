@@ -10,14 +10,7 @@ import {
   LogoutIcon,
 } from "../../assets/icons/icon";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Navigate,
-  useLocation,
-  NavLink,
-  Link,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { Navigate, NavLink, Link, Route, Routes } from "react-router-dom";
 import { logoutUser } from "../../features/user/userSlice";
 // Components
 import EditProfile from "./dashboard/editProfile";
@@ -34,7 +27,6 @@ const User = () => {
   const { user } = useSelector((store) => store.user);
   const [openNav, setOpenNav] = useState(false);
   const dispatch = useDispatch();
-  const location = useLocation();
 
   console.log(user);
 
@@ -66,9 +58,9 @@ const User = () => {
           <p className='font-semibold text-white capitalize'>{user.name}</p>
         </h4>
 
-        <nav className='bg-transparent p-0'>
+        <nav className='bg-transparent user-nav p-0 mb-10'>
           <ul
-            className='ml-4 w-full bg-transparent'
+            className='pl-1 sm:pl-4 w-full bg-transparent'
             onClick={() => {
               setOpenNav(false);
             }}
@@ -123,10 +115,7 @@ const User = () => {
         </button>
       </aside>
       <main className='relative w-full sm:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
-        <div className='flex justify-between item-center sticky z-10 px-3 left-0 top-0 w-full'>
-          <h2 className='capitalize font-semibold text-xl sm:text-2xl'>
-            {location.pathname.slice(6) || "dashboard"}
-          </h2>
+        <div className='float-right fixed z-50 px-3 right-0 top-4 w-fit'>
           <button
             className='sm:hidden bg-bkg text-secondary p-4 rounded-full'
             onClick={() => setOpenNav(!openNav)}
@@ -135,7 +124,7 @@ const User = () => {
           </button>
         </div>
 
-        <div className='mt-20'>
+        <div>
           <Routes>
             <Route path='settings' element={<Settings />} />
             <Route path='users' element={<AllUsers user={user} />} />
@@ -144,7 +133,7 @@ const User = () => {
             <Route path='wishlist' element={<WishList user={user} />} />
             <Route path='products' element={<MyProducts user={user} />} />
             <Route path='store' element={<MyStore user={user} />} />
-            <Route path='orders' element={<Orders user={user} />} />
+            <Route path='orders/*' element={<Orders user={user} />} />
           </Routes>
         </div>
       </main>
