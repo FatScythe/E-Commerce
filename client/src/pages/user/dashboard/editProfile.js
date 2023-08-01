@@ -131,6 +131,9 @@ const EditProfile = ({ user }) => {
 
   return (
     <section id='edit-prof'>
+      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
+        Edit Profile
+      </h2>
       <form className='sm:w-9/12 mr-auto' onSubmit={(e) => handleSubmit(e)}>
         <div className='mt-6 flex flex-col md:flex-row justify-start gap-5 items-center'>
           <img
