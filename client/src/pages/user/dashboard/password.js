@@ -55,6 +55,9 @@ const ChangePassword = () => {
 
   return (
     <section id='change-pwd'>
+      <h2 className='capitalize font-semibold text-lg sm:text-xl mb-10'>
+        Change Password
+      </h2>
       <form className='sm:w-9/12 mr-auto' onSubmit={(e) => handleSubmit(e)}>
         <div className='relative mt-6'>
           <input
