@@ -41,10 +41,18 @@ p {
     @apply h-10 w-10 text-white;
 }
 
-#user ul li {
-    @apply my-4 p-0 transition-all duration-500;
+#user .user-nav ul li {
+    @apply my-4 p-0 border-0 transition-all duration-500;
 }
 
-#user ul .active li {
-    @apply w-full px-3 py-4 rounded-l-md font-bold bg-white text-black;
+#user .user-nav ul .active li {
+    @apply w-full px-3 py-4 rounded-l-md font-bold border-2 border-transparent border-r-white bg-white text-black;
+}
+
+#user #order ul li {
+    @apply p-4 border-0 border-transparent w-full transition-all duration-200 ease-in-out;
+}
+
+#user #order ul .active li {
+    @apply border-4 text-base sm:text-lg border-transparent border-b-black;
 }
