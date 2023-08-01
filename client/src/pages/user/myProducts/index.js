@@ -107,6 +107,9 @@ const MyProducts = ({ user }) => {
 
   return (
     <section id='my-products'>
+      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
+        Product
+      </h2>
       {product.open && (
         <AddProduct
           product={product}
