@@ -13,7 +13,7 @@ const WishList = ({ user }) => {
   const dispatch = useDispatch();
 
   if (product_loading) {
-    return <div>Loading...</div>;
+    return <div className='mt-20 animate-pulse'>Loading...</div>;
   }
 
   const wishList = products.filter((product) => {
@@ -22,7 +22,7 @@ const WishList = ({ user }) => {
 
   if (!wishList.length > 0) {
     return (
-      <div className='text-xl capitalize italic text-center'>
+      <div className='text-xl capitalize italic text-center mt-20'>
         you have no item in your wishlist
       </div>
     );
@@ -49,6 +49,9 @@ const WishList = ({ user }) => {
 
   return (
     <section id='wishlist'>
+      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
+        Wishlist
+      </h2>
       <div className='wrapper md:mt-5 grid grid-cols-12 gap-8'>
         {wishList.map((product) => (
           <Card
