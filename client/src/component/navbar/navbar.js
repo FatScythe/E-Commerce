@@ -18,7 +18,7 @@ const Navbar = () => {
             <div className='icons'>
               <button title={user.name}>
                 <Link to='/user/settings'>
-                  <UserIcon />
+                  <UserIcon className='w-5 h-5 sm:w-6 sm:h-6' />
                 </Link>
               </button>
             </div>
@@ -32,12 +32,12 @@ const Navbar = () => {
           <div className='flex justify-evenly items-center gap-2 md:hidden'>
             <button>
               <Link to='/search'>
-                <SearchIcon />
+                <SearchIcon className='w-5 h-5 sm:w-6 sm:h-6' />
               </Link>
             </button>
             <button>
               <Link to='/cart'>
-                <ShoppingBagIcon />
+                <ShoppingBagIcon className='w-5 h-5 sm:w-6 sm:h-6' />
               </Link>
             </button>
             <div
@@ -80,20 +80,20 @@ const Navbar = () => {
           <div className='options'>
             <button className='bag'>
               <Link to='/cart'>
-                <ShoppingBagIcon />
+                <ShoppingBagIcon className='w-5 h-5 sm:w-6 sm:h-6' />
               </Link>
             </button>
 
             <button className='search'>
               <Link to='/search'>
-                <SearchIcon />
+                <SearchIcon className='w-5 h-5 sm:w-6 sm:h-6' />
               </Link>
             </button>
 
             {user && (
               <button className='user' title={user.name}>
                 <Link to='/user/settings'>
-                  <UserIcon />
+                  <UserIcon className='w-5 h-5 sm:w-6 sm:h-6' />
                 </Link>
               </button>
             )}

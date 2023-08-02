@@ -24,7 +24,10 @@ const getAllStores = async (req, res) => {
 
 const getStore = async (req, res) => {
   const { id: storeId } = req.params;
-  const store = await Store.findOne({ _id: storeId });
+  const store = await Store.findOne({ _id: storeId }).populate({
+    path: "owner",
+    select: "name avatar email",
+  });
 
   if (!store) throw new NotFoundError(`No store with id: ${storeId}`);
   const products = await Product.find({ seller: store.owner });

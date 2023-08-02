@@ -1,5 +1,5 @@
 nav#top-nav {
-    @apply capitalize max-w-full mx-auto px-6 sticky top-0 z-50 text-white md:text-black bg-primary md:bg-white pt-10 sm:py-0 md:mt-7 md:mb-2 p-4;
+    @apply capitalize max-w-full mx-auto px-6 sticky top-0 z-50 text-white md:text-black bg-primary md:bg-white pt-8 md:pt-0 md:mt-7 md:mb-2 p-4;
 }
 
 nav#top-nav .logo {
@@ -23,11 +23,11 @@ nav#top-nav .logo .toggle-menu {
 }
 
 nav#top-nav .logo .toggle-menu.close .line {
-    @apply border border-white h-0.5 rounded-lg w-8 transition-all duration-1000;
+    @apply border border-white h-0.5 rounded-lg w-6 sm:w-8 transition-all duration-1000;
 }
 
 nav#top-nav .logo .toggle-menu.open .line {
-    @apply border border-white h-0.5 rounded-lg w-8 mt-2 transition-all duration-1000;
+    @apply border border-white h-0.5 rounded-lg w-6 sm:w-8 mt-2 transition-all duration-1000;
 }
 
 nav#top-nav .logo .toggle-menu.open .line:first-child {

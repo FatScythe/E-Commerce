@@ -11,9 +11,14 @@ const storeSchema = new Schema(
       type: String,
       required: [true, "Please provide store description"],
     },
-    coverPhoto: {
+    insta: {
       type: String,
-      default: "/img.png",
+    },
+    fb: {
+      type: String,
+    },
+    tiktok: {
+      type: String,
     },
     featured: {
       type: Boolean,

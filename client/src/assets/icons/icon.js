@@ -1,4 +1,4 @@
-export const ShoppingBagIcon = () => {
+export const ShoppingBagIcon = ({ className }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -6,7 +6,7 @@ export const ShoppingBagIcon = () => {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-6 h-6'
+      className={className}
     >
       <path
         strokeLinecap='round'
@@ -17,7 +17,7 @@ export const ShoppingBagIcon = () => {
   );
 };
 
-export const UserIcon = () => {
+export const UserIcon = ({ className }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -25,7 +25,7 @@ export const UserIcon = () => {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-6 h-6'
+      className={className}
     >
       <path
         strokeLinecap='round'
@@ -36,7 +36,7 @@ export const UserIcon = () => {
   );
 };
 
-export const SearchIcon = () => {
+export const SearchIcon = ({ className }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -44,7 +44,7 @@ export const SearchIcon = () => {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-6 h-6'
+      className={className}
     >
       <path
         strokeLinecap='round'
@@ -55,7 +55,7 @@ export const SearchIcon = () => {
   );
 };
 
-export const CloseIcon = () => {
+export const CloseIcon = ({ className }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -63,7 +63,7 @@ export const CloseIcon = () => {
       viewBox='0 0 24 24'
       strokeWidth={1.5}
       stroke='currentColor'
-      className='w-6 h-6'
+      className={className}
     >
       <path
         strokeLinecap='round'
