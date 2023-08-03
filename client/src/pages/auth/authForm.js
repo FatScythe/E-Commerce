@@ -104,7 +104,9 @@ const AuthForm = ({ value, setValue, handleToggleMember }) => {
                 }
                 value={value.password}
                 ref={passwordInputContainer}
-                className='peer'
+                className={`peer tracking-[0.5rem] ${
+                  !value.showPassword ? "font-extrabold" : "font-semibold"
+                }`}
               />
               <label
                 htmlFor='password'
