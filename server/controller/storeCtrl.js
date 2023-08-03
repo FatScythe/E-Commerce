@@ -7,8 +7,18 @@ const { checkPermissions } = require("../utils");
 
 const createStore = async (req, res) => {
   req.body.owner = req.user.userId;
+  const storeExist = await Store.findOne({ owner: req.user.userId });
+  if (storeExist) {
+    if (req.user.role === "user") {
+      await User.findOneAndUpdate({ _id: req.user.userId }, { role: "seller" });
+    }
+    res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "User already as a store" });
+    return;
+  }
 
-  if (req.user.role !== "admin") {
+  if (req.user.role === "user") {
     await User.findOneAndUpdate({ _id: req.user.userId }, { role: "seller" });
   }
 
@@ -38,6 +48,16 @@ const getStore = async (req, res) => {
       products: products || [],
     },
   });
+};
+
+const getMyStore = async (req, res) => {
+  const store = await Store.findOne({
+    owner: req.user.userId,
+  });
+  if (!store) {
+    res.status(StatusCodes.OK).json({ store: {} });
+  }
+  res.status(StatusCodes.OK).json({ store });
 };
 
 const updateStore = async (req, res) => {
@@ -72,6 +92,7 @@ module.exports = {
   createStore,
   getAllStores,
   getStore,
+  getMyStore,
   updateStore,
   deleteStore,
 };

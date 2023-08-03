@@ -3,6 +3,7 @@ const {
   createStore,
   getAllStores,
   getStore,
+  getMyStore,
   updateStore,
   deleteStore,
 } = require("../controller/storeCtrl");
@@ -12,6 +13,10 @@ const {
 } = require("../middlewares/authentication");
 
 router.route("/").get(getAllStores).post(authenticateUser, createStore);
+
+router
+  .route("/my-store")
+  .get([authenticateUser, authorizePermissions("admin", "seller")], getMyStore);
 
 router
   .route("/:id")
