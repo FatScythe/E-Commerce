@@ -140,8 +140,8 @@ const MyProducts = ({ user }) => {
             />
           ))
         ) : (
-          <div className='text-xl capitalize italic w-full text-center'>
-            you have no products yet, click the add product
+          <div className='text-lg first-letter:uppercase italic col-span-12 text-center'>
+            you have no products yet, click the add product to get started
           </div>
         )}
       </div>
