@@ -43,6 +43,7 @@ const StoreForm = ({ value, setValue, store }) => {
     if (value.type === "add") {
       dispatch(logoutUser());
     }
+    setValue({ ...value, loading: false });
   };
 
   return (
