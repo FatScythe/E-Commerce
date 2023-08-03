@@ -3,7 +3,7 @@
 }
 
 .modal-container .modal {
-    @apply bg-white rounded-lg h-1/3 shadow-md hover:shadow-2xl w-9/12 px-3 py-4 md:w-2/5 flex justify-between flex-col;
+    @apply bg-white rounded-lg h-1/2 shadow-md hover:shadow-2xl w-9/12 px-3 py-4 md:w-2/5 flex justify-between flex-col;
 }
 
 .modal-container .modal .close {
@@ -19,7 +19,7 @@
 }
 
 .modal-container .modal .question {
-    @apply first-letter:capitalize text-center text-base sm:text-lg;
+    @apply first-letter:capitalize  text-center text-base sm:text-lg;
 }
 
 .modal-container .modal .btns {
