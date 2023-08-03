@@ -71,6 +71,7 @@ export const crudProductThunk = async (url, thunkAPI) => {
     const data = await response.json();
 
     if (!response.ok) {
+      toast.dismiss();
       toast.error(data.msg);
       return data;
     }
@@ -90,6 +91,7 @@ export const crudProductThunk = async (url, thunkAPI) => {
     toast.success(`Product has been ${answer}`);
     return data;
   } catch (error) {
+    toast.dismiss();
     console.error(error);
     return error;
   }

@@ -65,8 +65,9 @@ export const storeCrudThunk = async (url, thunkAPI) => {
     const data = await response.json();
 
     if (!response.ok) {
-      toast.error(data.msg);
       toast.dismiss();
+      toast.error(data.msg);
+
       return data;
     }
 
