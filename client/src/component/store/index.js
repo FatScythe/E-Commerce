@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // Components
 import { ArrowUpRight } from "../../assets/icons/icon";
@@ -13,12 +12,7 @@ const StoreForm = ({ value, setValue, store }) => {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
 
-  useEffect(() => {
-    if (store) {
-      const { name, desc, fb, tiktok, insta, _id } = store.store;
-      setValue({ ...value, name, desc, tiktok, insta, fb, storeId: _id });
-    }
-  }, []);
+  console.log(store);
 
   const handleSubmit = (e) => {
     if (!user) {
@@ -33,7 +27,8 @@ const StoreForm = ({ value, setValue, store }) => {
       setValue({ ...value, loading: false });
       return;
     }
-    dispatch(storeCrud(value));
+
+    dispatch(storeCrud({ ...value, storeId: store ? store.store._id : "" }));
 
     if (value.type === "edit") {
       setTimeout(() => {
@@ -55,7 +50,7 @@ const StoreForm = ({ value, setValue, store }) => {
           <input
             type='text'
             value={value.name}
-            placeholder='Enter your store name'
+            placeholder={store ? store.store.name : "Enter your store name"}
             onChange={(e) => setValue({ ...value, name: e.target.value })}
             className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
@@ -66,7 +61,13 @@ const StoreForm = ({ value, setValue, store }) => {
           <input
             type='text'
             value={value.insta}
-            placeholder="Enter your store's Instagram link"
+            placeholder={
+              store
+                ? store.store.insta
+                  ? store.store.insta
+                  : "Enter your store's Instagram link"
+                : "Enter your store's Instagram link"
+            }
             onChange={(e) => setValue({ ...value, insta: e.target.value })}
             className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
@@ -77,7 +78,13 @@ const StoreForm = ({ value, setValue, store }) => {
           <input
             type='text'
             value={value.fb}
-            placeholder="Enter your store's Facebook link"
+            placeholder={
+              store
+                ? store.store.fb
+                  ? store.store.fb
+                  : "Enter your store's Facebook link"
+                : "Enter your store's Facebook link"
+            }
             onChange={(e) => setValue({ ...value, fb: e.target.value })}
             className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
@@ -88,7 +95,13 @@ const StoreForm = ({ value, setValue, store }) => {
           <input
             type='text'
             value={value.tiktok}
-            placeholder="Enter your store's Tiktok link"
+            placeholder={
+              store
+                ? store.store.tiktok
+                  ? store.store.tiktok
+                  : "Enter your store's Tiktok link"
+                : "Enter your store's Tiktok link"
+            }
             onChange={(e) => setValue({ ...value, tiktok: e.target.value })}
             className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
@@ -97,7 +110,9 @@ const StoreForm = ({ value, setValue, store }) => {
         <div className='col-span-12 row-start-3 row-end-5'>
           <label className='block font-bold pb-2'>Description</label>
           <textarea
-            placeholder='Describe your store and products'
+            placeholder={
+              store ? store.store.desc : "Describe your store and products"
+            }
             rows='10'
             value={value.desc}
             onChange={(e) => setValue({ ...value, desc: e.target.value })}
