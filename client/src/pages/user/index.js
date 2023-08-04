@@ -56,7 +56,7 @@ const User = () => {
           </Link>
         </div>
         {/* logo Here maybe?? AYETI ADORN*/}
-        <h4 className='title m-5 sm:mb-10 flex flex-col md:flex-row justify-center items-center gap-5'>
+        <h4 className='title m-5 sm:mb-10 flex flex-col md:flex-row justify-center items-center gap-5 text-center'>
           <img
             className='h-20 sm:h-10 sm:w-10 md:h-32 w-20 md:w-32 rounded-full object-cover'
             src={user.avatar}
@@ -147,7 +147,7 @@ const User = () => {
             <NavLink to='/user/orders'>
               <li>
                 <span>
-                  <ShoppingBagIcon />
+                  <ShoppingBagIcon className='w-6 h-6' />
                 </span>
                 <span>Orders</span>
               </li>

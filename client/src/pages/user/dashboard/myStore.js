@@ -53,7 +53,7 @@ const MyStore = ({ user }) => {
     setTimeout(() => {
       toast.dismiss();
       dispatch(logoutUser());
-    }, 5000);
+    }, 7000);
   };
 
   if (user.role === "user") {
