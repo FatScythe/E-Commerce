@@ -6,8 +6,8 @@ const Accordian = ({ title, desc }) => {
   const [isAccOpen, setIsAccOpen] = useState(false);
 
   return (
-    <div className='accordian'>
-      <header onClick={() => setIsAccOpen(!isAccOpen)}>
+    <div className='accordian' onClick={() => setIsAccOpen(!isAccOpen)}>
+      <header>
         <h3>{title}</h3>
         <button className='font-bold'>{isAccOpen ? "-" : "+"}</button>
       </header>
@@ -34,10 +34,10 @@ const HelpAccordian = () => {
           <a href='mailto:ayetiadorn@gmail.com'> email us</a>
         </li>
         <li className='uppercase'>
-          <Link to='/'>FAQ's</Link>
+          <Link to='/contact'>FAQ's</Link>
         </li>
         <li>
-          <Link to='/'>stores</Link>
+          <Link to='/stores'>stores</Link>
         </li>
       </p>
     </ul>
@@ -49,13 +49,13 @@ const ServicesAccordian = () => {
     <ul>
       <p>
         <li>
-          <Link to='/'>refunds</Link>
+          <Link to='/contact'>refunds</Link>
         </li>
         <li className='uppercase'>
-          <Link to='/'>personalizaton</Link>
+          <Link to='/contact'>personalizaton</Link>
         </li>
         <li>
-          <Link to='/'>art of gifting</Link>
+          <Link to='/products'>art of gifting</Link>
         </li>
         <li>
           <Link to='/'>download our app</Link>
@@ -70,16 +70,16 @@ const AboutAccordian = () => {
     <ul>
       <p>
         <li>
-          <Link to='/'>our ceo</Link>
+          <Link to='/about'>our ceo</Link>
         </li>
         <li>
-          <Link to='/'>sustainability</Link>
+          <Link to='/about'>sustainability</Link>
         </li>
         <li>
-          <Link to='/'>careers</Link>
+          <Link to='/about'>careers</Link>
         </li>
         <li>
-          <Link to='/'>latest news</Link>
+          <Link to='/about'>latest news</Link>
         </li>
       </p>
     </ul>

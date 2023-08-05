@@ -27,26 +27,30 @@ const Footer = () => {
           Ayeti-Adorn in the wild. #adornedByayeti
         </p>
         <div className='flex justify-start sm:justify-center items-center gap-6 my-6 transition-all duration-700'>
-          <a href='https:://'>
+          <a target='_blank' href='https://www.instagram.com/ayeti_adorn/'>
             <InstaIcon className='w-6 h-6 hover:scale-150 transition-all duration-300 ease-in-out' />
           </a>
-          <a href='https:://'>
+          <a target='_blank' href='https://www.instagram.com/ayeti_adorn/'>
             <TikTokIcon className='w-6 h-6 hover:scale-150 transition-all duration-300 ease-in-out' />
           </a>
-          <a href='https:://'>
+          <a target='_blank' href='https://www.instagram.com/ayeti_adorn/'>
             <FBIcon className='w-6 h-6 hover:scale-150 transition-all duration-300 ease-in-out' />
           </a>
-          <a href='https:://'>
+          <a target='_blank' href='https://www.instagram.com/ayeti_adorn/'>
             <PintrestIcon className='w-7 h-7 hover:scale-150 transition-all duration-300 ease-in-out' />
           </a>
         </div>
       </div>
 
-      <div className='legal'>
+      <a
+        target='_blank'
+        href='https://github.com/FatScythe/E-Commerce'
+        className='legal'
+      >
         <div>site</div>
         <div>legal & privacy</div>
         <div>cookies</div>
-      </div>
+      </a>
     </footer>
   );
 };
