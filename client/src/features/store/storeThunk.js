@@ -56,9 +56,9 @@ export const storeCrudThunk = async (url, thunkAPI) => {
       body: JSON.stringify({
         name,
         desc,
-        insta,
-        fb,
-        tiktok,
+        insta: `https://www.instagram.com/${insta.trim()}/`,
+        fb: `https://www.facebook.com/${fb}`,
+        tiktok: `tiktok.com/@${tiktok.trim()}`,
       }),
     });
 
