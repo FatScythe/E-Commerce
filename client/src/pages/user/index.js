@@ -46,7 +46,7 @@ const User = () => {
   return (
     <section id='user' className='relative sm:grid grid-cols-12'>
       <aside
-        className={`absolute sm:static transition-all duration-300 sm:col-span-2  md:col-span-3 h-screen bg-blue-400 py-4 ${
+        className={`absolute sm:static transition-all duration-300 sm:col-span-2 md:col-span-3 h-screen overflow-y-scroll bg-blue-400 py-4 ${
           openNav ? "left-0 sm:left-full w-5/6 sm:w-full" : "-left-full"
         } z-20`}
       >
@@ -56,7 +56,7 @@ const User = () => {
           </Link>
         </div>
         {/* logo Here maybe?? AYETI ADORN*/}
-        <h4 className='title m-5 sm:mb-10 flex flex-col md:flex-row justify-center items-center gap-5 text-center'>
+        <h4 className='title my-2 sm:mb-10 flex flex-col md:flex-row justify-center items-center gap-5 text-center'>
           <img
             className='h-20 sm:h-10 sm:w-10 md:h-32 w-20 md:w-32 rounded-full object-cover'
             src={user.avatar}
@@ -66,7 +66,7 @@ const User = () => {
           <p className='font-semibold text-white capitalize'>{user.name}</p>
         </h4>
 
-        <nav className='bg-transparent user-nav p-0 mb-10'>
+        <nav className='bg-transparent user-nav p-0 mb-6'>
           <ul
             className='pl-1 sm:pl-4 w-full bg-transparent'
             onClick={() => {
