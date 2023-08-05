@@ -52,7 +52,7 @@ const StoreForm = ({ value, setValue, store }) => {
             value={value.name}
             placeholder={store ? store.store.name : "Enter your store name"}
             onChange={(e) => setValue({ ...value, name: e.target.value })}
-            className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
+            className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
         </div>
 
@@ -69,7 +69,7 @@ const StoreForm = ({ value, setValue, store }) => {
                 : "Enter your store's Instagram link"
             }
             onChange={(e) => setValue({ ...value, insta: e.target.value })}
-            className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
+            className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
         </div>
 
@@ -86,7 +86,7 @@ const StoreForm = ({ value, setValue, store }) => {
                 : "Enter your store's Facebook link"
             }
             onChange={(e) => setValue({ ...value, fb: e.target.value })}
-            className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
+            className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
         </div>
 
@@ -103,7 +103,7 @@ const StoreForm = ({ value, setValue, store }) => {
                 : "Enter your store's Tiktok link"
             }
             onChange={(e) => setValue({ ...value, tiktok: e.target.value })}
-            className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
+            className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
           />
         </div>
 
@@ -116,7 +116,7 @@ const StoreForm = ({ value, setValue, store }) => {
             rows='10'
             value={value.desc}
             onChange={(e) => setValue({ ...value, desc: e.target.value })}
-            className='bg-gray-300/30 w-full outline-none p-2 text-base placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2 resize-none'
+            className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2 resize-none'
           ></textarea>
         </div>
       </main>
