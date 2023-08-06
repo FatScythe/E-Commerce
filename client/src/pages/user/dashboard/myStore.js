@@ -28,6 +28,7 @@ const MyStore = ({ user }) => {
     fb: "",
     tiktok: "",
     type: "edit",
+    open: true,
     loading: false,
     show: false,
     storeId: "",
@@ -72,7 +73,7 @@ const MyStore = ({ user }) => {
     return <Error1 />;
   }
 
-  const { name } = singleStore.store;
+  const { name, desc, fb, tiktok, insta, open, _id } = singleStore.store;
 
   return (
     <section>
@@ -81,16 +82,40 @@ const MyStore = ({ user }) => {
       </h2>
       <div className='my-10 flex justify-between items-center'>
         <h3 className='italic capitalize sm:text-lg font-semibold'>{name}</h3>
-        <button
-          className='bg-tomato py-2 px-3 text-white sm:text-base rounded-md'
-          onClick={() =>
-            dispatch(
-              showModal({ open: true, question, positiveFn, negativeFn })
-            )
-          }
-        >
-          delete store
-        </button>
+        <div className='flex gap-2 items-center justify-between'>
+          <button
+            className={`py-2 px-3 ${
+              open ? "bg-yellowish" : "bg-blue-500"
+            } text-white sm:text-base rounded-md`}
+            onClick={() => {
+              toast.success(`Store is ${open ? "closing" : "open"}`);
+              dispatch(
+                storeCrud({
+                  name,
+                  desc,
+                  fb,
+                  tiktok,
+                  insta,
+                  open: open ? false : true,
+                  type: "edit",
+                  storeId: _id,
+                })
+              );
+            }}
+          >
+            {open ? " close store" : "open store"}
+          </button>
+          <button
+            className='bg-tomato py-2 px-3 text-white sm:text-base rounded-md'
+            onClick={() =>
+              dispatch(
+                showModal({ open: true, question, positiveFn, negativeFn })
+              )
+            }
+          >
+            delete store
+          </button>
+        </div>
       </div>
       <StoreForm value={value} store={singleStore} setValue={setValue} />
     </section>
