@@ -12,8 +12,6 @@ const StoreForm = ({ value, setValue, store }) => {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
 
-  console.log(store);
-
   const handleSubmit = (e) => {
     if (!user) {
       navigate("/auth");
@@ -65,8 +63,8 @@ const StoreForm = ({ value, setValue, store }) => {
               store
                 ? store.store.insta
                   ? store.store.insta
-                  : "Enter your store's Instagram link"
-                : "Enter your store's Instagram link"
+                  : "Instagram username"
+                : "Instagram username"
             }
             onChange={(e) => setValue({ ...value, insta: e.target.value })}
             className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
@@ -82,8 +80,8 @@ const StoreForm = ({ value, setValue, store }) => {
               store
                 ? store.store.fb
                   ? store.store.fb
-                  : "Enter your store's Facebook link"
-                : "Enter your store's Facebook link"
+                  : "Facebook username"
+                : "Facebook uername"
             }
             onChange={(e) => setValue({ ...value, fb: e.target.value })}
             className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
@@ -99,8 +97,8 @@ const StoreForm = ({ value, setValue, store }) => {
               store
                 ? store.store.tiktok
                   ? store.store.tiktok
-                  : "Enter your store's Tiktok link"
-                : "Enter your store's Tiktok link"
+                  : "Tiktok username"
+                : "Tiktok username"
             }
             onChange={(e) => setValue({ ...value, tiktok: e.target.value })}
             className='bg-gray-300/30 w-full outline-none p-2 text-base border border-transparent focus:border-black focus:border-2 placeholder:text-normal placeholder:text-slate-700 placeholder:pl-2'
