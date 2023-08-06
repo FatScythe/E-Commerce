@@ -7,7 +7,7 @@ module.exports = {
         primary: "#11345A",
         secondary: "#BAE8F2",
         tomato: "#FF6363",
-        yellowish: "#888883",
+        yellowish: "#caca96",
         bkg: "#171819",
         muted: "#C9CBCF",
         accent: "#66CCC1",
