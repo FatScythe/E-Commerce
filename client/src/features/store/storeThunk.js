@@ -31,9 +31,7 @@ export const storeThunk = async (url, thunkAPI) => {
 };
 
 export const storeCrudThunk = async (url, thunkAPI) => {
-  const { name, desc, insta, fb, tiktok, type, storeId } = thunkAPI;
-  console.log(thunkAPI, "In thunk");
-
+  const { name, desc, insta, fb, tiktok, open, type, storeId } = thunkAPI;
   let method = "POST";
 
   if (type === "edit") {
@@ -59,6 +57,7 @@ export const storeCrudThunk = async (url, thunkAPI) => {
         insta: `https://www.instagram.com/${insta.trim()}/`,
         fb: `https://www.facebook.com/${fb}`,
         tiktok: `tiktok.com/@${tiktok.trim()}`,
+        open,
       }),
     });
 
