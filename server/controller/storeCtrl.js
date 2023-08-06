@@ -62,7 +62,7 @@ const getMyStore = async (req, res) => {
 
 const updateStore = async (req, res) => {
   const { id: storeId } = req.params;
-  const { name, desc, insta, fb, tiktok } = req.body;
+  const { name, desc, insta, fb, tiktok, open } = req.body;
   const store = await Store.findOne({ _id: storeId });
   if (!store) throw new NotFoundError(`No store with id: ${storeId}`);
   checkPermissions(req.user, store.owner);
@@ -72,6 +72,7 @@ const updateStore = async (req, res) => {
   store.insta = insta;
   store.fb = fb;
   store.tiktok = tiktok;
+  store.open = open;
 
   await store.save();
   res.status(StatusCodes.OK).json({ store });

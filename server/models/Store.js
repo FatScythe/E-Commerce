@@ -20,6 +20,10 @@ const storeSchema = new Schema(
     tiktok: {
       type: String,
     },
+    open: {
+      type: Boolean,
+      default: true,
+    },
     featured: {
       type: Boolean,
       default: false,
