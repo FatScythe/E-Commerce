@@ -73,7 +73,7 @@ const MyStore = ({ user }) => {
     return <Error1 />;
   }
 
-  const { name, desc, fb, tiktok, insta, open, _id } = singleStore.store;
+  const { name, open, _id } = singleStore.store;
 
   return (
     <section>
@@ -88,19 +88,16 @@ const MyStore = ({ user }) => {
               open ? "bg-yellowish" : "bg-blue-500"
             } text-white sm:text-base rounded-md`}
             onClick={() => {
-              toast.success(`Store is ${open ? "closing" : "open"}`);
               dispatch(
                 storeCrud({
-                  name,
-                  desc,
-                  fb,
-                  tiktok,
-                  insta,
+                  ...singleStore.store,
                   open: open ? false : true,
                   type: "edit",
                   storeId: _id,
                 })
               );
+              toast.success(`${open ? "Closing" : "Opening"} store`);
+              setTimeout(() => dispatch(fetchSingleStore()), 5000);
             }}
           >
             {open ? " close store" : "open store"}

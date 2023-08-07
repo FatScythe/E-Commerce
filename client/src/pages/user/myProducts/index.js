@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 // Redux
 import { useDispatch } from "react-redux";
 import { crudProducts } from "../../../features/product/productSlice";
+import { showModal, closeModal } from "../../../features/ui/uiSlice";
 // Hooks
 import useFetch from "../../../hooks/useFetch";
 
@@ -100,7 +101,7 @@ const MyProducts = ({ user }) => {
     return <Loader1 />;
   }
 
-  if (error || !data.products) {
+  if (error || !data.products || data.products === undefined) {
     return <Error1 />;
   }
   const { products, count } = data;
@@ -152,6 +153,16 @@ const MyProducts = ({ user }) => {
 export default MyProducts;
 
 const Card = ({ product, handleEditProduct, handleDeleteProduct }) => {
+  const dispatch = useDispatch();
+  const question = "Are you sure you want to delete product?";
+  const positiveFn = () => {
+    handleDeleteProduct(product._id);
+    dispatch(closeModal());
+  };
+  const negativeFn = () => {
+    dispatch(closeModal());
+  };
+
   return (
     <div className='col-span-12 sm:col-span-6 lg:col-span-4'>
       <ProductCard1 {...product} />
@@ -163,7 +174,9 @@ const Card = ({ product, handleEditProduct, handleDeleteProduct }) => {
       </button>
       <button
         className='block my-5 bg-tomato hover:bg-secondary hover:text-black text-white rounded-3xl w-full p-4  transition-all duration-500 ease-in-out'
-        onClick={() => handleDeleteProduct(product._id)}
+        onClick={() =>
+          dispatch(showModal({ open: true, question, positiveFn, negativeFn }))
+        }
       >
         delete product
       </button>
