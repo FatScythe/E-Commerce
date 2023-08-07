@@ -27,7 +27,11 @@ const createStore = async (req, res) => {
 };
 
 const getAllStores = async (req, res) => {
-  const stores = await Store.find({});
+  const stores = await Store.find({}).populate({
+    path: "owner",
+    select: "avatar",
+  });
+
   const count = await Store.countDocuments({});
   res.status(StatusCodes.OK).json({ count, stores });
 };
