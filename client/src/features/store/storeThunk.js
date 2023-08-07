@@ -6,7 +6,8 @@ export const storesThunk = async (url, thunkAPI) => {
     const data = await response.json();
 
     if (!response.ok) {
-      return thunkAPI.rejectWithValue(data.msg);
+      toast.error(data.msg);
+      return null;
     }
     return data;
   } catch (error) {
@@ -54,9 +55,9 @@ export const storeCrudThunk = async (url, thunkAPI) => {
       body: JSON.stringify({
         name,
         desc,
-        insta: `https://www.instagram.com/${insta.trim()}/`,
-        fb: `https://www.facebook.com/${fb}`,
-        tiktok: `tiktok.com/@${tiktok.trim()}`,
+        insta: insta ? `https://www.instagram.com/${insta.trim()}/` : "",
+        fb: fb ? `https://www.facebook.com/${fb}` : "",
+        tiktok: tiktok ? `https://tiktok.com/@${tiktok.trim()}` : "",
         open,
       }),
     });
