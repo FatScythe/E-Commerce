@@ -3,6 +3,7 @@ import { useState } from "react";
 import StoreForm from "../../component/store";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router";
+import { toast } from "react-toastify";
 
 const CreateStore = () => {
   const { user } = useSelector((store) => store.user);
@@ -19,8 +20,10 @@ const CreateStore = () => {
   });
 
   if (user && user.role === "seller") {
+    toast.info("You already have a store");
     return <Navigate to='/user/store' />;
   }
+
   return (
     <section id='create-store' className='container mt-8'>
       <h2 className='text-lg sm:text-xl font-semibold sm:font-bold'>
