@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { storesThunk, storeThunk, storeCrudThunk } from "./storeThunk";
+import { storesThunk, myStoreThunk, storeCrudThunk } from "./storeThunk";
 
 import url from "../../utils/url";
 
@@ -17,10 +17,10 @@ export const fetchStores = createAsyncThunk(
   }
 );
 
-export const fetchSingleStore = createAsyncThunk(
-  "store/fetchSingleStores",
+export const fetchMyStore = createAsyncThunk(
+  "store/fetchMyStores",
   async (thunkAPI) => {
-    return storeThunk(url + "/api/v1/stores/my-store", thunkAPI);
+    return myStoreThunk(url + "/api/v1/stores/my-store", thunkAPI);
   }
 );
 
@@ -45,14 +45,14 @@ const storeSlice = createSlice({
         state.stores_status = "err";
       })
       // Fetch Single Store
-      .addCase(fetchSingleStore.pending, (state) => {
+      .addCase(fetchMyStore.pending, (state) => {
         state.singleStore_status = "pending";
       })
-      .addCase(fetchSingleStore.fulfilled, (state, { payload }) => {
+      .addCase(fetchMyStore.fulfilled, (state, { payload }) => {
         state.singleStore = payload;
         state.singleStore_status = "ok";
       })
-      .addCase(fetchSingleStore.rejected, (state) => {
+      .addCase(fetchMyStore.rejected, (state) => {
         state.singleStore_status = "err";
       });
   },

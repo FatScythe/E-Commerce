@@ -15,7 +15,7 @@ export const storesThunk = async (url, thunkAPI) => {
   }
 };
 
-export const storeThunk = async (url, thunkAPI) => {
+export const myStoreThunk = async (url, thunkAPI) => {
   try {
     const response = await fetch(url);
     const data = await response.json();
