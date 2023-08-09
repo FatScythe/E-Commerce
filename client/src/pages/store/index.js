@@ -1,5 +1,6 @@
 import "./store.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 // Images
 import bg from "../../assets/images/a3.jpg";
 import img from "../../assets/images/a6.jpeg";
@@ -35,14 +36,8 @@ const StorePage = () => {
       <h3>No of stores ------ {stores.count}</h3>
       <div className='w-full grid grid-cols-12 gap-4'>
         {stores.stores.map((store) => {
-          console.log(store);
           return <StoreCard {...store} key={store._id} />;
         })}
-
-        {/* <StoreCard />
-        <StoreCard />
-        <StoreCard />
-        <StoreCard /> */}
       </div>
     </section>
   );
@@ -50,14 +45,31 @@ const StorePage = () => {
 
 export default StorePage;
 
-const StoreCard = ({ name, owner, open }) => {
+const StoreCard = ({ _id, name, owner, open }) => {
+  const { products } = useSelector((store) => store.product);
+
   const [images, setImages] = useState([bg, img]);
   const [bgImage, setBgImage] = useState(bg);
-  // if (items !== undefined && items.length > 0) {
-  //   setImages(items);
-  // }
+
+  const checkForProductImages = (products) => {
+    let productImages;
+    if (products === undefined || null) {
+      productImages = [];
+    }
+    productImages = products.filter((product) => product.store === name);
+    if (productImages.length > 1) {
+      setImages([productImages[0].image, productImages[1].image]);
+      setBgImage(productImages[0].image);
+    }
+  };
+
+  useEffect(() => {
+    checkForProductImages(products);
+  }, []);
+
   return (
-    <div
+    <Link
+      to={"/store/" + _id}
       className='relative col-span-12 sm:col-span-6 md:col-span-4 group h-60 sm:h-80 w-full overflow-hidden rounded-md cursor-pointer'
       title='Ayeti Adorn'
       onMouseOver={() => setBgImage(images[1])}
@@ -71,6 +83,7 @@ const StoreCard = ({ name, owner, open }) => {
           </div>
         </div>
       )}
+
       <img
         src={bgImage}
         draggable={false}
@@ -85,10 +98,10 @@ const StoreCard = ({ name, owner, open }) => {
           draggable={false}
           className='h-16 w-16 sm:h-32 sm:w-32 p-0.5 rounded-full object-cover border-4 border-green-500 border-t-2 border-l-0 '
         />
-        <h2 className='text-white'>{name}</h2>
+        <h2 className='text-white bg-1 bg-black/25 group-hover:bg-black/40 mt-3'>
+          {name}
+        </h2>
       </header>
-
-      <footer></footer>
-    </div>
+    </Link>
   );
 };
