@@ -2,6 +2,7 @@
 import Home from "../../pages/home";
 import Store from "../../pages/store";
 import CreateStore from "../../pages/store/createStore";
+import SingleStore from "../../pages/store/singleStore";
 import Search from "../../pages/search";
 import Auth from "../../pages/auth";
 import Cart from "../../pages/cart";
@@ -36,6 +37,13 @@ export const navLinks = [
     path: "/vendor",
     showNav: true,
     element: <CreateStore />,
+  },
+
+  {
+    id: 2.1,
+    path: "/store/:id",
+    showNav: true,
+    element: <SingleStore />,
   },
   {
     id: 3,
