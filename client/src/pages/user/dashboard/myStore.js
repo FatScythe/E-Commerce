@@ -4,10 +4,7 @@ import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchSingleStore,
-  storeCrud,
-} from "../../../features/store/storeSlice";
+import { fetchMyStore, storeCrud } from "../../../features/store/storeSlice";
 import { logoutUser } from "../../../features/user/userSlice";
 import { closeModal, showModal } from "../../../features/ui/uiSlice";
 // Component
@@ -35,7 +32,7 @@ const MyStore = ({ user }) => {
   });
 
   useEffect(() => {
-    dispatch(fetchSingleStore());
+    dispatch(fetchMyStore());
   }, [dispatch]);
 
   const question = "Are you sure you want to delete store?";
@@ -97,7 +94,7 @@ const MyStore = ({ user }) => {
                 })
               );
               toast.success(`${open ? "Closing" : "Opening"} store`);
-              setTimeout(() => dispatch(fetchSingleStore()), 5000);
+              setTimeout(() => dispatch(fetchMyStore()), 5000);
             }}
           >
             {open ? " close store" : "open store"}
