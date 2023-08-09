@@ -4,7 +4,7 @@ import { ArrowUpRight } from "../../assets/icons/icon";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { storeCrud, fetchSingleStore } from "../../features/store/storeSlice";
+import { storeCrud, fetchMyStore } from "../../features/store/storeSlice";
 import { logoutUser } from "../../features/user/userSlice";
 
 const StoreForm = ({ value, setValue, store }) => {
@@ -30,7 +30,7 @@ const StoreForm = ({ value, setValue, store }) => {
 
     if (value.type === "edit") {
       setTimeout(() => {
-        dispatch(fetchSingleStore());
+        dispatch(fetchMyStore());
       }, 3000);
     }
     if (value.type === "add") {
