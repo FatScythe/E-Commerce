@@ -42,7 +42,7 @@ export const navLinks = [
   {
     id: 2.1,
     path: "/store/:id",
-    showNav: true,
+    showNav: false,
     element: <SingleStore />,
   },
   {
