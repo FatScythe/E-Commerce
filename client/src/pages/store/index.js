@@ -11,6 +11,7 @@ import { Clock } from "../../assets/icons/icon";
 // Redux
 import { fetchStores } from "../../features/store/storeSlice";
 import { useDispatch, useSelector } from "react-redux";
+// Components
 import Loader1 from "../../component/loaders/loader1";
 import Error1 from "../../component/loaders/error";
 
@@ -27,7 +28,7 @@ const StorePage = () => {
     return <Loader1 />;
   }
 
-  if (stores_status === "err" || stores == undefined) {
+  if (stores_status === "err" || stores === undefined) {
     return <Error1 />;
   }
 
