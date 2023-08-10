@@ -40,20 +40,20 @@ const NotNav = ({ navLinks, name }) => {
       <div className='options flex justify-between items-center gap-4'>
         {navLinks.cart && (
           <Link to='/cart' title='cart'>
-            <ShoppingBagIcon />
+            <ShoppingBagIcon className={"w-6 h-6"} />
           </Link>
         )}
         {navLinks.search && (
           <Link to='/search' title='search'>
-            <SearchIcon />
+            <SearchIcon className={"w-6 h-6"} />
           </Link>
         )}
         {navLinks.store && (
           <Link to='/stores' title='stores'>
-            <StoreIcon />
+            <StoreIcon className={"w-6 h-6"} />
           </Link>
         )}
-        {navLinks.auth && <Auth />}
+        {navLinks.auth && <Auth className={"w-6 h-6"} />}
       </div>
     </div>
   );
@@ -68,7 +68,7 @@ const Auth = () => {
     <>
       {user ? (
         <Link to='/user/settings' title='user'>
-          <UserIcon />
+          <UserIcon className={"w-6 h-6"} />
         </Link>
       ) : (
         <Link to='/auth' title='Sign-In'>
