@@ -2,8 +2,8 @@ import "./store.css";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // Images
-import bg from "../../assets/images/a3.jpg";
-import img from "../../assets/images/a6.jpeg";
+import bg from "../../assets/images/b4.jpeg";
+import img from "../../assets/images/b7.jpeg";
 // Hook
 import useTitle from "../../hooks/useTitle";
 // Icon
@@ -27,7 +27,7 @@ const StorePage = () => {
     return <Loader1 />;
   }
 
-  if (stores_status === "err") {
+  if (stores_status === "err" || stores == undefined) {
     return <Error1 />;
   }
 
@@ -52,14 +52,14 @@ const StoreCard = ({ _id, name, owner, open }) => {
   const [bgImage, setBgImage] = useState(bg);
 
   const checkForProductImages = (products) => {
-    let productImages;
+    let filteredProduct;
     if (products === undefined || null) {
-      productImages = [];
+      filteredProduct = [];
     }
-    productImages = products.filter((product) => product.store === name);
-    if (productImages.length > 1) {
-      setImages([productImages[0].image, productImages[1].image]);
-      setBgImage(productImages[0].image);
+    filteredProduct = products.filter((product) => product.store === name);
+    if (filteredProduct.length > 1) {
+      setImages([filteredProduct[0].image, filteredProduct[1].image]);
+      setBgImage(filteredProduct[0].image);
     }
   };
 
@@ -71,7 +71,7 @@ const StoreCard = ({ _id, name, owner, open }) => {
     <Link
       to={"/store/" + _id}
       className='relative col-span-12 sm:col-span-6 md:col-span-4 group h-60 sm:h-80 w-full overflow-hidden rounded-md cursor-pointer'
-      title='Ayeti Adorn'
+      title={name}
       onMouseOver={() => setBgImage(images[1])}
       onMouseOut={() => setBgImage(images[0])}
     >
@@ -88,7 +88,7 @@ const StoreCard = ({ _id, name, owner, open }) => {
         src={bgImage}
         draggable={false}
         className='transform scale-100 group-hover:scale-125 transition-all duration-700 object-bottom sm:bg-cover'
-        alt=''
+        alt='Store products'
       />
 
       <header className='w-fit sm:w-full flex flex-col justify-center items-center overflow-hidden absolute left-1 bottom-3 sm:bottom-4'>
