@@ -120,7 +120,17 @@ const User = () => {
               </li>
             </NavLink>
 
-            {user.role !== "user" && (
+            {user.role === "admin" && (
+              <NavLink to='/user/store'>
+                <li>
+                  <span>
+                    <StoreIcon />
+                  </span>
+                  <span>All Store</span>
+                </li>
+              </NavLink>
+            )}
+            {user.role === "seller" && (
               <NavLink to='/user/store'>
                 <li>
                   <span>
