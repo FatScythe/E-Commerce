@@ -26,7 +26,9 @@ import { toast } from "react-toastify";
 
 const MyProducts = ({ user }) => {
   const { data, pending, error } = useFetch(
-    url + "/api/v1/products/my-products",
+    url + user.role !== "admin"
+      ? "/api/v1/products/my-products"
+      : "/api/v1/products",
     5000
   );
 
