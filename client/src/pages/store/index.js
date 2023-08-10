@@ -34,7 +34,9 @@ const StorePage = () => {
 
   return (
     <section id='stores' className='container mt-6 overflow-hidden'>
-      <h3>No of stores ------ {stores.count}</h3>
+      <h3 className='text-base my-5 italic font-semibold'>
+        {stores.count} Stores
+      </h3>
       <div className='w-full grid grid-cols-12 gap-4'>
         {stores.stores.map((store) => {
           return <StoreCard {...store} key={store._id} />;
