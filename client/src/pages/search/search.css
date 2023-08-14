@@ -20,7 +20,7 @@
 }
 
 #search main .search-result .result-items {
-    @apply mt-5;
+    @apply my-4;
 }
 
 #search main .search-result .result-items .result-item .title {
@@ -28,7 +28,7 @@
 }
 
 #search main .search-result .result-items .result-item img {
-    @apply object-contain w-12 h-12 md:h-16 md:w-16;
+    @apply object-cover w-12 h-12 md:h-16 md:w-16;
 }
 
 #search main .no-recent {
@@ -52,12 +52,12 @@
 }
 
 #search main .recent .recent-items {
-    @apply md:grid grid-cols-2 gap-4 mt-5 md:mt-10
+    @apply md:grid grid-cols-2 gap-4 mt-5 md:mt-10;
 }
 
 #search main .search-result .result-items .result-item, 
 #search main .recent .recent-item {
-    @apply flex justify-between items-center mb-4 p-2 md:px-7 hover:bg-slate-300 rounded-md;
+    @apply flex justify-between items-center mb-4 p-2 md:px-7 hover:bg-slate-300 rounded-md text-left;
 }
 
 #search main .search-result .result-items .result-item .title h2,

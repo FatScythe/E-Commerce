@@ -18,6 +18,9 @@ import useTitle from "../../hooks/useTitle";
 
 const Search = () => {
   useTitle("Search");
+  const [allProducts, setAllProducts] = useState([]);
+  const [allStores, setAllStores] = useState([]);
+
   const dispatch = useDispatch();
 
   const question = "clear all recent searches?";
@@ -26,7 +29,6 @@ const Search = () => {
     dispatch(closeModal());
   };
   const negativeFn = () => {
-    console.log("Home negative fn");
     dispatch(closeModal());
   };
 
@@ -38,8 +40,15 @@ const Search = () => {
     <section id='search' className='container'>
       <NotNav navLinks={{ store: "stores", cart: "cart", auth: "auth" }} />
       <main className='relative'>
-        <SearchInput searchText={searchText} setSearchText={setSearchText} />
-        {searchText && <SearchResult />}
+        <SearchInput
+          searchText={searchText}
+          setSearchText={setSearchText}
+          setAllProducts={setAllProducts}
+          setAllStores={setAllStores}
+        />
+        {searchText && (
+          <SearchResult allProducts={allProducts} allStores={allStores} />
+        )}
         {search.searchHistory.length === 0 && (
           <p className='no-recent'>try searching for products in stores</p>
         )}
@@ -54,13 +63,19 @@ const Search = () => {
                   );
                 }}
               >
-                <CloseIcon />
+                <CloseIcon className='w-6 h-6' />
               </button>
             </div>
 
             <div className='recent-items'>
               {search.searchHistory.map((item, index) => {
-                return <Recent item={item} key={index} />;
+                return (
+                  <Recent
+                    item={item}
+                    key={index}
+                    setSearchText={setSearchText}
+                  />
+                );
               })}
             </div>
           </div>

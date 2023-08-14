@@ -1,10 +1,10 @@
 import { ArrowUpLeft } from "../../assets/icons/icon";
-const Recent = ({ item }) => {
+const Recent = ({ item, setSearchText }) => {
   return (
-    <div className='recent-item'>
+    <button className='recent-item' onClick={() => setSearchText(item)}>
       <h2>{item}</h2>
       <ArrowUpLeft />
-    </div>
+    </button>
   );
 };
 
