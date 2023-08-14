@@ -1,4 +1,12 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+
+const getSearchHistory = () => {
+  if (localStorage.getItem("searchHistory")) {
+    return JSON.parse(localStorage.getItem("searchHistory"));
+  }
+
+  return [];
+};
 
 const initialState = {
   showNav: true,
@@ -9,9 +17,8 @@ const initialState = {
     negativeFn: null,
   },
   search: {
-    searchHistory: [],
+    searchHistory: getSearchHistory(),
     isOpen: false,
-    searchResults: [],
   },
   darkMode: true,
 };
@@ -34,13 +41,23 @@ const uiSlice = createSlice({
     },
 
     addToSearchHistory: (state, { payload }) => {
-      if (current(state).search.searchHistory.length >= 10) {
+      if (state.search.searchHistory.length >= 10) {
         state.search.searchHistory.shift();
       }
-      state.search.searchHistory.push(payload);
+      state.search.searchHistory.unshift(payload);
+      localStorage.setItem(
+        "searchHistory",
+        JSON.stringify(state.search.searchHistory)
+      );
     },
     clearSearchHistory: (state) => {
       state.search.searchHistory = [];
+      if (localStorage.getItem("searchHistory")) {
+        localStorage.setItem(
+          "searchHistory",
+          JSON.stringify(state.search.searchHistory)
+        );
+      }
     },
   },
 });
