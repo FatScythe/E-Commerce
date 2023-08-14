@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Redux
 import { fetchProducts } from "./features/product/productSlice";
+import { fetchStores } from "./features/store/storeSlice";
 import { saveUser, removeUser } from "./features/user/userSlice";
 import { calculateTotal } from "./features/cart/cartSlice";
 
@@ -41,6 +42,7 @@ function App() {
   useEffect(() => {
     fetchUser();
     dispatch(fetchProducts());
+    dispatch(fetchStores());
     dispatch(calculateTotal());
   });
 
