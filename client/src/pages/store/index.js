@@ -9,20 +9,14 @@ import useTitle from "../../hooks/useTitle";
 // Icon
 import { Clock } from "../../assets/icons/icon";
 // Redux
-import { fetchStores } from "../../features/store/storeSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // Components
 import Loader1 from "../../component/loaders/loader1";
 import Error1 from "../../component/loaders/error";
 
 const StorePage = () => {
   const { stores, stores_status } = useSelector((store) => store.store);
-  const dispatch = useDispatch();
   useTitle("Stores");
-
-  useEffect(() => {
-    dispatch(fetchStores());
-  }, [dispatch]);
 
   if (stores_status === "pending") {
     return <Loader1 />;
