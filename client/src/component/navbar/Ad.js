@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 const Ad = () => {
   const [nav, setNav] = useState(false);
   const { user } = useSelector((store) => store.user);
+  const { dark } = useSelector((store) => store.ui);
 
   const changeNav = () => {
     window.scrollY <= 150 ? setNav(true) : setNav(false);
@@ -22,9 +23,9 @@ const Ad = () => {
   return (
     <Link
       to='/vendor'
-      className={`fixed overflow-hidden flex justify-between items-center transition-all top-0 left-0 right-0 duration-500 bg-black md:bg-primary w-full text-white ${
-        !nav ? "h-0 -top-40" : "h-8 sm:h-8 z-50"
-      }`}
+      className={`fixed overflow-hidden flex justify-between items-center transition-all top-0 left-0 right-0 duration-500 bg-black ${
+        dark ? "md:bg-black" : "md:bg-primary"
+      } w-full text-white ${!nav ? "h-0 -top-40" : "h-8 sm:h-8 z-50"}`}
     >
       <span className='basis-11/12 text-sm sm:text-normal sm:font-semibold text-center'>
         Own a store, become a vendor and get up to 90% payback
