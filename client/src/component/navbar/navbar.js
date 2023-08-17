@@ -14,8 +14,8 @@ const Navbar = () => {
   return (
     <nav
       id='top-nav'
-      className={`bg-primary ${
-        dark ? "md:primary text-white" : "md:bg-white md:text-black"
+      className={`bg-primary text-white ${
+        dark ? "md:bg-primary" : "md:bg-white md:text-black"
       }`}
     >
       <Ad />
@@ -57,13 +57,13 @@ const Navbar = () => {
           </div>
         </div>
         <div
-          className={`navlinks-container ${
+          className={`navlinks-container bg-primary ${
             dark ? "md:bg-primary" : "md:bg-white"
           } ${isNavOpen ? "max-h-full overflow-hidden" : "max-h-0"}`}
         >
           <ul
             className={`navlinks ${
-              dark ? "md:bg-primary text-white" : "md:bg-transparent"
+              dark ? "md:bg-primary text-white" : "md:bg-white text-black"
             }`}
             onClick={() => setIsNavOpen(!isNavOpen)}
           >

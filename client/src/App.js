@@ -47,7 +47,7 @@ function App() {
   });
 
   return (
-    <div className='App'>
+    <div className={`App ${ui.dark ? "bg-dark" : ""}`}>
       <Router>
         {ui.Modal.open && <Modal />}
         <ToastContainer position='top-center' />

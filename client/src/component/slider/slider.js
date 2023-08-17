@@ -3,11 +3,14 @@ import { useState, useEffect } from "react";
 // Components
 import { ArrowLeft, ArrowRight } from "../../assets/icons/icon";
 import { ProductCard1 } from "../../pages/products/productCard";
+// Redux
+import { useSelector } from "react-redux";
 
 const Slider = ({ title, array }) => {
   const [current, setCurrent] = useState(0);
   const [width, setWidth] = useState(null);
   const [cardWidth, setCardWidth] = useState(null);
+  const { dark } = useSelector((state) => state.ui);
 
   const updateWidth = () => {
     setWidth(window.innerWidth);
@@ -45,10 +48,16 @@ const Slider = ({ title, array }) => {
   }, [current]);
 
   return (
-    <footer>
+    <main>
       <div className='slider mt-3'>
         <div className='title flex justify-between items-center'>
-          <h2 className='text-base sm:text-xl capitalize font-bold'>{title}</h2>
+          <h2
+            className={`text-base sm:text-xl capitalize font-bold ${
+              dark ? "text-white" : ""
+            }`}
+          >
+            {title}
+          </h2>
 
           <div className='controls flex justify-between items-center gap-6'>
             <button
@@ -79,8 +88,8 @@ const Slider = ({ title, array }) => {
             <div
               className={`w-72 p-2 sm:w-96 overflow-hidden ${
                 index === current + 1
-                  ? "blur-none scale-90 shadow-xl bg-white"
-                  : "scale-75 blur--[1px] md:blur-none"
+                  ? "blur-none shadow-xl"
+                  : "blur--[1px] md:blur-none"
               } transition-all duration-1000 ease-in-out`}
               key={item._id}
             >
@@ -89,7 +98,7 @@ const Slider = ({ title, array }) => {
           ))}
         </div>
       </div>
-    </footer>
+    </main>
   );
 };
 

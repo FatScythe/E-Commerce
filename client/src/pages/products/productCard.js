@@ -56,8 +56,13 @@ export const ProductCard1 = ({
   averageRating,
   numOfReviews,
 }) => {
+  const { dark } = useSelector((store) => store.ui);
   return (
-    <div className='product-card1 col-span-12 sm:col-span-6 md:col-span-4'>
+    <div
+      className={`product-card1 ${
+        dark ? "bg-primary text-white" : "bg-transparent"
+      } col-span-12 sm:col-span-6 md:col-span-4`}
+    >
       <header className='relative'>
         <div className='overlay flex gap-2 justify-center items-center'>
           <Link

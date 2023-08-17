@@ -1,5 +1,5 @@
 nav#top-nav {
-    @apply capitalize max-w-full mx-auto px-6 sticky top-0 z-50 text-white pt-8 md:pt-0 md:mt-7 md:mb-2 p-4;
+    @apply capitalize max-w-full mx-auto px-6 sticky top-0 z-50 pt-8 md:pt-0 md:mt-7 md:mb-2 p-4;
 }
 
 nav#top-nav .logo {
@@ -39,7 +39,7 @@ nav#top-nav .logo .toggle-menu.open .line:last-child {
 }
 
 nav#top-nav .navlinks-container {
-    @apply md:max-h-full pr-8 md:pr-0 md:pt-0 md:basis-3/4 flex flex-col items-center md:flex-row justify-center md:justify-between w-screen fixed md:static top-0 left-0 right-0 bottom-0 transition-all md:transition-none duration-300 overflow-hidden bg-primary;
+    @apply md:max-h-full pr-8 md:pr-0 md:pt-0 md:basis-3/4 flex flex-col items-center md:flex-row justify-center md:justify-between w-screen fixed md:static top-0 left-0 right-0 bottom-0 transition-all md:transition-none duration-300 overflow-hidden;
 }
 
 nav#top-nav ul.navlinks {
