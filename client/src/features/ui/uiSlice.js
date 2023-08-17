@@ -20,7 +20,7 @@ const initialState = {
     searchHistory: getSearchHistory(),
     isOpen: false,
   },
-  darkMode: true,
+  dark: true,
 };
 
 const uiSlice = createSlice({
