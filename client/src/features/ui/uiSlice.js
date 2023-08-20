@@ -20,7 +20,7 @@ const initialState = {
     searchHistory: getSearchHistory(),
     isOpen: false,
   },
-  dark: true,
+  dark: false,
 };
 
 const uiSlice = createSlice({
@@ -59,6 +59,9 @@ const uiSlice = createSlice({
         );
       }
     },
+    toggleTheme: (state) => {
+      state.dark = !state.dark;
+    },
   },
 });
 
@@ -68,6 +71,7 @@ export const {
   showModal,
   addToSearchHistory,
   clearSearchHistory,
+  toggleTheme,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;
