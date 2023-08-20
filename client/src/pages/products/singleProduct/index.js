@@ -121,7 +121,7 @@ const SingleProduct = () => {
 
       <header>
         <div className='title'>
-          <img src={product.image} alt={product.name} />
+          <img src={product.image} alt={product.name} draggable={false} />
         </div>
 
         <div className='subtitle'>
