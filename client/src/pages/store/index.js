@@ -22,7 +22,7 @@ const StorePage = () => {
     return <Loader1 />;
   }
 
-  if (stores_status === "err" || stores === undefined) {
+  if (stores_status === "err" || !stores) {
     return <Error1 />;
   }
 
