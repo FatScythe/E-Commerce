@@ -1,17 +1,25 @@
 import { NavLink, Routes, Route, useNavigate, Link } from "react-router-dom";
 import "../user.css";
 import { useEffect } from "react";
+// Redux
+import { useSelector } from "react-redux";
 
 const Orders = ({ user }) => {
   const navigate = useNavigate();
+  const { dark } = useSelector((store) => store.ui);
+
   useEffect(() => {
     navigate("/user/orders/purchased");
   }, []);
 
   return (
     <section id='order' className='container'>
-      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
-        Orders
+      <h2
+        className={`capitalize font-semibold text-xl sm:text-2xl mb-10 ${
+          dark ? "text-white" : "text-black"
+        }`}
+      >
+        orders
       </h2>
       <nav className=''>
         <ul className='flex justify-center items-center gap-5 border border-transparent border-b-black'>

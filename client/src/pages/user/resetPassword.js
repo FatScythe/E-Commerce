@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 // Toastify
 import { toast } from "react-toastify";
 
+// Redux
+import { useSelector } from "react-redux";
+
 // Utils
 import url from "../../utils/url";
 
@@ -12,6 +15,7 @@ const ResetPwd = () => {
   const queryParameters = new URLSearchParams(window.location.search);
   const passwordToken = queryParameters.get("token");
   const email = queryParameters.get("email");
+  const { dark } = useSelector((store) => store.ui);
 
   const [newPassword, setNewPassword] = useState("");
 
@@ -47,9 +51,13 @@ const ResetPwd = () => {
 
   return (
     <div id='reset-pwd' className='container mt-20'>
-      <h1 className='text-2xl font-semibold text-center capitalize'>
+      <h2
+        className={`capitalize font-semibold text-xl sm:text-2xl mb-10 ${
+          dark ? "text-white" : "text-black"
+        }`}
+      >
         reset password
-      </h1>
+      </h2>
       <p>Email: {email}</p>
       <form>
         <div className='input-wrapper'>

@@ -10,6 +10,7 @@ import url from "../../../utils/url";
 
 const WishList = ({ user }) => {
   const { product_loading, products } = useSelector((store) => store.product);
+  const { dark } = useSelector((store) => store.ui);
   const dispatch = useDispatch();
 
   if (product_loading) {
@@ -22,7 +23,11 @@ const WishList = ({ user }) => {
 
   if (!wishList.length > 0) {
     return (
-      <div className='text-xl capitalize italic text-center mt-20'>
+      <div
+        className={`${
+          dark ? "text-white" : "text-black"
+        } text-xl capitalize italic text-center mt-20`}
+      >
         you have no item in your wishlist
       </div>
     );
@@ -49,8 +54,12 @@ const WishList = ({ user }) => {
 
   return (
     <section id='wishlist'>
-      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
-        Wishlist
+      <h2
+        className={`capitalize font-semibold text-xl sm:text-2xl mb-10 ${
+          dark ? "text-white" : "text-black"
+        }`}
+      >
+        wishlist
       </h2>
       <div className='wrapper md:mt-5 grid grid-cols-12 gap-8'>
         {wishList.map((product) => (

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import url from "../../../utils/url";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveUser, removeUser } from "../../../features/user/userSlice";
 
 // Component
@@ -21,6 +21,8 @@ const EditProfile = ({ user }) => {
   });
 
   const dispatch = useDispatch();
+
+  const { dark } = useSelector((store) => store.ui);
 
   const fetchUser = async () => {
     try {
@@ -131,8 +133,12 @@ const EditProfile = ({ user }) => {
 
   return (
     <section id='edit-prof'>
-      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
-        Edit Profile
+      <h2
+        className={`capitalize font-semibold text-xl sm:text-2xl mb-10 ${
+          dark ? "text-white" : "text-black"
+        }`}
+      >
+        edit profile
       </h2>
       <form className='sm:w-9/12 mr-auto' onSubmit={(e) => handleSubmit(e)}>
         <div className='mt-6 flex flex-col md:flex-row justify-start gap-5 items-center'>

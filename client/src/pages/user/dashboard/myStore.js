@@ -18,6 +18,8 @@ const MyStore = ({ user }) => {
     (store) => store.store
   );
 
+  const { dark } = useSelector((store) => store.ui);
+
   const [value, setValue] = useState({
     name: "",
     desc: "",
@@ -74,8 +76,12 @@ const MyStore = ({ user }) => {
 
   return (
     <section>
-      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
-        My Store
+      <h2
+        className={`capitalize font-semibold text-xl sm:text-2xl mb-10 ${
+          dark ? "text-white" : "text-black"
+        }`}
+      >
+        my store
       </h2>
       <div className='my-10 flex justify-between items-center'>
         <h3 className='italic capitalize sm:text-lg font-semibold'>{name}</h3>

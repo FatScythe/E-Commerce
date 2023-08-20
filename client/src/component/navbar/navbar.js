@@ -15,8 +15,8 @@ const Navbar = () => {
     <nav
       id='top-nav'
       className={`bg-primary text-white ${
-        dark ? "md:bg-primary" : "md:bg-white md:text-black"
-      }`}
+        user && user.role !== "user" ? "" : "md:mt-7"
+      } ${dark ? "md:bg-primary" : "md:bg-white md:text-black"}`}
     >
       <Ad />
       <div className='flex items-center flex-col md:flex-row md:justify-between'>

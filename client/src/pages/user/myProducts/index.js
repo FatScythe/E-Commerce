@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { crudProducts } from "../../../features/product/productSlice";
 import { showModal, closeModal } from "../../../features/ui/uiSlice";
 // Hooks
@@ -95,6 +95,8 @@ const MyProducts = ({ user }) => {
     dispatch(crudProducts({ ...product, productId, type: "delete" }));
   };
 
+  const { dark } = useSelector((store) => store.ui);
+
   if (user.role === "user") {
     return <Navigate to='/' />;
   }
@@ -110,9 +112,14 @@ const MyProducts = ({ user }) => {
 
   return (
     <section id='my-products'>
-      <h2 className='capitalize font-semibold text-xl sm:text-2xl mb-10'>
-        Product
+      <h2
+        className={`capitalize font-semibold text-xl sm:text-2xl mb-10 ${
+          dark ? "text-white" : "text-black"
+        }`}
+      >
+        product
       </h2>
+
       {product.open && (
         <AddProduct
           product={product}
