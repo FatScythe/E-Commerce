@@ -8,6 +8,7 @@ import Ad from "./Ad";
 const Navbar = () => {
   const { user } = useSelector((state) => state.user);
   const { dark } = useSelector((state) => state.ui);
+  const { cartItems } = useSelector((state) => state.cart);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -42,8 +43,13 @@ const Navbar = () => {
                 <SearchIcon className='w-5 h-5 sm:w-6 sm:h-6' />
               </Link>
             </button>
-            <button>
+            <button className='relative'>
               <Link to='/cart'>
+                {cartItems.length > 0 && (
+                  <div className='absolute bg-red-400 rounded-full p-2 -top-2 -right-2 w-0.5 h-0.5 text-sm flex justify-center items-center text-gray-100'>
+                    {cartItems.length}
+                  </div>
+                )}
                 <ShoppingBagIcon className='w-5 h-5 sm:w-6 sm:h-6' />
               </Link>
             </button>
@@ -90,8 +96,13 @@ const Navbar = () => {
             )}
           </ul>
           <div className='options'>
-            <button className='bag'>
+            <button className='bag relative'>
               <Link to='/cart'>
+                {cartItems.length > 0 && (
+                  <div className='absolute bg-red-400 rounded-full p-2 -top-1 -right-2 w-0.5 h-0.5 text-sm flex justify-center items-center text-gray-100'>
+                    {cartItems.length}
+                  </div>
+                )}
                 <ShoppingBagIcon className='w-5 h-5 sm:w-6 sm:h-6' />
               </Link>
             </button>
