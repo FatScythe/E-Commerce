@@ -16,6 +16,8 @@ const NotNav = ({ navLinks, name }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const { cartItems } = useSelector((store) => store.cart);
+
   return (
     <div className='no-nav-header sticky top-0 bg-white mt-2 md:mt-6 mb-8 flex justify-between items-center'>
       <div className='flex md:gap-4 md:basis-1/2 justify-between items-center'>
@@ -39,7 +41,12 @@ const NotNav = ({ navLinks, name }) => {
 
       <div className='options flex justify-between items-center gap-4'>
         {navLinks.cart && (
-          <Link to='/cart' title='cart'>
+          <Link to='/cart' title='cart' className='relative'>
+            {cartItems.length > 0 && (
+              <div className='absolute bg-red-400 rounded-full p-2 -top-2 -right-2 w-1 h-1 text-sm flex justify-center items-center text-gray-100'>
+                {cartItems.length}
+              </div>
+            )}
             <ShoppingBagIcon className={"w-6 h-6"} />
           </Link>
         )}
