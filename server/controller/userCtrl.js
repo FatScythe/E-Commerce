@@ -17,7 +17,13 @@ const getSingleUser = async (req, res) => {
 };
 
 const showCurrentUser = async (req, res) => {
-  const user = await User.findOne({ _id: req.user.userId }).select("-password");
+  const user = await User.findOne({ _id: req.user.userId }).select(
+    "name",
+    "role",
+    "email",
+    "avatar",
+    "_id"
+  );
   if (!user) throw new BadRequestError("This user does not exist");
   res.status(StatusCodes.OK).json({ user });
 };
