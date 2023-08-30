@@ -99,7 +99,7 @@ const Navbar = () => {
             <button className='bag relative'>
               <Link to='/cart'>
                 {cartItems.length > 0 && (
-                  <div className='absolute bg-red-400 rounded-full p-2 -top-1 -right-2 w-0.5 h-0.5 text-sm flex justify-center items-center text-gray-100'>
+                  <div className='absolute bg-red-400 rounded-full p-2 -top-1 -right-2 w-0.5 h-0.5 text-sm hidden md:flex justify-center items-center text-gray-100'>
                     {cartItems.length}
                   </div>
                 )}
