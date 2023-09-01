@@ -70,7 +70,7 @@ const createOrder = async (req, res) => {
     user: req.user.userId,
   });
 
-  res.status(StatusCodes.OK).json({ msg: "Placed order" });
+  res.status(StatusCodes.OK).json({ msg: "Placed order", order });
 };
 
 const getAllOrders = async (req, res) => {
