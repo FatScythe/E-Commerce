@@ -36,9 +36,12 @@ const Checkout = () => {
     postal: 0,
     note: "",
     payWith: "Paystack",
+    link: "",
   });
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
+    setLoading(true);
     try {
       let {
         email,
@@ -56,6 +59,7 @@ const Checkout = () => {
 
       if (!address || !city || !country) {
         toast.error("Please fill all required fields *");
+        setLoading(false);
         return;
       }
 
@@ -90,23 +94,25 @@ const Checkout = () => {
       const data = await res.json();
 
       if (!res.ok) {
+        setLoading(false);
         toast.error("Something went wrong cannot place order");
         return;
       }
 
       toast.success(data.msg);
+      setLoading(false);
 
       switch (payWith) {
         case "Paystack":
-          console.log("Paying with Paystack");
+          await payWithPaystack(data.order);
           break;
 
         case "Flutterwave":
-          console.log("Paying with Flutter");
+          await payWithFlutter(data.order);
           break;
 
         case "Stripe":
-          console.log("Paying with Stripe");
+          payWithStripe(data.order);
           break;
 
         default:
@@ -118,6 +124,36 @@ const Checkout = () => {
       toast.error(err);
     }
   }
+
+  const payWithPaystack = async (order) => {
+    const { total, email, _id } = order;
+    const res = await fetch(url + "/api/v1/payment/paystackAcceptPayment", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        email,
+        amount: total,
+        ref: _id,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.msg);
+      return;
+    }
+
+    setForm({ ...form, link: JSON.parse(data).data.authorization_url });
+  };
+
+  const payWithFlutter = async (order) => {
+    toast.info("Payment with Flutterwave not available yet");
+  };
+
+  const payWithStripe = async (order) => {
+    toast.info("Payment with Stripe not available yet");
+  };
 
   if (!user) {
     return <Navigate to={"/auth"} />;
@@ -263,7 +299,7 @@ const Checkout = () => {
             type='radio'
             name='pay_with'
             value='Paystack'
-            onClick={() => setForm({ ...form, payWith: "Paystack" })}
+            onClick={() => setForm({ ...form, payWith: "Paystack", link: "" })}
             defaultChecked
           />
           <label>PayStack</label>
@@ -275,7 +311,9 @@ const Checkout = () => {
             type='radio'
             name='pay_with'
             value='Flutterwave'
-            onClick={() => setForm({ ...form, payWith: "Flutterwave" })}
+            onClick={() =>
+              setForm({ ...form, payWith: "Flutterwave", link: "" })
+            }
           />
           <span>Flutterwave</span>
           <FlutterWave className='w-10 h-16' />
@@ -286,19 +324,30 @@ const Checkout = () => {
             type='radio'
             name='pay_with'
             value='Stripe'
-            onClick={() => setForm({ ...form, payWith: "Stripe" })}
+            onClick={() => setForm({ ...form, payWith: "Stripe", link: "" })}
           />
           <span>Stripe</span>
           <Stripe className='w-10 h-16' />
         </div>
       </div>
       <div className='links'>
-        <button
-          className='flex justify-center items-center w-11/12 md:w-1/2 mx-auto text-base mb-5 hover:bg-secondary border border-black p-4 rounded-xl transition-all ease-in duration-75'
-          onClick={handleSubmit}
-        >
-          {user ? "place order" : "sign in"}
-        </button>
+        {form.link ? (
+          <a
+            className='flex justify-center items-center w-11/12 md:w-1/2 mx-auto text-base mb-5 hover:bg-secondary border border-black p-4 rounded-xl transition-all ease-in duration-75'
+            href={form.link}
+            target='_blank'
+            rel='noreferrer'
+          >
+            Pay now
+          </a>
+        ) : (
+          <button
+            className='flex justify-center items-center w-11/12 md:w-1/2 mx-auto text-base mb-5 hover:bg-secondary border border-black p-4 rounded-xl transition-all ease-in duration-75'
+            onClick={handleSubmit}
+          >
+            {loading ? "..." : "place order"}
+          </button>
+        )}
 
         <Link
           className='block underline underline-offset-8 text-base text-center text-blue-500'
