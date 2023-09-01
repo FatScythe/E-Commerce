@@ -63,7 +63,7 @@
 }
 
 .bag-items .bag-item .subtitle-wrapper p {
-    @apply text-base sm:text-lg
+    @apply text-normal sm:text-base;
 }
 
 .bag-total {

@@ -116,7 +116,7 @@ export const BagItem = ({ id, name, image, price, amount, size, color }) => {
 
       <div className='subtitle-wrapper'>
         <button onClick={() => dispatch(removeItem(id))}>
-          <CloseIcon />
+          <CloseIcon className='w-4 sm:w-6 h-4 sm:h-6' />
         </button>
         <p>${price}</p>
       </div>
