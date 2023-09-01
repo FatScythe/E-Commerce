@@ -1,59 +1,51 @@
-const paystack = (request) => {
-  const MySecretKey = `Bearer ${process.env.PAYSTACK_SECRETKEY}`;
-  //sk_test_xxxx to be replaced by your own secret key
-  const initializePayment = (form, mycallback) => {
-    const option = {
-      url: "https://api.paystack.co/transaction/initialize",
-      headers: {
-        authorization: MySecretKey,
-        "content-type": "application/json",
-        "cache-control": "no-cache",
-      },
-      form,
-    };
-    const callback = (error, response, body) => {
-      return mycallback(error, body);
-    };
-    request.post(option, callback);
-  };
+const https = require("https");
 
-  const verifyPayment = (ref, mycallback) => {
-    const option = {
-      url:
-        "https://api.paystack.co/transaction/verify/" + encodeURIComponent(ref),
-      headers: {
-        authorization: MySecretKey,
-        "content-type": "application/json",
-        "cache-control": "no-cache",
-      },
-    };
-    const callback = (error, response, body) => {
-      return mycallback(error, body);
-    };
-    request(option, callback);
-  };
-  return { initializePayment, verifyPayment };
-};
-
-const payStackIntent = async (req, res) => {
-  const { full_name, email, amount } = req.body;
-  const form = { full_name, email, amount };
-  form.metadata = {
-    full_name: full_name,
-  };
-  form.amount *= 100;
-  initializePayment(form, (error, body) => {
-    if (error) {
-      //handle errors
-      console.log(error);
-      return;
+const payStack = {
+  acceptPayment: async (req, res) => {
+    try {
+      // request body from the clients
+      const { email, amount, ref } = req.body;
+      // params
+      const params = JSON.stringify({
+        email: email,
+        amount: amount * 100,
+        ref,
+      });
+      // options
+      const options = {
+        hostname: "api.paystack.co",
+        port: 443,
+        path: "/transaction/initialize",
+        method: "POST",
+        headers: {
+          Authorization: process.env.PAYSTACK_SECRETKEY, // where you place your secret key copied from your dashboard
+          "Content-Type": "application/json",
+        },
+      };
+      // client request to paystack API
+      const clientReq = https
+        .request(options, (apiRes) => {
+          let data = "";
+          apiRes.on("data", (chunk) => {
+            data += chunk;
+          });
+          apiRes.on("end", () => {
+            console.log(JSON.parse(data));
+            return res.status(200).json(data);
+          });
+        })
+        .on("error", (error) => {
+          console.error(error);
+        });
+      clientReq.write(params);
+      clientReq.end();
+    } catch (error) {
+      // Handle any errors that occur during the request
+      console.error(error);
+      res.status(500).json({ error: "An error occurred" });
     }
-    response = JSON.parse(body);
-    res.redirect(response.data.authorization_url);
-  });
+  },
 };
 
-module.exports = {
-  paystack,
-  payStackIntent,
-};
+const initializePayment = payStack;
+module.exports = initializePayment;
