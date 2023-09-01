@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { payStackIntent } = require("../controller/payStackCtrl");
+const initializePayment = require("../controller/payStackCtrl");
 
-router.post("/paystack", payStackIntent);
+router.post("/paystackAcceptPayment", initializePayment.acceptPayment);
 
 module.exports = router;
