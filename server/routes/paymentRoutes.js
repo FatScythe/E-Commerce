@@ -1,6 +1,13 @@
 const router = require("express").Router();
-const initializePayment = require("../controller/payStackCtrl");
+const { authenticateUser } = require("../middlewares/authentication");
+const payStack = require("../controller/payStackCtrl");
 
-router.post("/paystackAcceptPayment", initializePayment.acceptPayment);
+router.post(
+  "/paystack/acceptPayment",
+  authenticateUser,
+  payStack.acceptPayment
+);
+
+router.get("/paystack/verifyPayment", payStack.verifyPayment);
 
 module.exports = router;

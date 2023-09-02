@@ -88,6 +88,7 @@ const Checkout = () => {
           phone,
           postal,
           note,
+          payWith,
         }),
       });
 
@@ -127,7 +128,7 @@ const Checkout = () => {
 
   const payWithPaystack = async (order) => {
     const { total, email, _id } = order;
-    const res = await fetch(url + "/api/v1/payment/paystackAcceptPayment", {
+    const res = await fetch(url + "/api/v1/payment/paystack/acceptPayment", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -144,9 +145,10 @@ const Checkout = () => {
       return;
     }
 
-    setForm({ ...form, link: JSON.parse(data).data.authorization_url });
-  };
+    console.log(data);
 
+    setForm({ ...form, link: data.data.authorization_url });
+  };
   const payWithFlutter = async (order) => {
     toast.info("Payment with Flutterwave not available yet");
   };

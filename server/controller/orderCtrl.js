@@ -68,6 +68,7 @@ const createOrder = async (req, res) => {
     city,
     country,
     user: req.user.userId,
+    payWith,
   });
 
   res.status(StatusCodes.OK).json({ msg: "Placed order", order });

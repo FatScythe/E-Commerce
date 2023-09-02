@@ -54,7 +54,11 @@ const orderSchema = new Schema(
       ref: "User",
       required: [true, "Provide a user"],
     },
-    referenceId: {
+    payWith: {
+      type: String,
+      required: true,
+    },
+    payAccessCode: {
       type: String,
     },
   },
