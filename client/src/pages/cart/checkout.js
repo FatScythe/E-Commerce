@@ -10,7 +10,7 @@ import { BagItem, BagTotal } from ".";
 import { FlutterWave, PayStack, Stripe } from "../../assets/icons/icon";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { calculateTotal } from "../../features/cart/cartSlice";
+import { addOrder, calculateTotal } from "../../features/cart/cartSlice";
 // Toastify
 import { toast } from "react-toastify";
 // Utils
@@ -145,7 +145,7 @@ const Checkout = () => {
       return;
     }
 
-    console.log(data);
+    dispatch(addOrder(order));
 
     setForm({ ...form, link: data.data.authorization_url });
   };
@@ -301,6 +301,7 @@ const Checkout = () => {
             type='radio'
             name='pay_with'
             value='Paystack'
+            disabled={form.link}
             onClick={() => setForm({ ...form, payWith: "Paystack", link: "" })}
             defaultChecked
           />
@@ -313,6 +314,7 @@ const Checkout = () => {
             type='radio'
             name='pay_with'
             value='Flutterwave'
+            disabled={form.link}
             onClick={() =>
               setForm({ ...form, payWith: "Flutterwave", link: "" })
             }
@@ -326,6 +328,7 @@ const Checkout = () => {
             type='radio'
             name='pay_with'
             value='Stripe'
+            disabled={form.link}
             onClick={() => setForm({ ...form, payWith: "Stripe", link: "" })}
           />
           <span>Stripe</span>
