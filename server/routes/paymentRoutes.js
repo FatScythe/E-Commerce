@@ -8,6 +8,6 @@ router.post(
   payStack.acceptPayment
 );
 
-router.get("/paystack/verifyPayment", payStack.verifyPayment);
+router.get("/paystack/verifyPayment/:id", payStack.verifyPayment);
 
 module.exports = router;
