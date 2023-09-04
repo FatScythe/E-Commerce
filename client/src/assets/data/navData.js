@@ -15,6 +15,7 @@ import VerifyEmail from "../../pages/user/verify";
 import ForgotPwd from "../../pages/auth/forgotPassword";
 import ResetPwd from "../../pages/user/resetPassword";
 import Checkout from "../../pages/cart/checkout";
+import VerifyPaymentPaystack from "../../pages/payment/paystackVerify";
 
 // Not Found : ( 404
 import NotFound from "../../pages/notFound";
@@ -116,6 +117,12 @@ export const navLinks = [
     path: "/user/reset-password",
     showNav: false,
     element: <ResetPwd />,
+  },
+  {
+    id: 14,
+    path: "/paystack/verify",
+    showNav: false,
+    element: <VerifyPaymentPaystack />,
   },
   {
     id: 18,
