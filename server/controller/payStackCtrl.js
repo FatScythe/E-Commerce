@@ -6,7 +6,6 @@ const { log } = require("console");
 const payStack = {
   acceptPayment: async (req, res) => {
     try {
-      // request body from the clients
       const { email, amount, ref } = req.body;
 
       // params
@@ -14,7 +13,7 @@ const payStack = {
         email: email,
         amount: amount * 100,
         reference: ref,
-        callback_url: `http://localhost:3000?ref=${ref}`,
+        callback_url: `http://localhost:3000/paystack/verify?ref=${ref}`,
       });
       // options
       const options = {
@@ -23,7 +22,7 @@ const payStack = {
         path: "/transaction/initialize",
         method: "POST",
         headers: {
-          Authorization: "Bearer " + process.env.PAYSTACK_SECRETKEY, // where you place your secret key copied from your dashboard
+          Authorization: "Bearer " + process.env.PAYSTACK_SECRETKEY,
           "Content-Type": "application/json",
         },
       };
@@ -35,9 +34,10 @@ const payStack = {
             data += chunk;
           });
           apiRes.on("end", async () => {
+            // If order exist already
             if (
-              !JSON.parse(data)?.message &&
-              !JSON.parse(data)?.message === "Duplicate Transaction Reference"
+              JSON.parse(data)?.message &&
+              JSON.parse(data)?.message === "Duplicate Transaction Reference"
             ) {
               const existingOrder = await Order.findOne({ _id: ref });
               if (!existingOrder) {
@@ -56,7 +56,7 @@ const payStack = {
 
             const order = await Order.findOne({ _id: ref });
 
-            order.payStackUrl = JSON.parse(data).data.access_code;
+            order.payAccessCode = JSON.parse(data).data.access_code;
 
             order.save();
 
@@ -77,24 +77,17 @@ const payStack = {
   },
 
   verifyPayment: async (req, res) => {
-    console.log(req.payStackReferenceId);
-    return res.send("Hello");
-    try {
-      // request body from the clients
-      const { email, amount, ref } = req.body;
+    const { id: ref } = req.params;
 
+    try {
       // params
-      const params = JSON.stringify({
-        email: email,
-        amount: amount * 100,
-        ref,
-      });
+      const params = JSON.stringify({});
       // options
       const options = {
         hostname: "api.paystack.co",
         port: 443,
-        path: "/transaction/initialize",
-        method: "POST",
+        path: "/transaction/verify/" + ref,
+        method: "GET",
         headers: {
           Authorization: "Bearer " + process.env.PAYSTACK_SECRETKEY, // where you place your secret key copied from your dashboard
           "Content-Type": "application/json",
@@ -108,11 +101,6 @@ const payStack = {
             data += chunk;
           });
           apiRes.on("end", async () => {
-            const order = await Order.findOne({ _id: ref });
-            order.payStackReferenceId = JSON.parse(data).data.reference;
-
-            await order.save();
-
             return res.status(200).json(JSON.parse(data));
           });
         })
