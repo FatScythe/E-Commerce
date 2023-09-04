@@ -7,11 +7,19 @@ const getCartItemsLocal = () => {
   return [];
 };
 
+const getOrderIdLocal = () => {
+  if (localStorage.getItem("order")) {
+    return JSON.parse(localStorage.getItem("order"));
+  }
+  return null;
+};
+
 const initialState = {
   cartItems: getCartItemsLocal(),
   amount: 0,
   shipping: 0,
   total: 0,
+  order: getOrderIdLocal(),
 };
 
 const cartSlice = createSlice({
@@ -19,14 +27,16 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, { payload }) => {
-      state.cartItems = [...state.cartItems, payload];
+      state.cartItems = [payload, ...state.cartItems];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     clearCart: (state) => {
       state.cartItems = [];
     },
     removeItem: (state, { payload }) => {
-      state.cartItems = state.cartItems.filter((item) => item.id !== payload);
+      state.cartItems = {
+        ...state.cartItems.filter((item) => item.id !== payload),
+      };
     },
     toggleAmount: (state, { payload }) => {
       let cartItem = state.cartItems.find((item) => item.id === payload.id);
@@ -43,6 +53,11 @@ const cartSlice = createSlice({
         }
         cartItem.amount--;
       }
+    },
+    addOrder: (state, { payload }) => {
+      state.order = payload;
+
+      localStorage.setItem("order", JSON.stringify(state.order));
     },
     calculateTotal: (state) => {
       const { amount, total, shipping } = state.cartItems.reduce(
@@ -73,4 +88,5 @@ export const {
   removeItem,
   toggleAmount,
   calculateTotal,
+  addOrder,
 } = cartSlice.actions;
