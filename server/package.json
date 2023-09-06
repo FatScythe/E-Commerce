@@ -18,7 +18,8 @@
     "http-status-codes": "^2.2.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.2",
-    "nodemailer": "^6.9.3"
+    "nodemailer": "^6.9.3",
+    "stripe": "^13.4.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
