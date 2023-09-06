@@ -1,7 +1,6 @@
 const https = require("https");
 const Order = require("../models/Order");
 const { NotFoundError } = require("../errors");
-const { log } = require("console");
 
 const payStack = {
   acceptPayment: async (req, res) => {
@@ -13,7 +12,7 @@ const payStack = {
         email: email,
         amount: amount * 100,
         reference: ref,
-        callback_url: `http://localhost:3000/paystack/verify?ref=${ref}`,
+        callback_url: `http://localhost:3000/paystack/verify`,
       });
       // options
       const options = {
