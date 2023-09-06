@@ -1,5 +1,9 @@
+import { useSelector } from "react-redux";
 const TransactionSuccess = () => {
-  return <div>Transaction Success page</div>;
+  const { user } = useSelector((store) => store.user);
+  // Check if user exist
+
+  return <div>Transaction Success page Thank you {user.name}</div>;
 };
 
 export default TransactionSuccess;

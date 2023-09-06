@@ -154,7 +154,7 @@ const Checkout = () => {
   };
 
   const payWithStripe = async (order) => {
-    toast.info("Payment with Stripe not available yet");
+    console.log(order);
   };
 
   if (!user) {
