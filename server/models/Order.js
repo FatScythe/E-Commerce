@@ -61,6 +61,9 @@ const orderSchema = new Schema(
     payAccessCode: {
       type: String,
     },
+    clientSecret: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
