@@ -37,6 +37,7 @@ const Checkout = () => {
     note: "",
     payWith: "Paystack",
     link: "",
+    clientSecret: "",
   });
   const [loading, setLoading] = useState(false);
 
@@ -103,6 +104,8 @@ const Checkout = () => {
       toast.success(data.msg);
       setLoading(false);
 
+      toast.dismiss();
+
       switch (payWith) {
         case "Paystack":
           await payWithPaystack(data.order);
@@ -154,7 +157,34 @@ const Checkout = () => {
   };
 
   const payWithStripe = async (order) => {
-    console.log(order);
+    const { subTotal, shipping, _id } = order;
+    const res = await fetch(
+      url + "/api/v1/payment/stripe/create-payment-intent",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          total: subTotal,
+          shipping,
+          id: _id,
+        }),
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.msg);
+      return;
+    }
+
+    dispatch(addOrder(order));
+
+    setForm({
+      ...form,
+      clientSecret: data.clientSecret,
+      link: "put flutter checkout page here",
+    });
   };
 
   if (!user) {
