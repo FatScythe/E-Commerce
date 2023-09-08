@@ -9,6 +9,8 @@ const calculateOrderAmount = (items) => {
     throw new BadRequestError("Prices do not match");
   }
 
+  // Comvert to dollar
+
   return items.total + items.shipping;
 };
 
@@ -36,8 +38,6 @@ const stripeCtrl = {
         enabled: true,
       },
     });
-
-    console.log(paymentIntents);
 
     order.clientSecret = paymentIntents.client_secret;
     order.save();
