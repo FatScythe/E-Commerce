@@ -15,7 +15,9 @@ import VerifyEmail from "../../pages/user/verify";
 import ForgotPwd from "../../pages/auth/forgotPassword";
 import ResetPwd from "../../pages/user/resetPassword";
 import Checkout from "../../pages/cart/checkout";
-import VerifyPaymentPaystack from "../../pages/payment/paystackVerify";
+// Payment
+import VerifyPayment from "../../pages/payment/VerifyPayment";
+import Stripe from "../../pages/payment/stripe";
 
 // Not Found : ( 404
 import NotFound from "../../pages/notFound";
@@ -120,9 +122,15 @@ export const navLinks = [
   },
   {
     id: 14,
-    path: "/paystack/verify",
+    path: "/payment/verify",
     showNav: false,
-    element: <VerifyPaymentPaystack />,
+    element: <VerifyPayment />,
+  },
+  {
+    id: 16,
+    path: "/stripe",
+    showNav: false,
+    element: <Stripe />,
   },
   {
     id: 18,
