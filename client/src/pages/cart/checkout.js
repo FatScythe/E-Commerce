@@ -3,11 +3,10 @@ import "./checkout.css";
 import "./cart.css";
 import { useEffect, useState } from "react";
 // Router
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 // Component
 import NotNav from "../../component/noNavHeader";
 import { BagItem, BagTotal } from ".";
-import { FlutterWave, PayStack, Stripe } from "../../assets/icons/icon";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addOrder, calculateTotal } from "../../features/cart/cartSlice";
@@ -15,6 +14,8 @@ import { addOrder, calculateTotal } from "../../features/cart/cartSlice";
 import { toast } from "react-toastify";
 // Utils
 import url from "../../utils/url";
+import CheckoutForm from "./checkoutForm";
+import CheckoutLinks from "./checkoutLinks";
 
 const Checkout = () => {
   const { user } = useSelector((state) => state.user);
@@ -37,8 +38,8 @@ const Checkout = () => {
     note: "",
     payWith: "Paystack",
     link: "",
-    clientSecret: "",
   });
+  console.log(form.payWith);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
@@ -178,13 +179,14 @@ const Checkout = () => {
       return;
     }
 
-    dispatch(addOrder(order));
-
     setForm({
       ...form,
-      clientSecret: data.clientSecret,
-      link: "put flutter checkout page here",
+      link: "http://localhost:3000/stripe",
     });
+
+    dispatch(
+      addOrder({ ...order, clientSecret: data.clientSecret, link: "/stripe" })
+    );
   };
 
   if (!user) {
@@ -199,116 +201,7 @@ const Checkout = () => {
     <section id='checkout' className='container'>
       <NotNav navLinks={{ store: "stores", search: "search", cart: "cart" }} />
       <main className='flex flex-col md:flex-row justify-center sm:justify-between gap-8 w-full my-8'>
-        <form className='basis-full sm:basis-1/2 text-gray-500'>
-          <h2 className='text-base sm:text-lg text-black mb-4'>
-            Billing details
-          </h2>
-          <div className='email'>
-            <label htmlFor='email'>Your email</label>
-            <input
-              type='text'
-              placeholder={user.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              value={form.email}
-            />
-            <div className='update'>
-              <input
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    subscribe: e.target.checked,
-                  })
-                }
-                value={form.subscribe}
-                type='checkbox'
-              />
-              <span>Get updates about new products & exclusive offers</span>
-            </div>
-          </div>
-          <div className='name'>
-            <label htmlFor='name'>Your name</label>
-            <input
-              type='text'
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              value={form.name}
-              placeholder={user.name}
-            />
-          </div>
-
-          <div>
-            <label htmlFor='Apartment'>Apartment</label>
-            <input
-              type='text'
-              placeholder='Apartment, suite, unit, etc. (Optional)'
-              value={form.apartment}
-              onChange={(e) => setForm({ ...form, apartment: e.target.value })}
-            />
-          </div>
-          <div>
-            <label htmlFor='Address'>
-              Street Address <span className='text-red-500 font-bold'>*</span>
-            </label>
-            <input
-              type='text'
-              placeholder='Street address*'
-              value={form.address}
-              onChange={(e) => setForm({ ...form, address: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <label htmlFor='city'>
-              Town / City <span className='text-red-500 font-bold'>*</span>
-            </label>
-            <input
-              type='text'
-              placeholder='Town / City*'
-              value={form.city}
-              onChange={(e) => setForm({ ...form, city: e.target.value })}
-            />
-          </div>
-          <div className='location'>
-            <div className='country'>
-              <label htmlFor='country'>
-                Country <span className='text-red-500 font-bold'>*</span>
-              </label>
-              <input
-                type='text'
-                placeholder='Country*'
-                value={form.country}
-                onChange={(e) => setForm({ ...form, country: e.target.value })}
-              />
-            </div>
-            <div>
-              <label htmlFor='phone'>Phone number</label>
-              <input
-                type='number'
-                placeholder='Phone number*'
-                value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
-              />
-            </div>
-          </div>
-
-          <div className='phone'>
-            <label htmlFor='postal-code'>Postal code</label>
-            <input
-              type='number'
-              placeholder='Postal code (Optional)'
-              value={form.postal}
-              onChange={(e) => setForm({ ...form, postal: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <label htmlFor='Notes'>Order notes</label>
-            <textarea
-              placeholder='Order notes (Optional)'
-              className='w-full placeholder:p-4 resize-y border border-black'
-              rows='10'
-            ></textarea>
-          </div>
-        </form>
+        <CheckoutForm form={form} setForm={setForm} user={user} />
 
         <div className='bag sm:basis-1/2'>
           <div className='bag-items'>
@@ -323,74 +216,12 @@ const Checkout = () => {
         </div>
       </main>
 
-      <div className='my-4'>
-        <h3 className='text-base sm:text-lg italic my-3'>Debit/Credit Card</h3>
-        <p className='my-2 text-normal sm:text-base'>Pay with: </p>
-        <div className='flex gap-2 justify-start items-center'>
-          <input
-            type='radio'
-            name='pay_with'
-            value='Paystack'
-            disabled={form.link}
-            onClick={() => setForm({ ...form, payWith: "Paystack", link: "" })}
-            defaultChecked
-          />
-          <label>PayStack</label>
-          <PayStack className='w-10 h-16' />
-        </div>
-
-        <div className='flex gap-2 justify-start items-center'>
-          <input
-            type='radio'
-            name='pay_with'
-            value='Flutterwave'
-            disabled={form.link}
-            onClick={() =>
-              setForm({ ...form, payWith: "Flutterwave", link: "" })
-            }
-          />
-          <span>Flutterwave</span>
-          <FlutterWave className='w-10 h-16' />
-        </div>
-
-        <div className='flex gap-2 justify-start items-center'>
-          <input
-            type='radio'
-            name='pay_with'
-            value='Stripe'
-            disabled={form.link}
-            onClick={() => setForm({ ...form, payWith: "Stripe", link: "" })}
-          />
-          <span>Stripe</span>
-          <Stripe className='w-10 h-16' />
-        </div>
-      </div>
-      <div className='links'>
-        {form.link ? (
-          <a
-            className='flex justify-center items-center w-11/12 md:w-1/2 mx-auto text-base mb-5 hover:bg-secondary border border-black p-4 rounded-xl transition-all ease-in duration-75'
-            href={form.link}
-            target='_blank'
-            rel='noreferrer'
-          >
-            Pay now
-          </a>
-        ) : (
-          <button
-            className='flex justify-center items-center w-11/12 md:w-1/2 mx-auto text-base mb-5 hover:bg-secondary border border-black p-4 rounded-xl transition-all ease-in duration-75'
-            onClick={handleSubmit}
-          >
-            {loading ? "..." : "place order"}
-          </button>
-        )}
-
-        <Link
-          className='block underline underline-offset-8 text-base text-center text-blue-500'
-          to='/cart'
-        >
-          Go back to cart
-        </Link>
-      </div>
+      <CheckoutLinks
+        form={form}
+        setForm={setForm}
+        loading={loading}
+        handleSubmit={handleSubmit}
+      />
     </section>
   );
 };
