@@ -1,3 +1,4 @@
+const { StatusCodes } = require("http-status-codes");
 const { BadRequestError, NotFoundError } = require("../errors");
 const Order = require("../models/Order");
 
@@ -42,7 +43,30 @@ const stripeCtrl = {
     order.clientSecret = paymentIntents.client_secret;
     order.save();
 
-    res.json({ clientSecret: paymentIntents.client_secret });
+    res
+      .status(StatusCodes.CREATED)
+      .json({ clientSecret: paymentIntents.client_secret });
+  },
+  verifyPayment: async (req, res) => {
+    const { id, orderId } = req.params;
+    if (!orderId) {
+      throw new NotFoundError("Please provide order id");
+    }
+
+    const order = await Order.findOne({ _id: orderId });
+
+    if (!order) {
+      throw new BadRequestError("No order with id: " + orderId);
+    }
+
+    const paymentIntent = await stripe.paymentIntents.retrieve(id);
+
+    if (paymentIntent?.status === "succeeded") {
+      order.status = "paid";
+
+      await order.save();
+    }
+    res.status(StatusCodes.OK).json({ ...paymentIntent });
   },
 };
 
