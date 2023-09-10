@@ -11,7 +11,9 @@ export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
 
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(
+    JSON.parse(localStorage.getItem("order")).email
+  );
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -60,8 +62,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url:
-          "http://localhost:3000/payment/verify?mode=stripe&email?" + email,
+        return_url: `http://localhost:3000/payment/verify?mode=stripe&email=${email}`,
       },
     });
 
@@ -87,11 +88,7 @@ export default function CheckoutForm() {
     <form id='payment-form' onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id='link-authentication-element'
-        onChange={(e) =>
-          setEmail(
-            JSON.parse(localStorage.getItem("order")).email || e.target.value
-          )
-        }
+        onChange={(e) => setEmail(e.target.value)}
       />
       <PaymentElement id='payment-element' options={paymentElementOptions} />
       <button disabled={isLoading || !stripe || !elements} id='submit'>
