@@ -39,7 +39,7 @@ const Checkout = () => {
     payWith: "Paystack",
     link: "",
   });
-  console.log(form.payWith);
+
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit() {
