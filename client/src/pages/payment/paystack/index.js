@@ -8,6 +8,8 @@ import Loader1 from "../../../component/loaders/loader1";
 import TransactionError from "../error";
 import TransactionSuccess from "../success";
 import Error1 from "../../../component/loaders/error";
+// Toastify
+import { toast } from "react-toastify";
 
 const PaystackVerification = () => {
   const [queryParameters] = useSearchParams();
@@ -25,7 +27,10 @@ const PaystackVerification = () => {
     );
   if (error) return <Error1 />;
 
-  if (data && data.data.status !== "success") return <TransactionError />;
+  if (data && data.data.status !== "success" && data?.msg) {
+    toast.error(data.msg);
+    return <TransactionError />;
+  }
 
   return <TransactionSuccess />;
 };
