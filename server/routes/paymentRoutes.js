@@ -17,4 +17,6 @@ router.post(
   stripe.createPaymentIntent
 );
 
+router.get("/stripe/verifyPayment/:id/:orderId", stripe.verifyPayment);
+
 module.exports = router;
