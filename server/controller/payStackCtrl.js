@@ -1,6 +1,6 @@
 const https = require("https");
 const Order = require("../models/Order");
-const { NotFoundError } = require("../errors");
+const { NotFoundError, BadRequestError } = require("../errors");
 
 const payStack = {
   acceptPayment: async (req, res) => {
@@ -100,7 +100,17 @@ const payStack = {
             data += chunk;
           });
           apiRes.on("end", async () => {
-            return res.status(200).json(JSON.parse(data));
+            data = JSON.parse(data);
+            if (data && data.data?.status === "success") {
+              const order = await Order.findOne({ _id: ref });
+              if (!order) {
+                throw new BadRequestError("No order with id: " + ref);
+              }
+              order.status = "paid";
+
+              await order.save();
+            }
+            return res.status(200).json(data);
           });
         })
         .on("error", (error) => {
