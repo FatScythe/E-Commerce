@@ -1,6 +1,7 @@
 const https = require("https");
 const Order = require("../models/Order");
-const { NotFoundError, BadRequestError } = require("../errors");
+const { StatusCodes } = require("http-status-codes");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 const payStack = {
   acceptPayment: async (req, res) => {
@@ -39,15 +40,23 @@ const payStack = {
               JSON.parse(data)?.message === "Duplicate Transaction Reference"
             ) {
               const existingOrder = await Order.findOne({ _id: ref });
+              if (!ObjectId.isValid(ref)) {
+                return res
+                  .status(StatusCodes.BAD_REQUEST)
+                  .json({ msg: "Invalid query parameter: " + ref });
+              }
+
               if (!existingOrder) {
-                throw new NotFoundError("No order with id: " + ref);
+                return res
+                  .status(StatusCodes.NOT_FOUND)
+                  .json({ msg: "No order with id: " + ref });
               }
               return res.status(200).json({
                 status: true,
                 message: "Authorization URL",
                 data: {
-                  authorization_url: `https://checkout.paystack.com/${existingOrder.payAccessCode}`,
-                  access_code: `${existingOrder.payAccessCode}`,
+                  authorization_url: `https://checkout.paystack.com/${existingOrder.paystackAccessCode}`,
+                  access_code: `${existingOrder.paystackAccessCode}`,
                   reference: `${existingOrder._id}`,
                 },
               });
@@ -55,15 +64,18 @@ const payStack = {
 
             const order = await Order.findOne({ _id: ref });
 
-            order.payAccessCode = JSON.parse(data).data.access_code;
+            order.paystackAccessCode = JSON.parse(data).data.access_code;
 
             order.save();
 
-            return res.status(200).json(JSON.parse(data));
+            return res.status(StatusCodes.OK).json(JSON.parse(data));
           });
         })
         .on("error", (error) => {
           console.error(error);
+          return res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({ msg: "An error occurred" });
         });
 
       clientReq.write(params);
@@ -71,7 +83,7 @@ const payStack = {
     } catch (error) {
       // Handle any errors that occur during the request
       console.error(error);
-      res.status(500).json({ error: "An error occurred" });
+      return res.status(500).json({ msg: "An error occurred" });
     }
   },
 
@@ -102,19 +114,29 @@ const payStack = {
           apiRes.on("end", async () => {
             data = JSON.parse(data);
             if (data && data.data?.status === "success") {
+              if (!ObjectId.isValid(ref)) {
+                return res
+                  .status(StatusCodes.BAD_REQUEST)
+                  .json({ msg: "Invalid query parameter: " + ref });
+              }
               const order = await Order.findOne({ _id: ref });
               if (!order) {
-                throw new BadRequestError("No order with id: " + ref);
+                return res
+                  .status(StatusCodes.NOT_FOUND)
+                  .json({ msg: "No order with id: " + tx_ref });
               }
               order.status = "paid";
 
               await order.save();
             }
-            return res.status(200).json(data);
+            return res.status(StatusCodes.OK).json(data);
           });
         })
         .on("error", (error) => {
           console.error(error);
+          return res
+            .status(StatusCodes.INTERNAL_SERVER_ERROR)
+            .json({ msg: "An error occurred" });
         });
 
       clientReq.write(params);
@@ -122,10 +144,11 @@ const payStack = {
     } catch (error) {
       // Handle any errors that occur during the request
       console.error(error);
-      res.status(500).json({ error: "An error occurred" });
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ msg: "An error occurred" });
     }
   },
 };
 
-// const initializePayment = payStack;
 module.exports = payStack;

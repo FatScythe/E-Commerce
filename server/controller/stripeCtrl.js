@@ -1,13 +1,14 @@
 const { StatusCodes } = require("http-status-codes");
-const { BadRequestError, NotFoundError } = require("../errors");
 const Order = require("../models/Order");
-
+const ObjectId = require("mongoose").Types.ObjectId;
 const stripe = require("stripe")(process.env.STRIPE_SECRETKEY);
 
 const calculateOrderAmount = (items) => {
   const { subTotal, shippingFee } = items.order; // From DB
   if (subTotal + shippingFee !== items.total + items.shipping) {
-    throw new BadRequestError("Prices do not match");
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json({ msg: "Prices do not match" });
   }
 
   // Comvert to dollar
@@ -23,13 +24,23 @@ const stripeCtrl = {
     }
 
     if (!total || !id) {
-      throw new BadRequestError("Please provide amount and order ID");
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Please provide amount and order ID" });
+    }
+
+    if (!ObjectId.isValid(id)) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Invalid query parameter: " + id });
     }
 
     const order = await Order.findOne({ _id: id });
 
     if (!order) {
-      throw new NotFoundError("No order with with id: " + id);
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "No order with with id: " + id });
     }
 
     const paymentIntents = await stripe.paymentIntents.create({
@@ -40,7 +51,7 @@ const stripeCtrl = {
       },
     });
 
-    order.clientSecret = paymentIntents.client_secret;
+    order.stripeClientSecret = paymentIntents.client_secret;
     order.save();
 
     res
@@ -50,13 +61,23 @@ const stripeCtrl = {
   verifyPayment: async (req, res) => {
     const { id, orderId } = req.params;
     if (!orderId) {
-      throw new NotFoundError("Please provide order id");
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Please provide amount and order ID" });
+    }
+
+    if (!ObjectId.isValid(orderId)) {
+      return res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ msg: "Invalid query parameter: " + orderId });
     }
 
     const order = await Order.findOne({ _id: orderId });
 
     if (!order) {
-      throw new BadRequestError("No order with id: " + orderId);
+      return res
+        .status(StatusCodes.NOT_FOUND)
+        .json({ msg: "No order with id: " + orderId });
     }
 
     const paymentIntent = await stripe.paymentIntents.retrieve(id);
