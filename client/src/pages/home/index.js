@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import Newsletter from "./newsletter";
 
 const HomePage = () => {
-  useTitle("Home || Ayeti Adorn");
+  useTitle("Ayeti Adorn");
   const { products, product_loading } = useSelector((store) => store.product);
   return (
     <section id='home' className='relative'>
