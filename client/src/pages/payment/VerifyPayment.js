@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import PaystackVerification from "./paystack";
 import Error1 from "../../component/loaders/error";
 import StripeVerification from "./stripe/stripeVerification";
+import FlutterwaveVerification from "./flutterwave";
 
 const VerifyPayment = () => {
   const [queryParameters] = useSearchParams();
@@ -16,8 +17,8 @@ const VerifyPayment = () => {
     return <StripeVerification />;
   }
 
-  if (mode === "flutter") {
-    return <div> Verify Stripe Payment</div>;
+  if (mode === "flutterwave") {
+    return <FlutterwaveVerification />;
   }
 
   return <Error1 />;
