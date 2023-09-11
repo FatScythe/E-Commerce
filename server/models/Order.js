@@ -58,11 +58,14 @@ const orderSchema = new Schema(
       type: String,
       required: true,
     },
-    payAccessCode: {
+    paystackAccessCode: {
       type: String,
     },
-    clientSecret: {
+    stripeClientSecret: {
       type: String,
+    },
+    flutterTrxId: {
+      type: Number,
     },
   },
   { timestamps: true }
