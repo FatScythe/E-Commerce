@@ -7,6 +7,8 @@ import { Navigate } from "react-router-dom";
 // Component
 import NotNav from "../../component/noNavHeader";
 import { BagItem, BagTotal } from ".";
+import CheckoutLinks from "./checkoutLinks";
+import CheckoutForm from "./checkoutForm";
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { addOrder, calculateTotal } from "../../features/cart/cartSlice";
@@ -14,10 +16,11 @@ import { addOrder, calculateTotal } from "../../features/cart/cartSlice";
 import { toast } from "react-toastify";
 // Utils
 import url from "../../utils/url";
-import CheckoutForm from "./checkoutForm";
-import CheckoutLinks from "./checkoutLinks";
+// Hooks
+import useTitle from "../../hooks/useTitle";
 
 const Checkout = () => {
+  useTitle("Checkout");
   const { user } = useSelector((state) => state.user);
   const { shipping, total, cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
@@ -153,8 +156,30 @@ const Checkout = () => {
 
     setForm({ ...form, link: data.data.authorization_url });
   };
+
   const payWithFlutter = async (order) => {
-    toast.info("Payment with Flutterwave not available yet");
+    const { total, email, _id } = order;
+    const res = await fetch(url + "/api/v1/payment/flutterwave/acceptPayment", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        email,
+        amount: total,
+        ref: _id,
+        name: user.name || "",
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      toast.error(data.msg);
+      return;
+    }
+
+    dispatch(addOrder(order));
+
+    setForm({ ...form, link: data.data.link });
   };
 
   const payWithStripe = async (order) => {
