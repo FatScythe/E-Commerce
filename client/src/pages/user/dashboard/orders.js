@@ -1,8 +1,12 @@
 import { NavLink, Routes, Route, useNavigate, Link } from "react-router-dom";
 import "../user.css";
 import { useEffect } from "react";
+// Hook
+import useSWR from "swr";
 // Redux
 import { useSelector } from "react-redux";
+// Utils
+import url from "../../../utils/url";
 
 const Orders = ({ user }) => {
   const navigate = useNavigate();
@@ -34,7 +38,7 @@ const Orders = ({ user }) => {
       </nav>
       <main className='h-screen'>
         <Routes>
-          <Route path='purchased' element={<Purchased />} />
+          <Route path='purchased' element={<Purchased user={user} />} />
           <Route path='sold' element={<Sold user={user} />} />
         </Routes>
       </main>
@@ -78,7 +82,14 @@ const Card = () => {
   );
 };
 
-const Purchased = () => {
+const Purchased = ({ user }) => {
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data, isLoading, error } = useSWR(
+    url + "/api/v1/orders/showCurrentUserOrder",
+    fetcher
+  );
+  console.log({ data, isLoading, error });
+
   return (
     <div>
       <Card />
