@@ -3,16 +3,19 @@ import { useSearchParams } from "react-router-dom";
 import useSWR from "swr";
 // Utils
 import url from "../../../utils/url";
-// Componenets
+// Components
 import Loader1 from "../../../component/loaders/loader1";
-import TransactionError from "../error";
-import TransactionSuccess from "../success";
+import Transaction from "../TransactionResult";
 import Error1 from "../../../component/loaders/error";
 // Toastify
 import { toast } from "react-toastify";
+// Redux
+import { useDispatch } from "react-redux";
+import { removeOrder } from "../../../features/cart/cartSlice";
 
 const PaystackVerification = () => {
   const [queryParameters] = useSearchParams();
+  const dispatch = useDispatch();
   const ref = queryParameters.get("reference");
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, isLoading, error } = useSWR(
@@ -27,12 +30,12 @@ const PaystackVerification = () => {
     );
   if (error) return <Error1 />;
 
-  if (data && data.data.status !== "success" && data?.msg) {
+  if (data && data.data?.status !== "success" && data?.msg) {
     toast.error(data.msg);
-    return <TransactionError />;
+    return <Transaction type='error' />;
   }
-
-  return <TransactionSuccess />;
+  dispatch(removeOrder());
+  return <Transaction type='success' />;
 };
 
 export default PaystackVerification;

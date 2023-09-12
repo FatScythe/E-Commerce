@@ -1,0 +1,11 @@
+.transaction {
+    background-image: url('../../assets/images/bg-pink.png'), url('../../assets/images/bg-blue.png');
+
+}
+
+@media screen and (max-width: 768px) {
+    .transaction {  
+        background-image: url('../../assets/images/blue-bg.png'), url('../../assets/images/pink-bg.png'), url('../../assets/images/purple-bg.png');
+        background-position: top 10% left -5%, bottom 30% right, top -10% right 50%;
+    }
+}

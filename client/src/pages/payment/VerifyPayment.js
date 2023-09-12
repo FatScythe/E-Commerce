@@ -1,27 +1,24 @@
 import { useSearchParams } from "react-router-dom";
 // Components
 import PaystackVerification from "./paystack";
-import Error1 from "../../component/loaders/error";
 import StripeVerification from "./stripe/stripeVerification";
 import FlutterwaveVerification from "./flutterwave";
+import NotNav from "../../component/noNavHeader";
 
 const VerifyPayment = () => {
   const [queryParameters] = useSearchParams();
   const mode = queryParameters.get("mode");
-
-  if (mode === "paystack") {
-    return <PaystackVerification />;
-  }
-
-  if (mode === "stripe") {
-    return <StripeVerification />;
-  }
-
-  if (mode === "flutterwave") {
-    return <FlutterwaveVerification />;
-  }
-
-  return <Error1 />;
+  return (
+    <>
+      <NotNav
+        name='Verify Payment'
+        navLinks={{ store: "stores", search: "search", auth: "auth" }}
+      />
+      {mode === "paystack" && <PaystackVerification />}
+      {mode === "stripe" && <StripeVerification />}
+      {mode === "flutter" && <FlutterwaveVerification />}
+    </>
+  );
 };
 
 export default VerifyPayment;

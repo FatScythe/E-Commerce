@@ -5,8 +5,7 @@ import useSWR from "swr";
 import url from "../../../utils/url";
 // Componenets
 import Loader1 from "../../../component/loaders/loader1";
-import TransactionError from "../error";
-import TransactionSuccess from "../success";
+import Transaction from "../TransactionResult";
 import Error1 from "../../../component/loaders/error";
 // Toastify
 import { toast } from "react-toastify";
@@ -33,12 +32,11 @@ const StripeVerification = () => {
     return <Error1 />;
   }
 
-  if (data && data.status !== "succeeded" && data?.msg) {
-    toast.error(data?.msg);
-    return <TransactionError />;
+  if (data && data?.status !== "succeeded" && data?.msg) {
+    toast.error(data.msg);
+    return <Transaction type='error' />;
   }
-
-  return <TransactionSuccess />;
+  return <Transaction type='success' />;
 };
 
 export default StripeVerification;
