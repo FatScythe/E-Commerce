@@ -83,26 +83,25 @@ const flutterwave = {
           });
           apiRes.on("end", async () => {
             data = JSON.parse(data);
-            const { tx_ref, id } = data.data;
 
             if (data && data.data?.status === "successful") {
-              if (!ObjectId.isValid(tx_ref)) {
-                return res
-                  .status(StatusCodes.BAD_REQUEST)
-                  .json({ msg: "Invalid query parameter: " + tx_ref });
+              if (!ObjectId.isValid(data.data.tx_ref)) {
+                return res.status(StatusCodes.BAD_REQUEST).json({
+                  msg: "Invalid query parameter: " + data.data.tx_ref,
+                });
               }
               const order = await Order.findOne({
-                _id: tx_ref,
+                _id: data.data.tx_ref,
               });
 
               if (!order) {
                 return res
                   .status(StatusCodes.NOT_FOUND)
-                  .json({ msg: "No order with id: " + tx_ref });
+                  .json({ msg: "No order with id: " + data.data.tx_ref });
               }
 
               order.status = "paid";
-              order.flutterTrxId = id;
+              order.flutterTrxId = data.data.id;
               await order.save();
             }
 
