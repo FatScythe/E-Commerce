@@ -7,7 +7,7 @@ import img from "../../assets/images/b7.jpeg";
 // Hook
 import useTitle from "../../hooks/useTitle";
 // Icon
-import { Clock } from "../../assets/icons/icon";
+import { Clock, VerifiedBadge } from "../../assets/icons/icon";
 // Redux
 import { useSelector } from "react-redux";
 // Components
@@ -42,7 +42,7 @@ const StorePage = () => {
 
 export default StorePage;
 
-const StoreCard = ({ _id, name, owner, open }) => {
+const StoreCard = ({ _id, name, owner, open, featured }) => {
   const { products } = useSelector((store) => store.product);
 
   const [images, setImages] = useState([bg, img]);
@@ -95,8 +95,9 @@ const StoreCard = ({ _id, name, owner, open }) => {
           draggable={false}
           className='h-16 w-16 sm:h-32 sm:w-32 p-0.5 rounded-full object-cover border-4 border-green-500 border-t-2 border-l-0 '
         />
-        <h2 className='text-white bg-1 bg-black/25 group-hover:bg-black/40 mt-3'>
+        <h2 className='text-white bg-1 bg-black/25 group-hover:bg-black/40 mt-3 flex justify-center gap-2'>
           {name}
+          {featured && <VerifiedBadge className='w-6 h-6' />}
         </h2>
       </header>
     </Link>
