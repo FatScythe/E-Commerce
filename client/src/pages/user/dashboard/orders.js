@@ -1,12 +1,14 @@
 import { NavLink, Routes, Route, useNavigate, Link } from "react-router-dom";
 import "../user.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // Hook
 import useSWR from "swr";
 // Redux
 import { useSelector } from "react-redux";
 // Utils
 import url from "../../../utils/url";
+import Loader1 from "../../../component/loaders/loader1";
+import Error1 from "../../../component/loaders/error";
 
 const Orders = ({ user }) => {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ const Orders = ({ user }) => {
 
   useEffect(() => {
     navigate("/user/orders/purchased");
-  }, []);
+  }, [navigate]);
 
   return (
     <section id='order' className='container'>
@@ -38,7 +40,7 @@ const Orders = ({ user }) => {
       </nav>
       <main className='h-screen'>
         <Routes>
-          <Route path='purchased' element={<Purchased user={user} />} />
+          <Route path='purchased' element={<Purchased />} />
           <Route path='sold' element={<Sold user={user} />} />
         </Routes>
       </main>
@@ -48,54 +50,79 @@ const Orders = ({ user }) => {
 
 export default Orders;
 
-const Card = () => {
-  return (
-    <div className='flex my-2 justify-between items-center border border-transparent border-t-black border-b-black'>
-      <div className='flex justify-between items-center'>
-        <img
-          src='/img.png'
-          alt=''
-          className=' w-10 h-10 sm:w-40 sm:h-40 object-cover'
-        />
-        <div className='flex flex-col justify-between items-start gap-4'>
-          <div>
-            <h2 className='font-bold text-sm sm:text-normal'>Completed</h2>
-            <p className='font-semibold text-sm sm:text-normal'>
-              Order #4452426
-            </p>
-          </div>
-
-          <h4 className='italic font-medium text-sm sm:text-normal'>
-            01.07.2023
-          </h4>
-        </div>
-      </div>
-
-      <div className='flex flex-col justify-between items-center gap-3'>
-        <h2 className='text-xs sm:text-normal'>Product name</h2>
-        <div className=''>
-          <p className='bg-red-500 w-3 h-3 sm:w-5 sm:h-5 rounded-full mb-2 text-sm sm:text-normal'></p>
-          <p className='text-xs sm:text-normal'>XL</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Purchased = ({ user }) => {
+const Purchased = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, isLoading, error } = useSWR(
     url + "/api/v1/orders/showCurrentUserOrder",
     fetcher
   );
-  console.log({ data, isLoading, error });
+
+  if (isLoading) {
+    return (
+      <div>
+        <Loader1 />
+      </div>
+    );
+  }
+
+  if (error || (data && data?.msg)) {
+    const message = error ? error.message : data.msg;
+    return (
+      <div>
+        <Error1 msg={message} />
+      </div>
+    );
+  }
+
+  const { orders } = data;
+
+  if (!orders.length > 0) {
+    return;
+  }
 
   return (
-    <div>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+    <>
+      {orders.map((order) => {
+        return <OrderAccordian key={order._id} order={order} />;
+      })}
+    </>
+  );
+};
+const Card = ({ item, order }) => {
+  const { name, price, image } = item;
+
+  return (
+    <div className='flex my-2 justify-between items-center border border-transparent border-t-black border-b-black'>
+      <div className='flex justify-between items-center'>
+        <img
+          src={image}
+          alt={name}
+          className=' w-10 h-10 sm:w-32 sm:h-32 m-2 rounded-md object-cover'
+        />
+        <div className='flex flex-col justify-between items-start gap-4 capitalize'>
+          <div>
+            <h2 className='font-bold text-sm sm:text-normal text-gray-500'>
+              {order.status}
+            </h2>
+            <p className='font-semibold text-sm sm:text-normal bg-emerald-600 px-2 py-1 rounded-xl'>
+              {order.payWith}
+            </p>
+          </div>
+
+          <h4 className='italic font-medium text-sm sm:text-normal'>
+            01.07.2023 {order.createdAt}
+          </h4>
+        </div>
+      </div>
+      <div className='flex flex-col justify-between items-center gap-5'>
+        <h2 className='text-xs sm:text-normal capitalize font-semibold'>
+          {name}
+        </h2>
+        <div className=''>
+          {/* <p className='bg-red-500 w-3 h-3 sm:w-5 sm:h-5 rounded-full mb-2 text-sm sm:text-normal'></p> */}
+          <p className='text-xs sm:text-normal font-bold'>${price}</p>
+        </div>
+      </div>
     </div>
   );
 };
@@ -121,6 +148,33 @@ const Sold = ({ user }) => {
       <Card />
       <Card />
       <Card />
+    </div>
+  );
+};
+
+const OrderAccordian = ({ order }) => {
+  const [isAccOpen, setIsAccOpen] = useState(false);
+  return (
+    <div
+      className='py-2 mx-auto w-full border-gray-400 border-t'
+      onClick={() => setIsAccOpen(!isAccOpen)}
+    >
+      <header className='flex justify-between items-center md:cursor-pointer'>
+        <h3 className='font-semibold text-sm sm:text-normal'>
+          Order #{order._id}
+        </h3>
+        <button className='font-bold text-base'>{isAccOpen ? "-" : "+"}</button>
+      </header>
+
+      <article
+        className={`overflow-hidden first-letter:uppercase lowercase transition-all duration-700 ${
+          isAccOpen ? "max-h-full" : "max-h-0"
+        }`}
+      >
+        {order.orderItems.map((item) => {
+          return <Card key={item._id} item={item} order={order} />;
+        })}
+      </article>
     </div>
   );
 };
