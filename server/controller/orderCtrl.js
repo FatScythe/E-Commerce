@@ -90,8 +90,8 @@ const getSingleOrder = async (req, res) => {
 };
 
 const getCurrentUserOrders = async (req, res) => {
-  const order = await Order.find({ _id: req.user.userId });
-  res.status(StatusCodes.OK).json({ order });
+  const orders = await Order.find({ user: req.user.userId });
+  res.status(StatusCodes.OK).json({ orders });
 };
 
 const updateOrder = async (req, res) => {
