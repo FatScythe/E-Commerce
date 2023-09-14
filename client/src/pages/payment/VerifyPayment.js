@@ -16,7 +16,7 @@ const VerifyPayment = () => {
       />
       {mode === "paystack" && <PaystackVerification />}
       {mode === "stripe" && <StripeVerification />}
-      {mode === "flutter" && <FlutterwaveVerification />}
+      {mode === "flutterwave" && <FlutterwaveVerification />}
     </>
   );
 };
