@@ -34,9 +34,7 @@ const cartSlice = createSlice({
       state.cartItems = [];
     },
     removeItem: (state, { payload }) => {
-      state.cartItems = {
-        ...state.cartItems.filter((item) => item.id !== payload),
-      };
+      state.cartItems = state.cartItems.filter((item) => item.id !== payload);
     },
     toggleAmount: (state, { payload }) => {
       let cartItem = state.cartItems.find((item) => item.id === payload.id);
