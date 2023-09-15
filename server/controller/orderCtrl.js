@@ -37,13 +37,16 @@ const createOrder = async (req, res) => {
     if (!dbProduct) {
       throw new NotFoundError(`No product with id: ${item.product}`);
     }
-    const { id, name, price, image } = dbProduct;
+    const { id, name, price, image, seller } = dbProduct;
     const singleOrderItem = {
       name,
       amount: item.amount,
       price,
       image,
+      color: item.color,
+      size: item.size,
       product: id,
+      seller,
     };
 
     orderItems = [...orderItems, singleOrderItem];
@@ -94,6 +97,33 @@ const getCurrentUserOrders = async (req, res) => {
   res.status(StatusCodes.OK).json({ orders });
 };
 
+const getCurrentUserSales = async (req, res) => {
+  const allOrders = await Order.find({});
+  let sales = [];
+
+  const orderItems = allOrders.map((items) => items.orderItems);
+
+  let allProducts = [];
+  orderItems.map((orderItem) => {
+    for (let i = 0; i < orderItem.length; i++) {
+      const element = orderItem[i];
+      allProducts.push(element);
+    }
+  });
+
+  sales = allProducts.map((product) => {
+    console.log(product.seller.toString(), req.user.userId);
+    if (product.seller.toString() == req.user.userId) {
+      return product;
+    }
+  });
+
+  console.log(sales);
+  sales = sales.filter((item) => item !== undefined);
+
+  res.status(StatusCodes.OK).json({ sales });
+};
+
 const updateOrder = async (req, res) => {
   const { id: orderId } = req.params;
   const { paymentIntentId } = req.body;
@@ -114,6 +144,7 @@ module.exports = {
   getAllOrders,
   getSingleOrder,
   getCurrentUserOrders,
+  getCurrentUserSales,
   createOrder,
   updateOrder,
 };
