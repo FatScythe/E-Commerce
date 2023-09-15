@@ -5,9 +5,16 @@ const singleOrderItemSchema = new Schema({
   image: { type: String, required: true },
   price: { type: Number, required: true },
   amount: { type: Number, required: true },
+  color: { type: String },
+  size: { type: String },
   product: {
     type: Schema.ObjectId,
     ref: "Product",
+    required: true,
+  },
+  seller: {
+    type: Schema.ObjectId,
+    ref: "User",
     required: true,
   },
 });
