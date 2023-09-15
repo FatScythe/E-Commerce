@@ -3,6 +3,7 @@ const {
   getAllOrders,
   getSingleOrder,
   getCurrentUserOrders,
+  getCurrentUserSales,
   createOrder,
   updateOrder,
 } = require("../controller/orderCtrl");
@@ -19,6 +20,10 @@ router
 router
   .route("/showCurrentUserOrder")
   .get(authenticateUser, getCurrentUserOrders);
+
+router
+  .route("/showCurrentUserSales")
+  .get(authenticateUser, getCurrentUserSales);
 
 router
   .route("/:id")
