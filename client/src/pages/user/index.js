@@ -28,7 +28,7 @@ import ChangePassword from "./dashboard/password";
 import WishList from "./dashboard/wishlist";
 import MyProducts from "./myProducts";
 import MyStore from "./dashboard/myStore";
-import Orders from "./dashboard/orders";
+import Orders from "./dashboard/Orders";
 
 const User = () => {
   useTitle("User");
