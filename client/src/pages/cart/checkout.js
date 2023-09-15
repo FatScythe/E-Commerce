@@ -219,7 +219,7 @@ const Checkout = () => {
   }
 
   if (cartItems.length < 1) {
-    return <Navigate to={"/product"} />;
+    return <Navigate to={"/products"} />;
   }
 
   return (
