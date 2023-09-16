@@ -1,0 +1,945 @@
+{
+	"info": {
+		"_postman_id": "e9f66604-8b4e-4917-92f8-9d2ff6f639b7",
+		"name": "Ayeti Adorn",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25236760"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Omolewa\",\r\n    \"email\" : \"omolewa@gmail.com\",\r\n    \"password\": \"secret\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"jums@gmail.com\",\r\n    \"password\": \"secret\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/users",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/users/643846c98ec7d2cc565ed63a",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"643846c98ec7d2cc565ed63a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Current User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/users/show",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"show"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Fahm\",\r\n    \"email\" : \"fahm@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/v1/users/update",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Password",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"newsecret\",\r\n    \"newPassword\" : \"secret\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/v1/users/updatePwd",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"updatePwd"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Crotchet 5\",\r\n    \"category\": \"kids\",\r\n    \"desc\": \"lorem ipsum dolor sit amet....\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/products",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/products",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/products/6442f8990a8b36dbab78c427",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"6442f8990a8b36dbab78c427"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Product Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/products/6424510d82ca78e902354313/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"6424510d82ca78e902354313",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/products/644444259738c6331dec256b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"644444259738c6331dec256b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\": \"unisex\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/products/643b0b5c132987bf3173e2bf",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"643b0b5c132987bf3173e2bf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Product Image",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/dell/Pictures/Saved Pictures/example.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/products/upload",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like/Unlike Product",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/products/like/644444259738c6331dec256b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"like",
+								"644444259738c6331dec256b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "My Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/products/my-products",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"products",
+								"my-products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Review",
+			"item": [
+				{
+					"name": "Create Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Okay Product Fahm\",\r\n    \"comment\" : \"It was an okay product\",\r\n    \"rating\": \"3.5\",\r\n    \"product\": \"649e86946d9fdd4aaf358001\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Reviews",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/reviews/643d4ed66492cf2251902f27",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews",
+								"643d4ed66492cf2251902f27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"Good Product Admin\",\r\n    \"comment\" : \"Really really Good product\",\r\n    \"rating\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/reviews/6442f8ad0a8b36dbab78c42b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews",
+								"6442f8ad0a8b36dbab78c42b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/reviews/6442f5f43ab62b06a2c1729c",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reviews",
+								"6442f5f43ab62b06a2c1729c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create Orders",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"\",\r\n    \"name\" : \"\",\r\n    \"address\" : \"your address\",\r\n    \"city\" : \"your city\",\r\n    \"country\" : \"your country\",\r\n    \"cartItems\" : [\r\n    {\"product\": \"642d7eb32ed8e2e7574bcd69\",\"name\": \"Product 1\", \"amount\": 2, \"image\": \"/uploads/example.jpeg\", \"price\":200 },\r\n    {\"product\": \"642d7eca2ed8e2e7574bcd6c\",\"name\": \"Product 2\", \"amount\": 1, \"image\": \"/uploads/example.jpeg\", \"price\": 400 }\r\n    ],\r\n    \"shippingFee\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/orders",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders/showCurrentUserOrder",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders",
+								"showCurrentUserOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User Sales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders/showCurrentUserSales",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders",
+								"showCurrentUserSales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/orders/64e2e8e687e525373d8520f",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders",
+								"64e2e8e687e525373d8520f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Order",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"paymentIntentId\": \"xGytzzhxxwwfwt\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/orders/642ee9e722c56da9f1f1ebb5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"orders",
+								"642ee9e722c56da9f1f1ebb5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Store",
+			"item": [
+				{
+					"name": "Create Store",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jum's Crotchet\",\r\n    \"desc\": \"Lorem ipsum dolor sit amet.... \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/v1/stores",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Store",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/stores",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"stores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Store",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/stores/643ea6a8e39f4b381473d0a5",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"stores",
+								"643ea6a8e39f4b381473d0a5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Store",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jumoke's Crotchet\",\r\n    \"desc\" : \"Lorem dolor sit amet...\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/v1/stores/643dabbcf62af44f854b794e",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"stores",
+								"643dabbcf62af44f854b794e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Store",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/v1/stores/64b5748d1e1404254442acf5",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"v1",
+								"stores",
+								"64b5748d1e1404254442acf5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Paystack- Accept Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"amount\": 500000,\r\n    \"ref\": \"64f597181bee5a6f8be59939\"// usually the order id\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/payment/paystack/acceptPayment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"payment",
+								"paystack",
+								"acceptPayment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paystack - Verify Payment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/payment/paystack/verifyPayment/64fe1cec1a2a15b37c8211d5",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"payment",
+								"paystack",
+								"verifyPayment",
+								"64fe1cec1a2a15b37c8211d5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stripe - Create Payment Intent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"id\" : \"\", // Usually the order id \r\n   \"shipping\" : 0, // Shipping fee\r\n   \"total\": 121 //  Subtotal of items to be bought\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/payment/stripe/create-payment-intent",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"payment",
+								"stripe",
+								"create-payment-intent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stripe - Verify Payment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/payment/stripe/verifyPayment/pi_3NopilDdZHl426IL1hk84Xx3/32423494340340324",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"payment",
+								"stripe",
+								"verifyPayment",
+								"pi_3NopilDdZHl426IL1hk84Xx3",
+								"32423494340340324"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flutterwave - Accept Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ref\" : \"64e2e8e687e525373d8520f\",// Usually the order Id\r\n    \"amount\": 2000,\r\n    \"name\": \"Jums\",\r\n    \"email\": \"jums@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/payment/flutterwave/acceptPayment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"payment",
+								"flutterwave",
+								"acceptPayment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Flutterwave - Verify Payment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/payment/flutterwave/verifyPayment/4590843",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"payment",
+								"flutterwave",
+								"verifyPayment",
+								"4590843"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
