@@ -85,7 +85,6 @@ const updateStore = async (req, res) => {
 const deleteStore = async (req, res) => {
   const { id: storeId } = req.params;
   const store = await Store.findOne({ _id: storeId });
-  const user = await User.findOne({ _id: store.owner });
   if (!store) throw new NotFoundError(`No store with id: ${storeId}`);
   checkPermissions(req.user, store.owner);
   if (req.user.role !== "admin") {
