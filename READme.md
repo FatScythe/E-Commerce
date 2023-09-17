@@ -161,24 +161,152 @@ GET: {{DOMAIN}}/api/v1/products/my-products
 ```
 
 #### Stores
-1. Endpoint to get transactions 
-2. Endpoint to delete transaction
-3. Endpoint to delete all tranactions
-4. Endpoint to add new transaction
+  createStore,
+  getAllStores,
+  getStore,
+  getMyStore,
+  updateStore,
+  deleteStore,
+1. Endpoint to create store
+```JSON
+POST: {{DOMAIN}}/api/v1/store
+{   
+    "name" *: "Store Name",      
+    "desc" *: "Description of store"
+}
+```
+2. Endpoint to get all stores
+```JSON
+GET: {{DOMAIN}}/api/v1/store
+{}
+```
+3. Endpoint to get single store
+```JSON
+GET: {{DOMAIN}}/api/v1/store/store-id
+{}
+```
+4. Endpoint to add get seller store (Admin, seller)
+```JSON
+GET: {{DOMAIN}}/api/v1/store
+{}
+```
+5. Endpoint to update store (Admin, Seller)
+```JSON
+PATCH: {{DOMAIN}}/api/v1/store/store-id
+{
+     "name" ?: "store new name", 
+     "desc" ?: "store new description", 
+     "insta" ?: "link to store instagram page", 
+     "fb" ?: "link to store facebook page", 
+     "tiktok" ?: "link to store tiktok page", 
+     "open": "Boolean(true/ false)" 
+}
+```
+6. Endpoint to delete store (Admin, Seller)
+```JSON
+DELETE: {{DOMAIN}}/api/v1/store/store-id
+{}
+```
 
 #### Reviews
-1. Endpoint to get transactions 
-2. Endpoint to delete transaction
-3. Endpoint to delete all tranactions
-4. Endpoint to add new transaction
+createReview,
+  getAllReviews,
+  getSingleReview,
+  updateReview,
+  deleteReview,
+1. Endpoint to get create review 
+```JSON
+POST: {{DOMAIN}}/api/v1/reviews
+{ 
+    "title" *: "Review title",
+    "comment" *: "Review Comment",
+    "rating" *: 5,(Number 1-5 )    
+    "product" *: "product ID"
+}
+```
+2. Endpoint to get all reviews
+```JSON
+GET: {{DOMAIN}}/api/v1/reviews
+{}
+```
+3. Endpoint to get single review
+```JSON
+GET: {{DOMAIN}}/api/v1/reviews/review-id
+{}
+```
+4. Endpoint to update review
+```JSON
+PATCH: {{DOMAIN}}/api/v1/reviews/review-id
+{
+    "title" ?: "New Review title",
+    "comment" ?: "New Review Comment",
+    "rating" ?: 1,(Number 1-5 )   
+}
+```
+5. Endpoint to delete review
+```JSON
+DELETE: {{DOMAIN}}/api/v1/reviews/review-id
+{}
+```
 
+#### Orders
+1. Endpoint to get all orders 
+```JSON
+GET: {{DOMAIN}}/api/v1/orders
+{}
+```
+2. Endpoint to single order
+```JSON
+GET: {{DOMAIN}}/api/v1/orders/order-id
+{}
+```
+3. Endpoint to current user order history
+```JSON
+GET: {{DOMAIN}}/api/v1/orders/showCurrentUserOrder
+{}
+```
+4. Endpoint to get current vendor sales (Admin, Seller)
+```JSON
+GET: {{DOMAIN}}/api/v1/orders/showCurrentUserSales
+{}
+```
+5. Endpoint to create order
+```JSON
+POST: {{DOMAIN}}/api/v1/orders
+{
+    "email" ?: "your name",
+    "name" ?: "your email",
+    "address" *: "your address",
+    "city" *: "your city",
+    "country" *: "your country",
+    "cartItems" *: [
+        {
+            "product": "product ID","name": "Product 1", "amount": 2, "image": "/uploads/example.jpeg", "price":200 
+        },
+        {
+            "product": "product ID","name": "Product 2", "amount": 1, "image": "/uploads/example.jpeg", "price": 400
+        }
+    ],
+    "shippingFee": 20
+},
+```
+6. Endpoint to update order
+```JSON
+PATCH: {{DOMAIN}}/api/v1/orders/order-id
+{
+    "status" ?: "paid" 
+    ["pending", "failed", "paid", "delivered", "canceled"],
+    "payStackAccessCode" ?: "paystack access code",
+    "stripeClientSecret" ?: " stripe client secret",
+    "flutterTrxId" ?: "flutter wave transaction id"
+},
+```
+   
 #### Payment
-1. Endpoint to get transactions 
-2. Endpoint to delete transaction
-3. Endpoint to delete all tranactions
-4. Endpoint to add new transaction
+1. Paystack 
+2. Stripe
+3. Flutterwave
 
 #### Future Feature
-1. Paginate the transacton history
-2. Use state management
-3. Endpoint to change password
+1. Paginate the product page
+2. Send email for payment completion
