@@ -209,11 +209,6 @@ DELETE: {{DOMAIN}}/api/v1/store/store-id
 ```
 
 #### Reviews
-createReview,
-  getAllReviews,
-  getSingleReview,
-  updateReview,
-  deleteReview,
 1. Endpoint to get create review 
 ```JSON
 POST: {{DOMAIN}}/api/v1/reviews
@@ -224,17 +219,17 @@ POST: {{DOMAIN}}/api/v1/reviews
     "product" *: "product ID"
 }
 ```
-2. Endpoint to get all reviews
+1. Endpoint to get all reviews
 ```JSON
 GET: {{DOMAIN}}/api/v1/reviews
 {}
 ```
-3. Endpoint to get single review
+1. Endpoint to get single review
 ```JSON
 GET: {{DOMAIN}}/api/v1/reviews/review-id
 {}
 ```
-4. Endpoint to update review
+1. Endpoint to update review
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/reviews/review-id
 {
@@ -243,7 +238,7 @@ PATCH: {{DOMAIN}}/api/v1/reviews/review-id
     "rating" ?: 1,(Number 1-5 )   
 }
 ```
-5. Endpoint to delete review
+1. Endpoint to delete review
 ```JSON
 DELETE: {{DOMAIN}}/api/v1/reviews/review-id
 {}
@@ -309,4 +304,4 @@ PATCH: {{DOMAIN}}/api/v1/orders/order-id
 
 #### Future Feature
 1. Paginate the product page
-2. Send email for payment completion
+2. Send email when payment is successful
