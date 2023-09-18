@@ -26,7 +26,7 @@ import Settings from "./dashboard/settings";
 import AllUsers from "./dashboard/allUsers";
 import ChangePassword from "./dashboard/password";
 import WishList from "./dashboard/wishlist";
-import MyProducts from "./myProducts";
+import MyProducts from "./dashboard/myProducts";
 import MyStore from "./dashboard/myStore";
 import Orders from "./dashboard/Orders";
 

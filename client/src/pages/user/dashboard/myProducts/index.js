@@ -1,25 +1,25 @@
-import "../dashboard/dashboard.css";
+import "../../dashboard/dashboard.css";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { crudProducts } from "../../../features/product/productSlice";
-import { showModal, closeModal } from "../../../features/ui/uiSlice";
+import { crudProducts } from "../../../../features/product/productSlice";
+import { showModal, closeModal } from "../../../../features/ui/uiSlice";
 // Hooks
-import useFetch from "../../../hooks/useFetch";
+import useFetch from "../../../../hooks/useFetch";
 
 // Component
-import Loader1 from "../../../component/loaders/loader1";
-import { ProductCard1 } from "../../products/productCard";
-import Error1 from "../../../component/loaders/error";
+import Loader1 from "../../../../component/loaders/loader1";
+import { ProductCard1 } from "../../../products/productCard";
+import Error1 from "../../../../component/loaders/error";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
-import { CloseIcon } from "../../../assets/icons/icon";
+import { CloseIcon } from "../../../../assets/icons/icon";
 
 // Utils
-import url from "../../../utils/url";
+import url from "../../../../utils/url";
 
 // Toastify
 import { toast } from "react-toastify";

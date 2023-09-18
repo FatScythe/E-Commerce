@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../dashboard/dashboard.css";
+import "../../dashboard/dashboard.css";
 const Step3 = ({ product, setProduct, handleProduct }) => {
   const [colorCount, setColorCount] = useState(0);
   const [color, setColor] = useState("");
