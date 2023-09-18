@@ -95,7 +95,7 @@ const StoreCard = ({ _id, name, owner, open, featured }) => {
           draggable={false}
           className='h-16 w-16 sm:h-32 sm:w-32 p-0.5 rounded-full object-cover border-4 border-green-500 border-t-2 border-l-0 '
         />
-        <h2 className='text-white bg-1 bg-black/25 group-hover:bg-black/40 mt-3 flex justify-center gap-2'>
+        <h2 className='text-white bg-1 bg-black/75 group-hover:bg-black/40 mt-3 flex justify-center gap-2 px-3 py-1'>
           {name}
           {featured && <VerifiedBadge className='w-6 h-6' />}
         </h2>
