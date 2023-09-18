@@ -289,7 +289,7 @@ POST: {{DOMAIN}}/api/v1/orders
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/orders/order-id
 {
-    "status" ?: "paid" 
+    "status" *: "paid" 
     ["pending", "failed", "paid", "delivered", "canceled"],
     "payStackAccessCode" ?: "paystack access code",
     "stripeClientSecret" ?: " stripe client secret",
@@ -299,6 +299,17 @@ PATCH: {{DOMAIN}}/api/v1/orders/order-id
    
 #### Payment
 1. Paystack 
+```JSON
+1. Accept Payment: 
+PATCH: {{DOMAIN}}/api/v1/payment/paystack/acceptPayment
+{
+  "email" *: "youremail", 
+  "amount" *: "amount to be paid in (Naira)", 
+  "ref" ?: "unique reference code" 
+},
+
+2. Verify
+```
 2. Stripe
 3. Flutterwave
 
