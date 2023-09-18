@@ -10,7 +10,7 @@ import { navLinks } from "./assets/data/navData";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 // Toastify
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // Redux
 import { fetchProducts } from "./features/product/productSlice";
@@ -31,6 +31,12 @@ function App() {
         dispatch(removeUser());
       }
       const data = await response.json();
+
+      if (data?.msg) {
+        toast.error(data.msg);
+        dispatch(removeUser());
+        return;
+      }
 
       dispatch(saveUser(data));
     } catch (error) {
