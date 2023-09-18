@@ -9,7 +9,6 @@ import {
   ChevronLeft,
   CloseIcon,
   HamburgerIcon,
-  LogoutIcon,
   PencilIcon,
   ProductIcon,
   SettingsIcon,
@@ -17,9 +16,8 @@ import {
   StoreIcon,
   UserIcon,
 } from "../../assets/icons/icon";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Navigate, NavLink, Link, Route, Routes } from "react-router-dom";
-import { logoutUser } from "../../features/user/userSlice";
 // Components
 import EditProfile from "./dashboard/editProfile";
 import Settings from "./dashboard/settings";
@@ -29,14 +27,12 @@ import WishList from "./dashboard/wishlist";
 import MyProducts from "./dashboard/myProducts";
 import MyStore from "./dashboard/myStore";
 import Orders from "./dashboard/Orders";
+import Logout from "./logout";
 
 const User = () => {
   useTitle("User");
   const { user } = useSelector((store) => store.user);
   const [openNav, setOpenNav] = useState(false);
-  const dispatch = useDispatch();
-
-  console.log(user);
 
   if (!user) {
     return <Navigate to='/' />;
@@ -165,12 +161,7 @@ const User = () => {
           </ul>
         </nav>
 
-        <button
-          className='sm:mt-3 bg-tomato text-white flex justify-center items-center my-0 mx-auto px-3 py-2 w-3/4 rounded-md'
-          onClick={() => dispatch(logoutUser())}
-        >
-          <span className='sm:hidden md:flex'>logout</span> <LogoutIcon />
-        </button>
+        <Logout />
       </aside>
       <main className='relative w-full sm:col-span-10 md:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
         <div className='float-right fixed z-50 px-3 right-0 top-4 w-fit'>
