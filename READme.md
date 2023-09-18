@@ -285,7 +285,7 @@ POST: {{DOMAIN}}/api/v1/orders
     "shippingFee": 20
 },
 ```
-6. Endpoint to update order
+6. Endpoint to update order (Admin)
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/orders/order-id
 {
