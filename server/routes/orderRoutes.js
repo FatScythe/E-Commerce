@@ -28,6 +28,6 @@ router
 router
   .route("/:id")
   .get(authenticateUser, getSingleOrder)
-  .patch(authenticateUser, updateOrder);
+  .patch([(authenticateUser, authorizePermissions("admin"))], updateOrder);
 
 module.exports = router;
