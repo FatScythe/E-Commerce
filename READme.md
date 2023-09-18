@@ -301,17 +301,47 @@ PATCH: {{DOMAIN}}/api/v1/orders/order-id
 1. Paystack 
 ```JSON
 1. Accept Payment: 
-PATCH: {{DOMAIN}}/api/v1/payment/paystack/acceptPayment
+POST: {{DOMAIN}}/api/v1/payment/paystack/acceptPayment
 {
   "email" *: "youremail", 
   "amount" *: "amount to be paid in (Naira)", 
-  "ref" ?: "unique reference code" 
+  "ref" ?: "unique reference id" 
 },
 
 2. Verify
+GET: {{DOMAIN}}/api/v1/payment/paystack/reference-id
+{},
 ```
 2. Stripe
+```JSON
+1. Create Payment Intent: 
+POST: {{DOMAIN}}/api/v1/payment/stripe/create-payment-intent
+{
+    "total" *: "cart total", 
+    "shipping" ?: "shipping fee", 
+    "id" *: "order ID"
+},
+
+2. Verify
+GET: {{DOMAIN}}/api/v1/payment/stripe/verifyPayment/{{transaction-id}}/{{orderId}}
+{},
+```
+  
 3. Flutterwave
+```JSON
+1. Accept Payment: 
+POST: {{DOMAIN}}/api/v1/payment/flutterwave/acceptPayment
+{
+  "name" *: "customers name",
+  "email" *: "customers email", 
+  "amount" *: "amount to be paid in (Naira)", 
+  "ref" *: "unique reference id, usually order id" 
+},
+
+2. Verify Payment:
+GET: {{DOMAIN}}/api/v1/payment/paystack/reference-id
+{},
+```
 
 #### Future Feature
 1. Paginate the product page
