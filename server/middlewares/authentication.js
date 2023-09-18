@@ -4,16 +4,16 @@ const { isTokenValid } = require("../utils/jwt");
 const authenticateUser = async (req, res, next) => {
   const token = req.signedCookies.token;
 
-  if (!token) {
-    throw new BadRequestError("Invalid Credentials");
-  }
   try {
-    const { name, role, userId, email } = isTokenValid(token);
-    req.user = { name, role, userId, email };
+    if (!token) {
+      throw new BadRequestError("Invalid Credentials");
+    }
+    const { name, role, userId, email, avatar } = isTokenValid(token);
+    req.user = { name, role, userId, email, avatar };
 
     next();
   } catch (error) {
-    throw new BadRequestError("Invalid Credentials");
+    throw new BadRequestError("Invalid Credentials this one");
   }
 };
 
