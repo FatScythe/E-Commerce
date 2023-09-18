@@ -13,7 +13,7 @@ const Orders = ({ user }) => {
 
   useEffect(() => {
     navigate("/user/orders/purchased");
-  }, [navigate]);
+  }, []);
 
   return (
     <section id='order' className='container'>

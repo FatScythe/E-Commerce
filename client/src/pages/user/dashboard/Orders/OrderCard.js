@@ -1,6 +1,9 @@
+// Utils
+import getDate from "../../../../utils/getDate";
+
 const Card = ({ item, order }) => {
   const { name, price, image, color } = item;
-
+  const time = getDate(order ? order.createdAt : item.createdAt);
   return (
     <div className='flex my-2 justify-between items-center border border-transparent border-t-black border-b-black'>
       <div className='flex justify-between items-center'>
@@ -12,15 +15,15 @@ const Card = ({ item, order }) => {
         <div className='flex flex-col justify-between items-start gap-4 capitalize'>
           <div>
             <h2 className='font-bold text-sm sm:text-normal text-gray-500'>
-              {order.status}
+              {order ? order.status : item.status}
             </h2>
             <p className='font-semibold text-sm sm:text-normal bg-emerald-600 px-2 py-1 rounded-xl'>
-              {order.payWith}
+              {order ? order.payWith : item.payWith}
             </p>
           </div>
 
           <h4 className='italic font-medium text-sm sm:text-normal'>
-            01.07.2023 {order.createdAt}
+            {time.day}.{time.month}.{time.year}
           </h4>
         </div>
       </div>

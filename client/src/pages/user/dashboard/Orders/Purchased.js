@@ -2,10 +2,10 @@
 import useSWR from "swr";
 // Component
 import OrderAccordian from "./OrderAccordian";
-// Utils
-import url from "../../../../utils/url";
 import Loader1 from "../../../../component/loaders/loader1";
 import Error1 from "../../../../component/loaders/error";
+// Utils
+import url from "../../../../utils/url";
 
 const Purchased = () => {
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
@@ -34,7 +34,11 @@ const Purchased = () => {
   const { orders } = data;
 
   if (!orders.length > 0) {
-    return;
+    return (
+      <div className='text-base sm:text-lg mt-10 text-center'>
+        You have not purchased anything yet : )
+      </div>
+    );
   }
 
   return (
