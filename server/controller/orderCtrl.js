@@ -133,13 +133,21 @@ const getCurrentUserSales = async (req, res) => {
 
 const updateOrder = async (req, res) => {
   const { id: orderId } = req.params;
-  const { paymentIntentId } = req.body;
+  const { payStackAccessCode, flutterTrxId, stripeClientSecret } = req.body;
   const order = await Order.findOne({ _id: orderId });
   if (!order) {
     throw new NotFoundError(`No order with ID : ${orderId}`);
   }
 
-  order.paymentId = paymentIntentId;
+  if (payStackAccessCode) {
+    order.paystackAccessCode = payStackAccessCode;
+  }
+  if (flutterTrxId) {
+    order.flutterTrxId = flutterTrxId;
+  }
+  if (stripeClientSecret) {
+    order.stripeClientSecret = stripeClientSecret;
+  }
   order.status = "paid";
 
   await order.save();
