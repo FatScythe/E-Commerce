@@ -98,30 +98,37 @@ const getCurrentUserOrders = async (req, res) => {
 };
 
 const getCurrentUserSales = async (req, res) => {
-  const allOrders = await Order.find({});
+  const allOrders = await Order.find({}).lean().exec();
   let sales = [];
 
-  const orderItems = allOrders.map((items) => items.orderItems);
+  const orders = allOrders.map((items) => {
+    return {
+      payWith: items.payWith,
+      createdAt: items.createdAt,
+      orderId: items._id,
+      status: items.status,
+      orderItems: items.orderItems,
+    };
+  });
 
   let allProducts = [];
-  orderItems.map((orderItem) => {
-    for (let i = 0; i < orderItem.length; i++) {
-      const element = orderItem[i];
-      allProducts.push(element);
+  orders.map((order) => {
+    const { orderItems, orderId, status, payWith, createdAt } = order;
+    for (let i = 0; i < orderItems.length; i++) {
+      const element = orderItems[i];
+      allProducts.push({ ...element, orderId, status, payWith, createdAt });
     }
   });
 
   sales = allProducts.map((product) => {
-    console.log(product.seller.toString(), req.user.userId);
-    if (product.seller.toString() == req.user.userId) {
+    if (product?.seller.toString() == req.user.userId) {
       return product;
     }
   });
 
-  console.log(sales);
   sales = sales.filter((item) => item !== undefined);
 
-  res.status(StatusCodes.OK).json({ sales });
+  res.status(StatusCodes.OK).json({ count: sales.length, sales });
 };
 
 const updateOrder = async (req, res) => {
