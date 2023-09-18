@@ -1,12 +1,16 @@
 const https = require("https");
 const { StatusCodes } = require("http-status-codes");
 const Order = require("../models/Order");
+const { BadRequestError } = require("../errors");
 const ObjectId = require("mongoose").Types.ObjectId;
 
 const flutterwave = {
   acceptPayment: async (req, res) => {
+    const { name, email, amount, ref } = req.body;
     try {
-      const { name, email, amount, ref } = req.body;
+      if (!name || !email || !ref) {
+        throw new BadRequestError("Please fill all field");
+      }
 
       // params
       const params = JSON.stringify({
