@@ -36,7 +36,7 @@ ___
 3. Authorization roles - Admin, Seller, User
 #### Authentication
 Authentication is enabled in this app using JWT and cookies.
-Access Token and Refresh Token is sent with each request and is verified on the server.
+Token is sent with each request, that requires authentication and it's verified on the server.
 
 1. Endpoint to register user
 ```JSON
@@ -47,13 +47,20 @@ POST: {{DOMAIN}}/api/v1/auth/register
     "password" *: "yourpassword"
 }
 ```
-
 2. Endpoint to verify email
 ```JSON
 POST: {{DOMAIN}}/api/v1/auth/verify-email
 {
    "verificationToken" *: "verification token sent with mail", 
    "email" *: "your email"
+}
+```
+2. Endpoint to login user
+```JSON
+POST: {{DOMAIN}}/api/v1/auth/login
+{
+   "email" *: "your email",
+   "password" *: "uour password",
 }
 ```
 3. Endpoint to logout
@@ -68,7 +75,7 @@ POST: {{DOMAIN}}/api/v1/auth/forgot-password
    "email" *: "your email"
 }
 ```
-6. Endpoint for reset password 
+5. Endpoint for reset password 
 ```JSON
 POST: {{DOMAIN}}/api/v1/auth/reset-password
 {
@@ -119,12 +126,12 @@ POST: {{DOMAIN}}/api/v1/products
     "desc" *: "Description of product"
 }
 ```
-1. Endpoint to get all products (Admin)
+2. Endpoint to get all products (Admin)
 ```JSON
 GET: {{DOMAIN}}/api/v1/products
 {}
 ```
-2. Endpoint to get single product
+3. Endpoint to get single product
 ```JSON
 // For users
 GET: {{DOMAIN}}/api/v1/products/auth/product-id
@@ -135,12 +142,12 @@ GET: {{DOMAIN}}/api/v1/products/auth/product-id
 GET: {{DOMAIN}}/api/v1/products/product-id
 {}
 ```
-3. Endpoint to delete product (Admin, Seller)
+4. Endpoint to delete product (Admin, Seller)
 ```JSON
 DELETE: {{DOMAIN}}/api/v1/products/product-id
 {}
 ```
-4. Endpoint to update product (Admin, Seller)
+5. Endpoint to update product (Admin, Seller)
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/products/product-id
 {
@@ -149,24 +156,18 @@ PATCH: {{DOMAIN}}/api/v1/products/product-id
     "desc" ?: "Description of product"
 }
 ```
-5. Endpoint to like/unlike product
+6. Endpoint to like/unlike product
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/products/product-id
 {}
 ```
-6. Endpoint to get current user products (Admin, Seller)
+7. Endpoint to get current user products (Admin, Seller)
 ```JSON
 GET: {{DOMAIN}}/api/v1/products/my-products
 {}
 ```
 
 #### Stores
-  createStore,
-  getAllStores,
-  getStore,
-  getMyStore,
-  updateStore,
-  deleteStore,
 1. Endpoint to create store
 ```JSON
 POST: {{DOMAIN}}/api/v1/store
@@ -219,17 +220,17 @@ POST: {{DOMAIN}}/api/v1/reviews
     "product" *: "product ID"
 }
 ```
-1. Endpoint to get all reviews
+2. Endpoint to get all reviews
 ```JSON
 GET: {{DOMAIN}}/api/v1/reviews
 {}
 ```
-1. Endpoint to get single review
+3. Endpoint to get single review
 ```JSON
 GET: {{DOMAIN}}/api/v1/reviews/review-id
 {}
 ```
-1. Endpoint to update review
+4. Endpoint to update review
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/reviews/review-id
 {
@@ -238,7 +239,7 @@ PATCH: {{DOMAIN}}/api/v1/reviews/review-id
     "rating" ?: 1,(Number 1-5 )   
 }
 ```
-1. Endpoint to delete review
+5. Endpoint to delete review
 ```JSON
 DELETE: {{DOMAIN}}/api/v1/reviews/review-id
 {}
