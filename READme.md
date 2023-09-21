@@ -3,7 +3,7 @@
 ### Description:  E-commerce web application built with the MERN Stack, with 3 mode of payment using Flutterwave, Paystack or Stripe. 
 ___
 
-### Link to the live website: [Ayeti-Adorn](https://ayeti-adorn-n9i6.onrender.com/ "Ayeti Adorn live site")
+### Link to the live website: [Ayeti-Adorn](https://ayeti-adorn.onrender.com/ "Ayeti Adorn live site")
 ___
 
 #### Frontend Design: Freestyled : )
