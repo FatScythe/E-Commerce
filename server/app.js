@@ -25,7 +25,7 @@ const storeRouter = require("./routes/storeRoutes");
 const orderRouter = require("./routes/orderRoutes");
 const paymentRouter = require("./routes/paymentRoutes");
 
-app.use(express.static(path.resolve(__dirname, "../client/build")));
+app.use(express.static(path.resolve(__dirname, "./public/build")));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(morgan("tiny"));
@@ -40,7 +40,7 @@ app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/payment", paymentRouter);
 
 app.get("*", async (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+  res.sendFile(path.resolve(__dirname, "./public/build", "index.html"));
 });
 
 app.use(errorMW);
