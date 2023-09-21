@@ -17,7 +17,7 @@ const flutterwave = {
         tx_ref: ref,
         amount: amount,
         currency: "NGN",
-        redirect_url: `http://localhost:3000/payment/verify?mode=flutterwave`,
+        redirect_url: `${process.env.DOMAIN}payment/verify?mode=flutterwave`,
         customer: {
           email,
           name,

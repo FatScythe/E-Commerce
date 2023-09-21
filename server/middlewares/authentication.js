@@ -13,7 +13,7 @@ const authenticateUser = async (req, res, next) => {
 
     next();
   } catch (error) {
-    throw new BadRequestError("Invalid Credentials this one");
+    throw new BadRequestError("Invalid Credentials");
   }
 };
 

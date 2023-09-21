@@ -13,7 +13,7 @@ const payStack = {
         email: email,
         amount: amount * 100,
         reference: ref,
-        callback_url: `http://localhost:3000/payment/verify?mode=paystack`,
+        callback_url: `${process.env.DOMAIN}payment/verify?mode=paystack`,
       });
       // options
       const options = {

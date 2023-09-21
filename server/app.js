@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const express = require("express");
 const app = express();
+const path = require("path");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -24,14 +25,11 @@ const storeRouter = require("./routes/storeRoutes");
 const orderRouter = require("./routes/orderRoutes");
 const paymentRouter = require("./routes/paymentRoutes");
 
+app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(morgan("tiny"));
 app.use(express.static("./public"));
-
-app.get("/", (req, res) => {
-  res.send("ECOMMERCE APP");
-});
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
@@ -40,6 +38,10 @@ app.use("/api/v1/reviews", reviewRouter);
 app.use("/api/v1/stores", storeRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/payment", paymentRouter);
+
+app.get("*", async (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+});
 
 app.use(errorMW);
 app.use(notFoundMW);
