@@ -4,7 +4,7 @@
   "description": "An e-commerce website built with the MERN stack",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
     "dev": "nodemon app.js"
   },
   "author": "Abdullahi Fahm",
