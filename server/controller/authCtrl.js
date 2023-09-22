@@ -36,7 +36,7 @@ const register = async (req, res) => {
   // const host = req.get("host");
   // console.log(`host: ${host}`);
 
-  const origin = "http://localhost:3000";
+  const origin = process.env.DOMAIN;
 
   await sendVerificationEmail({
     name: user.name,
@@ -106,7 +106,7 @@ const forgotPassword = async (req, res) => {
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString("hex");
 
-    const origin = "http://localhost:3000";
+    const origin = process.env.DOMAIN;
 
     await sendResetPasswordEmail({
       name: user.name,
