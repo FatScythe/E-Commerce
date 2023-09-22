@@ -23,18 +23,20 @@ const SingleStore = () => {
   const { data, pending, error } = useFetch(url + "/api/v1/stores/" + id);
 
   const [nav, setNav] = useState(false);
-  const [size, setSize] = useState(200);
+  const [size, setSize] = useState(150);
   const changeNav = () => {
-    window.scrollY <= 150 ? setNav(true) : setNav(false);
+    if (window.scrollY <= 150) {
+      setNav(true);
+      setSize(150);
+    } else {
+      setNav(false);
+      setSize(50);
+    }
   };
 
   useEffect(() => {
     window.addEventListener("scroll", changeNav);
-    if (nav) {
-      setSize(150);
-    } else {
-      setSize(50);
-    }
+
     return () => window.removeEventListener("scroll", changeNav);
   }, [nav]);
 
@@ -50,7 +52,7 @@ const SingleStore = () => {
     );
   }
 
-  if (error || data === undefined) {
+  if (error || data?.msg || data === undefined) {
     return (
       <>
         <NotNav
