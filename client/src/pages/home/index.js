@@ -17,7 +17,7 @@ const HomePage = () => {
       <Carousel />
       <main className='mt-6'>
         {product_loading ? (
-          <div>Loading...</div>
+          <div></div>
         ) : products ? (
           <Slider
             title='now on sale'
