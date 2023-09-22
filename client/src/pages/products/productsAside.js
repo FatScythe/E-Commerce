@@ -29,7 +29,7 @@ const ProductAside = ({
     >
       <div className='cancel'>
         <button onClick={() => setIsFilterOpen(false)}>
-          <CloseIcon />
+          <CloseIcon className='w-6 h-6' />
         </button>
       </div>
       <div className='search'>

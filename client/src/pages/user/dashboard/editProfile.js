@@ -20,8 +20,6 @@ const EditProfile = ({ user }) => {
     loading: false,
   });
 
-  console.log(process.env.REACT_APP_PRESET, process.env.REACT_APP_CLOUD_NAME);
-
   const dispatch = useDispatch();
 
   const { dark } = useSelector((store) => store.ui);

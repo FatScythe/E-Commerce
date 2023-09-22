@@ -169,7 +169,7 @@ const User = () => {
             className='sm:hidden bg-bkg text-secondary p-4 rounded-full'
             onClick={() => setOpenNav(!openNav)}
           >
-            {openNav ? <CloseIcon /> : <HamburgerIcon />}
+            {openNav ? <CloseIcon className='w-6 h-6' /> : <HamburgerIcon />}
           </button>
         </div>
 
