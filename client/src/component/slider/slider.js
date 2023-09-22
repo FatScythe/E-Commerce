@@ -32,7 +32,7 @@ const Slider = ({ title, array }) => {
   useEffect(() => {
     const number = (current) => {
       // last is the array.length - 1
-      const last = 10 - 1;
+      const last = array.length - 1;
 
       if (current >= last) {
         return last;
@@ -45,7 +45,7 @@ const Slider = ({ title, array }) => {
       return current;
     };
     setCurrent(number);
-  }, [current]);
+  }, [current, array]);
 
   return (
     <main>
@@ -70,7 +70,7 @@ const Slider = ({ title, array }) => {
             <button
               onClick={() => setCurrent(current + 1)}
               className='bg-accent disabled:bg-primary hover:bg-primary text-black hover:text-white disabled:hover:text-black p-3 disabled:p-1 rounded-full disabled:ring-transparent hover:ring-4 ring-accent ring-offset-8'
-              disabled={current === 9}
+              disabled={current === array.length - 1}
             >
               <ArrowRight />
             </button>
@@ -80,7 +80,7 @@ const Slider = ({ title, array }) => {
         <div
           style={{
             transform: `translateX(-${current * cardWidth}rem)`,
-            width: `${10 * cardWidth}rem`,
+            width: `${(array.length - 0.3) * cardWidth}rem`,
           }}
           className='carousel-container p-4 mt-5 overflow-hidden flex gap-8 items-center transition-all duration-700 ease-in-out'
         >
