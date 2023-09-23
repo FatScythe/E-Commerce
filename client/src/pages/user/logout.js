@@ -4,17 +4,25 @@ import { LogoutIcon } from "../../assets/icons/icon";
 import { useDispatch } from "react-redux";
 import { showModal, closeModal } from "../../features/ui/uiSlice";
 import { logoutUser } from "../../features/user/userSlice";
+import { useEffect, useState } from "react";
 
 const Logout = () => {
+  const [logout, setLogout] = useState(false);
   const dispatch = useDispatch();
   const question = "Are you sure you want to logout?";
   const positiveFn = () => {
-    dispatch(logoutUser());
+    setLogout(true);
     dispatch(closeModal());
   };
   const negativeFn = () => {
     dispatch(closeModal());
   };
+
+  useEffect(() => {
+    if (logout) {
+      dispatch(logoutUser());
+    }
+  }, [logout, dispatch]);
 
   return (
     <button
