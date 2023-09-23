@@ -39,6 +39,9 @@ app.use("/api/v1/stores", storeRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/payment", paymentRouter);
 
+app.get("/health-check", async (req, res) => {
+  res.status(200).json({ msg: "Everything looks good" });
+});
 app.get("*", async (req, res) => {
   res.sendFile(path.resolve(__dirname, "./public/build", "index.html"));
 });
