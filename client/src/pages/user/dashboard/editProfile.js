@@ -71,6 +71,7 @@ const EditProfile = ({ user }) => {
 
       return data.secure_url;
     } catch (error) {
+      toast.dismiss();
       console.error(error);
     }
   };
@@ -105,6 +106,7 @@ const EditProfile = ({ user }) => {
       fetchUser();
       toast.success(data.msg);
     } catch (error) {
+      toast.dismiss();
       console.error(error);
     }
   };
@@ -126,7 +128,6 @@ const EditProfile = ({ user }) => {
       setValue({ ...value, avatar: reader.result });
     };
     const avatarUrl = await handleAvatar();
-    console.log(avatarUrl);
     if (!avatarUrl) return;
     handleSubmit(e, avatarUrl);
   };
