@@ -1,33 +1,57 @@
 ## Ayeti Adorn
-![Ayeti Adorn](Ayeti.png "Ayeti Adorn")
+![Ayeti Adorn](images/Ayeti.png "Ayeti Adorn")
 #### Description:  E-commerce web application built with the MERN Stack, with 3 mode of payment using Flutterwave, Paystack or Stripe. 
 ___
 
 #### Link to the live website: [Ayeti-Adorn](https://ayeti-aorn.onrender.com/ "Ayeti Adorn live site")
 ___
 
-#### Frontend Design: Freestyled : )
+#### Frontend Design:  Freestyled it : ) 
+![Homepage](images/homepage.png "Ayeti Adorn Homepage")
 ___
 
-### Tech Used:
+### ✨ Built With:
 1. React
-2. NodeJS
-3. ExpressJS
-4. Git
-5. Github
-6. MongoDB
-7. JWT
-8. Bcrypt
-9. Express Rate limiter
-10. Render
-11. React-router
-12. Tailwind
-13. swr
+2. Cloudinary
+3. NodeJS
+4. ExpressJS
+5. Git
+6. Github
+7. MongoDB
+8. JWT
+9. Bcrypt
+10. Express Rate limiter
+11. Nodemailer
+12. Render
+13. React-router
+14. Tailwind
+15. swr
 ___
 
+### 📚 Getting Started
+
+#### 🛠️ Installation
+1. Clone the project or download zip file
+2. Navigate to the project directory
+   ```bash
+   cd E-commerce
+   ```
+3. Navigate to the respective client and server directory
+   ```bash
+   cd client
+   ```
+   ```bash
+   cd server
+   ```
+4. Install dependencies with ``` npm install ```
+5. Use ```.env_sample``` to configure the ```.env``` 
+6. Run ```npm start ``` in the client directory and ``` npm run dev ``` in the server directory
+> NB: In client directory ``` package.json ```, it's been proxied to localhost:5000, change depending on backend PORT number
+   
 ### Client Side
-
-
+1. Pages -19
+2. Icons - idk:(
+3. Components - >13 
 
 ### Server Side / API
 #### NB:
@@ -115,6 +139,11 @@ PATCH: {{DOMAIN}}/api/v1/user/updatePwd
     "oldPassword" *: "yourpassword",
     "newPassword" *: "yournewpassword",
 }
+```
+6. Endpoint to block/unblock user (Admin)
+```JSON
+PATCH: {{DOMAIN}}/api/v1/user/user-id
+{}
 ```
 #### Products
 1. Endpoint to get create product (Admin, Seller) 
