@@ -163,7 +163,7 @@ const User = () => {
 
         <Logout />
       </aside>
-      <main className='relative w-full sm:col-span-10 md:col-span-9 sm:h-screen sm:overflow-y-scroll p-4'>
+      <main className='relative w-full sm:col-span-10 md:col-span-9 h-screen overflow-y-scroll p-4'>
         <div className='float-right fixed z-50 px-3 right-0 top-4 w-fit'>
           <button
             className='sm:hidden bg-bkg text-secondary p-4 rounded-full'
