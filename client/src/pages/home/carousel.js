@@ -80,11 +80,26 @@ const Carousel = () => {
 
       <div className='title'>
         <h1>shop for handmade items here</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi,
-          suscipit. Ut eaque temporibus quod fuga deserunt minima debitis
-          voluptate accusantium?
+        <p className='font-semibold first-letter:text-lg'>
+          Your go-to online destination for handmade clothing items that exude
+          creativity and craftsmanship.
+          <span className='hidden sm:inline'>
+            Our stores are a sanctuary for those who appreciate the artistry
+            behind each stitch and value individuality in fashion.
+          </span>
         </p>
+        {/* <p>
+       
+       From intricately hand-embroidered dresses to cozy
+          hand-knitted sweaters, our collection encompasses a wide spectrum of
+          styles, all created by skilled artisans from around the world.
+          We prioritize quality and sustainability, using eco-friendly materials
+          and championing fair trade practices. When you shop with us, you're
+          not just buying clothing; you're investing in wearable art that
+          supports artisans and preserves timeless traditions. Explore Artisan
+          Attire today and elevate your wardrobe with unique, ethically-made
+          pieces that tell a story.
+        </p> */}
         <button className='border border-black rounded-3xl px-2 py-3'>
           shop now
         </button>
