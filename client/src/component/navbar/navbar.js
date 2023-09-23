@@ -33,7 +33,10 @@ const Navbar = () => {
           )}
           <h2>
             <Link to='/'>
-              ayeti adorn<span>.</span>
+              ayeti adorn
+              <span className='font-extrabold text-base sm:text-xl md:text-2xl'>
+                .
+              </span>
             </Link>
           </h2>
 
