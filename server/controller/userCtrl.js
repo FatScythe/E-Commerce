@@ -11,7 +11,10 @@ const getAllUsers = async (req, res) => {
 const getSingleUser = async (req, res) => {
   const { id: userId } = req.params;
   const user = await User.findOne({ _id: userId });
-  if (!user) throw new BadRequestError(`No user with id: ${userId}`);
+  if (!user) {
+    throw new BadRequestError(`No user with id: ${userId}`);
+  }
+
   checkPermissions(req.user, user._id);
   res.status(StatusCodes.OK).json({ user });
 };
@@ -29,7 +32,9 @@ const updateUser = async (req, res) => {
 
   const user = await User.findOne({ _id: req.user.userId });
 
-  if (!user) throw new NotFoundError(`No user with id: ${req.user.userId}`);
+  if (!user) {
+    throw new NotFoundError(`No user with id: ${req.user.userId}`);
+  }
 
   user.name = name;
   user.email = email;
@@ -46,16 +51,37 @@ const updateUserPassword = async (req, res) => {
     throw new BadRequestError("Please provide old and new password");
 
   const user = await User.findOne({ _id: req.user.userId });
-  if (!user) throw new NotFoundError(`No user with id: ${req.user.userId}`);
+  if (!user) {
+    throw new NotFoundError(`No user with id: ${req.user.userId}`);
+  }
 
   const isPasswordCorrect = await user.comparePassword(oldPassword);
 
-  if (!isPasswordCorrect) throw new BadRequestError("Invalid Password!!!");
+  if (!isPasswordCorrect) {
+    throw new BadRequestError("Invalid Password!!!");
+  }
 
   user.password = newPassword;
 
   await user.save();
   res.status(StatusCodes.OK).json({ msg: "Password sucessfully updated" });
+};
+
+const userAccess = async (req, res) => {
+  const { id } = req.params;
+
+  const user = await User.findOne({ _id: id });
+  if (!user) {
+    throw new NotFoundError(`No user with id: ${req.user.userId}`);
+  }
+
+  user.isVerified = user.isVerified ? false : true;
+
+  await user.save();
+
+  res.status(StatusCodes.ACCEPTED).json({
+    msg: `${user.name} has been ${user.isVerified ? "unblocked" : "blocked"}`,
+  });
 };
 
 module.exports = {
@@ -64,4 +90,5 @@ module.exports = {
   showCurrentUser,
   updateUser,
   updateUserPassword,
+  userAccess,
 };
