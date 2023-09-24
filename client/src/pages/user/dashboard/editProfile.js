@@ -62,6 +62,7 @@ const EditProfile = ({ user }) => {
       const data = await response.json();
 
       if (!response.ok) {
+        toast.dismiss();
         toast.error("Unable to upload Image");
         setValue({ ...value, loading: false });
         return;
