@@ -20,7 +20,11 @@ const getSingleUser = async (req, res) => {
 };
 
 const showCurrentUser = async (req, res) => {
-  res.status(StatusCodes.OK).json({ user: req.user });
+  const user = await User.findOne({ _id: req.user.userId });
+
+  res
+    .status(StatusCodes.OK)
+    .json({ user: { ...req.user, avatar: user.avatar } });
 };
 
 const updateUser = async (req, res) => {
