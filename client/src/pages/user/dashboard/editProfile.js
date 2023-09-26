@@ -62,15 +62,7 @@ const EditProfile = ({ user }) => {
 
     try {
       toast.loading("Uploading image...");
-      // {
-      //     "user": {
-      //         "name": "Olajumoke ",
-      //         "role": "seller",
-      //         "userId": "650f56d5aac76e7fdf293c0e",
-      //         "email": "jums@gmail.com",
-      //         "avatar": "https://res.cloudinary.com/dg0mkn4ld/image/upload/v1681395070/Ayeti-Adorn/users/avatar_ali4xr.png"
-      //     }
-      // }
+
       // UPLOADING TO CLOUDINARY
       const response = await fetch(url + "/api/v1/users/updatePic", {
         method: "PATCH",
