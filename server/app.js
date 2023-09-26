@@ -7,7 +7,15 @@ const path = require("path");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
 const cors = require("cors");
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+  secure: true,
+});
 
 // REMOVE LATER
 app.use(cors());
@@ -28,6 +36,7 @@ const paymentRouter = require("./routes/paymentRoutes");
 app.use(express.static(path.resolve(__dirname, "./public/build")));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
+app.use(fileUpload({ useTempFiles: true }));
 app.use(morgan("tiny"));
 app.use(express.static("./public"));
 
