@@ -12,7 +12,6 @@ import { saveUser, removeUser } from "../../../features/user/userSlice";
 import { EditIcon } from "../../../assets/icons/icon";
 
 const EditProfile = ({ user }) => {
-  const [image, setImage] = useState(null);
   const [value, setValue] = useState({
     name: user.name,
     email: user.email,
@@ -39,26 +38,44 @@ const EditProfile = ({ user }) => {
     }
   };
 
-  const handleAvatar = async () => {
+  const handleAvatar = async (e) => {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    if (file.size > 1048576) {
+      toast.error("Image size must not be more than 1MB");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      setValue({ ...value, avatar: reader.result });
+    };
+
     setValue({ ...value, loading: true });
 
     const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", process.env.REACT_APP_PRESET);
-    formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-    formData.append("folder", "Ayeti-Adorn/users");
+    formData.append("pfp", file);
 
     try {
       toast.loading("Uploading image...");
-
+      // {
+      //     "user": {
+      //         "name": "Olajumoke ",
+      //         "role": "seller",
+      //         "userId": "650f56d5aac76e7fdf293c0e",
+      //         "email": "jums@gmail.com",
+      //         "avatar": "https://res.cloudinary.com/dg0mkn4ld/image/upload/v1681395070/Ayeti-Adorn/users/avatar_ali4xr.png"
+      //     }
+      // }
       // UPLOADING TO CLOUDINARY
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(url + "/api/v1/users/updatePic", {
+        method: "PATCH",
+        body: formData,
+      });
       const data = await response.json();
 
       if (!response.ok) {
@@ -70,14 +87,23 @@ const EditProfile = ({ user }) => {
 
       toast.dismiss();
 
-      return data.secure_url;
+      if (data.image) {
+        const newUser = {
+          ...user,
+          avatar: data.image.src,
+        };
+
+        dispatch(saveUser({ user: newUser }));
+      }
+
+      toast.success(data.msg);
     } catch (error) {
       toast.dismiss();
       console.error(error);
     }
   };
 
-  const handleSubmit = async (e, uplodedImageURL = user.avatar) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email } = value;
     try {
@@ -91,7 +117,7 @@ const EditProfile = ({ user }) => {
       const response = await fetch(url + "/api/v1/users/update", {
         method: "PATCH",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ name, email, avatar: uplodedImageURL }),
+        body: JSON.stringify({ name, email }),
       });
 
       const data = await response.json();
@@ -110,27 +136,6 @@ const EditProfile = ({ user }) => {
       toast.dismiss();
       console.error(error);
     }
-  };
-
-  const handleImageChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (file.size > 1048576) {
-      toast.error("Image size must not be more than 1MB");
-      return;
-    }
-    setImage(file);
-
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-      setValue({ ...value, avatar: reader.result });
-    };
-    const avatarUrl = await handleAvatar();
-    if (!avatarUrl) return;
-    handleSubmit(e, avatarUrl);
   };
 
   return (
@@ -155,7 +160,7 @@ const EditProfile = ({ user }) => {
               id='hidden-input'
               type='file'
               className='hidden'
-              onChange={handleImageChange}
+              onChange={handleAvatar}
               accept='image/*'
             />
 
