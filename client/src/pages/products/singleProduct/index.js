@@ -132,7 +132,13 @@ const SingleProduct = () => {
           <h3 className='name'>{product.name}</h3>
           <h4 className='price'>${product.price}</h4>
           <StarRated rating={product.averageRating} />
-          <button className='size-guide' onClick={() => setSizeGuide(true)}>
+          <button
+            className='size-guide'
+            onClick={() => {
+              toast.info("No size guide for this product");
+              setSizeGuide(true);
+            }}
+          >
             size guide
           </button>
           <div className='color'>
@@ -254,7 +260,7 @@ export default SingleProduct;
 
 const SizeGuide = () => {
   return (
-    <section className='sguide w-full h-screen bg-black/20 z-30 flex justify-center items-center'>
+    <section className='sguide w-full h-screen bg-black/20 z-30 hidden justify-center items-center '>
       <div className=''>
         <h1>Size Guide</h1>
       </div>
