@@ -21,11 +21,12 @@ ___
 8. JWT
 9. Bcrypt
 10. Express Rate limiter
-11. Nodemailer
-12. Render
-13. React-router
-14. Tailwind
-15. swr
+11. Express file Upload
+12. Nodemailer
+13. Render
+14. React-router
+15. Tailwind
+16. swr
 ___
 
 ### 📚 Getting Started
@@ -58,7 +59,7 @@ ___
 1. "*" -- compulsory field
 2. "?" -- optional field
 3. Authorization roles - Admin, Seller, User
-#### Authentication
+### Authentication
 Authentication is enabled in this app using JWT and cookies.
 Token is sent with each request, that requires authentication and it's verified on the server.
 
@@ -107,7 +108,7 @@ POST: {{DOMAIN}}/api/v1/auth/reset-password
 }
 ```
 
-#### Users
+### Users
 1. Endpoint to get all user (Admin)
 ```JSON
 GET: {{DOMAIN}}/api/v1/user
@@ -123,13 +124,12 @@ GET: {{DOMAIN}}/api/v1/user/user-id
 GET: {{DOMAIN}}/api/v1/users/show
 {}
 ```
-4. Endpoint to update user
+4. Endpoint to update user information
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/user/update
 {
     "name" ?: "new name",
     "email" ?: "new email",
-    "avatar" ?: "new profile pic"
 }
 ```
 5. Endpoint to update user password
@@ -140,12 +140,20 @@ PATCH: {{DOMAIN}}/api/v1/user/updatePwd
     "newPassword" *: "yournewpassword",
 }
 ```
-6. Endpoint to block/unblock user (Admin)
+6. Endpoint to update user profile picture
+```JSON
+PATCH: {{DOMAIN}}/api/v1/user/updatePic
+{
+   
+    "avatar" *: "new profile pic"
+}
+```
+7. Endpoint to block/unblock user (Admin)
 ```JSON
 PATCH: {{DOMAIN}}/api/v1/user/user-id
 {}
 ```
-#### Products
+### Products
 1. Endpoint to get create product (Admin, Seller) 
 ```JSON
 POST: {{DOMAIN}}/api/v1/products
@@ -196,7 +204,7 @@ GET: {{DOMAIN}}/api/v1/products/my-products
 {}
 ```
 
-#### Stores
+### Stores
 1. Endpoint to create store
 ```JSON
 POST: {{DOMAIN}}/api/v1/store
@@ -238,7 +246,7 @@ DELETE: {{DOMAIN}}/api/v1/store/store-id
 {}
 ```
 
-#### Reviews
+### Reviews
 1. Endpoint to get create review 
 ```JSON
 POST: {{DOMAIN}}/api/v1/reviews
@@ -274,7 +282,7 @@ DELETE: {{DOMAIN}}/api/v1/reviews/review-id
 {}
 ```
 
-#### Orders
+### Orders
 1. Endpoint to get all orders 
 ```JSON
 GET: {{DOMAIN}}/api/v1/orders
@@ -327,7 +335,7 @@ PATCH: {{DOMAIN}}/api/v1/orders/order-id
 },
 ```
    
-#### Payment
+### Payment
 1. Paystack 
 ```JSON
 1. Accept Payment: 
