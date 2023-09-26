@@ -8,6 +8,13 @@ const getSearchHistory = () => {
   return [];
 };
 
+const getUserSettings = () => {
+  if (localStorage.getItem("settings")) {
+    return JSON.parse(localStorage.getItem("settings"));
+  }
+  return { dark: false, currency: "₦" };
+};
+
 const initialState = {
   showNav: true,
   Modal: {
@@ -20,7 +27,8 @@ const initialState = {
     searchHistory: getSearchHistory(),
     isOpen: false,
   },
-  dark: false,
+  dark: getUserSettings().dark,
+  currency: getUserSettings().currency,
 };
 
 const uiSlice = createSlice({
@@ -61,6 +69,17 @@ const uiSlice = createSlice({
     },
     toggleTheme: (state) => {
       state.dark = !state.dark;
+      localStorage.setItem(
+        "settings",
+        JSON.stringify({ dark: state.dark, currency: state.currency })
+      );
+    },
+    changeCurrency: (state, { payload }) => {
+      state.currency = payload;
+      localStorage.setItem(
+        "settings",
+        JSON.stringify({ dark: state.dark, currency: state.currency })
+      );
     },
   },
 });
@@ -72,6 +91,7 @@ export const {
   addToSearchHistory,
   clearSearchHistory,
   toggleTheme,
+  changeCurrency,
 } = uiSlice.actions;
 
 export default uiSlice.reducer;
