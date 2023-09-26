@@ -55,11 +55,12 @@ const Sold = ({ user }) => {
       </div>
     );
   }
+  console.log(sales);
 
   return (
     <>
       {sales.map((sale) => {
-        return <OrderCard item={sale} />;
+        return <OrderCard item={sale} key={sale._id} />;
       })}
     </>
   );
