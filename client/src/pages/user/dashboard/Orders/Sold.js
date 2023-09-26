@@ -55,7 +55,6 @@ const Sold = ({ user }) => {
       </div>
     );
   }
-  console.log(sales);
 
   return (
     <>
