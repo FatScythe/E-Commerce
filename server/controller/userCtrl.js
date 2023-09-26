@@ -2,6 +2,8 @@ const User = require("../models/User");
 const { BadRequestError, NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const { checkPermissions } = require("../utils");
+const cloudinary = require("cloudinary");
+const fs = require("fs");
 
 const getAllUsers = async (req, res) => {
   const users = await User.find({}).select("-password");
@@ -28,7 +30,7 @@ const showCurrentUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { name, email, avatar } = req.body;
+  const { name, email } = req.body;
 
   if (!name || !email) {
     throw new BadRequestError("Please fill all fields");
@@ -42,11 +44,49 @@ const updateUser = async (req, res) => {
 
   user.name = name;
   user.email = email;
-  user.avatar = avatar;
 
   await user.save();
 
   res.status(StatusCodes.OK).json({ msg: "Profile sucessfully updated" });
+};
+
+const updateUserAvatar = async (req, res) => {
+  if (!req.files) {
+    throw new BadRequestError("Please upload an image");
+  }
+  const profilePic = req.files.pfp;
+
+  if (!profilePic.mimetype.startsWith("image")) {
+    throw new BadRequestError("Please provide an image");
+  }
+  if (profilePic.size > process.env.MAX_SIZE) {
+    throw new BadRequestError(`Image size must not be larger than 3 MB`);
+  }
+  const options = {
+    use_filename: true,
+    folder: "Ayeti-Adorn/users",
+    public_id: req.user.userId,
+    unique_filename: false,
+    overwrite: true,
+  };
+
+  const result = await cloudinary.v2.uploader.upload(
+    profilePic.tempFilePath,
+    options
+  );
+
+  fs.unlinkSync(profilePic.tempFilePath);
+
+  const user = await User.findOne({ _id: req.user.userId });
+
+  user.avatar = result.secure_url;
+
+  await user.save();
+
+  res.status(StatusCodes.ACCEPTED).json({
+    image: { src: result.secure_url },
+    msg: "Profile Picture has been updated",
+  });
 };
 
 const updateUserPassword = async (req, res) => {
@@ -93,6 +133,7 @@ module.exports = {
   getSingleUser,
   showCurrentUser,
   updateUser,
+  updateUserAvatar,
   updateUserPassword,
   userAccess,
 };
