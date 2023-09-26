@@ -14,7 +14,7 @@ const registerLimiter = rateLimit({
   limit: 2,
   standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-  message: "You can register again after in less than 15min",
+  message: "You can register again, in less than 15min",
 });
 
 router.post("/register", registerLimiter, register);
