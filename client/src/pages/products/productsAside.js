@@ -5,6 +5,8 @@ import { CloseIcon, GridIcon, ListIcon } from "../../assets/icons/icon";
 // Redux
 import { useDispatch } from "react-redux";
 import { gridView, listView, reset } from "../../features/product/productSlice";
+// Utils
+import convertCurrency from "../../utils/convertCurrency";
 
 const ProductAside = ({
   isFilterOpen,
@@ -18,6 +20,8 @@ const ProductAside = ({
   const [categoryValue, setCategoryValue] = useState(1);
   const [colorValue, setColorValue] = useState(0);
   const [searchText, setSearchText] = useState("");
+
+  const { amount, currency } = convertCurrency(filterOpt.price);
 
   return (
     <aside
@@ -126,7 +130,10 @@ const ProductAside = ({
       <div className='price'>
         <h3>price</h3>
         <h4 className='font-semibold'>
-          <span>${filterOpt.price}</span>
+          <span>
+            {currency}
+            {amount}
+          </span>
         </h4>
         <input
           type='range'

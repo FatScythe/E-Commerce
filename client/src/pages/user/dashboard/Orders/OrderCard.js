@@ -1,9 +1,12 @@
 // Utils
 import getDate from "../../../../utils/getDate";
+import convertCurrency from "../../../../utils/convertCurrency";
 
 const Card = ({ item, order }) => {
   const { name, price, image, color } = item;
   const time = getDate(order ? order.createdAt : item.createdAt);
+
+  const { amount, currency } = convertCurrency(price);
   return (
     <div className='flex my-2 justify-between items-center border border-transparent border-t-black border-b-black'>
       <div className='flex justify-between items-center'>
@@ -37,7 +40,10 @@ const Card = ({ item, order }) => {
             style={{ backgroundColor: color }}
             title='color'
           ></p>
-          <p className='text-xs sm:text-normal font-bold'>${price}</p>
+          <p className='text-xs sm:text-normal font-bold'>
+            {currency}
+            {amount}
+          </p>
         </div>
       </div>
     </div>

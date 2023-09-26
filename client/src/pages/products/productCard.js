@@ -13,6 +13,9 @@ import Error1 from "../../component/loaders/error";
 // Images
 import img from "../../assets/images/img.png";
 
+// Utils
+import convertCurrency from "../../utils/convertCurrency";
+
 const ProductCard = () => {
   const { isList, filteredProducts, product_loading, products } = useSelector(
     (store) => store.product
@@ -57,6 +60,7 @@ export const ProductCard1 = ({
   numOfReviews,
 }) => {
   const { dark } = useSelector((store) => store.ui);
+  const { amount, currency } = convertCurrency(price);
   return (
     <div
       className={`product-card1 ${
@@ -83,7 +87,9 @@ export const ProductCard1 = ({
       <footer className='capitalize font-semibold'>
         <div className='flex flex-col sm:flex-row gap-2 justify-between items-start sm:items-center'>
           <p>{name}</p>
-          <span>${price}</span>
+          <span>
+            {currency} {amount}
+          </span>
         </div>
         <StarRated rating={averageRating} />
         <p>({numOfReviews})</p>

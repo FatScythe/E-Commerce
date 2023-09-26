@@ -16,6 +16,8 @@ import {
   calculateTotal,
 } from "../../features/cart/cartSlice";
 import { closeModal, showModal } from "../../features/ui/uiSlice";
+// Utils
+import convertCurrency from "../../utils/convertCurrency";
 
 const Bag = () => {
   useTitle("Cart");
@@ -78,7 +80,7 @@ export default Bag;
 
 export const BagItem = ({ id, name, image, price, amount, size, color }) => {
   const dispatch = useDispatch();
-
+  const { amount: priceCon, currency } = convertCurrency(price);
   return (
     <div className='bag-item'>
       <div className='title-wrapper'>
@@ -118,7 +120,10 @@ export const BagItem = ({ id, name, image, price, amount, size, color }) => {
         <button onClick={() => dispatch(removeItem(id))}>
           <CloseIcon className='w-4 sm:w-6 h-4 sm:h-6' />
         </button>
-        <p>${price}</p>
+        <p>
+          {currency}
+          {priceCon}
+        </p>
       </div>
     </div>
   );
@@ -128,7 +133,11 @@ export const BagTotal = () => {
   const cart = useSelector((store) => store.cart);
 
   const { amount, total, shipping } = cart;
-  let grandTotal = total + shipping;
+
+  const { amount: totalAmount, currency } = convertCurrency(total);
+
+  const { amount: shippingPrice } = convertCurrency(shipping);
+  let grandTotal = totalAmount + shippingPrice;
   grandTotal = Number(grandTotal).toFixed(0);
 
   return (
@@ -140,17 +149,26 @@ export const BagTotal = () => {
 
       <div className='detail'>
         <p className='title'>shipping:</p>
-        <span className='amount'>${shipping}</span>
+        <span className='amount'>
+          {currency}
+          {shippingPrice}
+        </span>
       </div>
 
       <div className='detail'>
         <p className='title'>sub-total:</p>
-        <span className='amount'>${total}</span>
+        <span className='amount'>
+          {currency}
+          {totalAmount}
+        </span>
       </div>
 
       <div className='detail'>
         <p className='title'>grand total:</p>
-        <span className='amount'>${grandTotal}</span>
+        <span className='amount'>
+          {currency}
+          {grandTotal}
+        </span>
       </div>
     </div>
   );
