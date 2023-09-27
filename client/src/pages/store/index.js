@@ -15,6 +15,7 @@ import Error1 from "../../component/loaders/error";
 
 const StorePage = () => {
   const { stores, stores_status } = useSelector((store) => store.store);
+  const { dark } = useSelector((store) => store.ui);
   useTitle("Stores");
 
   if (stores_status === "pending") {
@@ -27,8 +28,12 @@ const StorePage = () => {
 
   return (
     <section id='stores' className='container mt-6 overflow-hidden'>
-      <h3 className='text-base my-5 italic font-semibold'>
-        {stores.count} Stores
+      <h3
+        className={`text-base my-5 italic font-semibold ${
+          dark ? "text-white" : "text-black"
+        }`}
+      >
+        Number of stores: {stores.count}
       </h3>
       <div className='w-full grid grid-cols-12 gap-4'>
         {stores.stores.map((store) => {
