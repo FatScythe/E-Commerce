@@ -1,4 +1,5 @@
 import "./footer.css";
+// Components
 import Accordian from "./accordian/accordian";
 import { accordianData } from "../../assets/data/accordianData";
 import {
@@ -7,11 +8,17 @@ import {
   PintrestIcon,
   TikTokIcon,
 } from "../../assets/icons/icon";
+// Redux
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const { dark } = useSelector((store) => store.ui);
   return (
-    <footer id='footer' className='container'>
-      <h1>ayeti adorn</h1>
+    <footer
+      id='footer'
+      className={`container ${dark ? "text-white" : "text-black"}`}
+    >
+      <h1 className='text-center text-lg'>ayeti adorn</h1>
       <div className='accordian-container'>
         {accordianData.map((accordian) => {
           return <Accordian key={accordian.id} {...accordian} />;
@@ -26,7 +33,11 @@ const Footer = () => {
           Exclusive offers, a heads up on new things, and sightings of
           Ayeti-Adorn in the wild. #adornedByayeti
         </p>
-        <div className='flex justify-start sm:justify-center items-center gap-6 my-6 transition-all duration-700'>
+        <div
+          className={`${
+            dark ? "dark" : ""
+          } flex justify-start sm:justify-center items-center gap-6 my-6 transition-all duration-700`}
+        >
           <a
             target='_blank'
             rel='noreferrer'
@@ -62,7 +73,9 @@ const Footer = () => {
         target='_blank'
         rel='noreferrer'
         href='https://github.com/FatScythe/E-Commerce'
-        className='legal'
+        className={`legal flex justify-between items-center gap-2 mx-auto w-fit ${
+          dark ? "text-white/90" : "text-gray-500"
+        } cursor-pointer`}
       >
         <div>site</div>
         <div>legal & privacy</div>

@@ -2,16 +2,13 @@ footer {
     @apply capitalize;
 }
 
-footer h1 {
-    @apply text-center text-lg;
-}
 
 footer .accordian-container {
     @apply mt-6;
 }
 
-footer .legal {
-    @apply flex justify-between items-center gap-2 mx-auto w-fit text-gray-500 cursor-pointer;
+footer div.dark svg {
+   @apply fill-white;
 }
 
 footer .legal div {
