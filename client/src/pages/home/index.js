@@ -5,9 +5,9 @@ import useTitle from "../../hooks/useTitle";
 import Carousel from "./carousel";
 import Slider from "../../component/slider/slider";
 import Error1 from "../../component/loaders/error";
+import Newsletter from "./newsletter";
 // Redux
 import { useSelector } from "react-redux";
-import Newsletter from "./newsletter";
 
 const HomePage = () => {
   useTitle("Ayeti Adorn");
