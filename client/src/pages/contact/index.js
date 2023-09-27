@@ -3,10 +3,12 @@ import useTitle from "../../hooks/useTitle";
 // Component
 import { ArrowUpRight, WaveHandIcon } from "../../assets/icons/icon";
 import { useState } from "react";
+// Redux
+import { useSelector } from "react-redux";
 
 const Contact = () => {
   useTitle("Contact Us");
-
+  const { dark } = useSelector((store) => store.ui);
   const [value, setValue] = useState({
     name: "",
     email: "",
@@ -15,7 +17,10 @@ const Contact = () => {
   });
 
   return (
-    <section id='contact' className='container my-6'>
+    <section
+      id='contact'
+      className={`container my-6 ${dark ? "text-white" : ""}`}
+    >
       <h2 className='text-lg sm:text-2xl font-semibold'>
         <span className='first-letter:uppercase block'>
           love to hear from you,
