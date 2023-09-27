@@ -15,6 +15,7 @@ import { sort } from "../../features/product/productSlice";
 const Product = () => {
   useTitle("Products");
   const dispatch = useDispatch();
+  const { dark } = useSelector((store) => store.ui);
 
   const { isList, enumProducts, filteredProducts } = useSelector(
     (store) => store.product
@@ -35,7 +36,10 @@ const Product = () => {
   }, [filterOpt, dispatch]);
 
   return (
-    <section id='products' className='container'>
+    <section
+      id='products'
+      className={`container ${dark ? "text-white" : "text-black"}`}
+    >
       <ProductAside
         isFilterOpen={isFilterOpen}
         setIsFilterOpen={setIsFilterOpen}

@@ -2,7 +2,7 @@ import "./products.css";
 // Component
 import { FilterIcon, GridIcon, ListIcon } from "../../assets/icons/icon";
 // Redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { gridView, listView } from "../../features/product/productSlice";
 
 const ProductMainHeader = ({
@@ -14,6 +14,7 @@ const ProductMainHeader = ({
   count,
 }) => {
   const dispatch = useDispatch();
+  const { dark } = useSelector((store) => store.ui);
   return (
     <header>
       <div className='togglers'>
@@ -40,14 +41,16 @@ const ProductMainHeader = ({
         <h3 className='number'> {count} products found</h3>
       </div>
 
-      <div className='line w-full md:w-1/2'></div>
+      <div className={`line w-full md:w-1/2 ${dark ? "dark" : ""}`}></div>
 
       <div className='sort flex items-center gap-2 capitalize'>
         <span>sort by:</span>
         <select
           defaultValue={filterOpt.sort}
           onChange={(e) => setFilterOpt({ ...filterOpt, sort: e.target.value })}
-          className='border border-black outline-none'
+          className={`${
+            dark ? "text-black" : ""
+          } border border-black outline-none`}
         >
           <option defaultValue={"none"}>none</option>
           <option>name (a-z)</option>

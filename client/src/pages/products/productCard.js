@@ -10,9 +10,6 @@ import StarRated from "../../component/star";
 import Loader1 from "../../component/loaders/loader1";
 import Error1 from "../../component/loaders/error";
 
-// Images
-import img from "../../assets/images/img.png";
-
 // Utils
 import convertCurrency from "../../utils/convertCurrency";
 
@@ -63,7 +60,7 @@ export const ProductCard1 = ({
   const { amount, currency } = convertCurrency(price);
   return (
     <div
-      className={`product-card1 ${
+      className={`product-card1 h-fit ${
         dark ? "bg-primary text-white" : "bg-transparent"
       } col-span-12 sm:col-span-6 md:col-span-4`}
     >
@@ -98,27 +95,37 @@ export const ProductCard1 = ({
   );
 };
 
-const ProductCard2 = () => {
+const ProductCard2 = ({
+  id,
+  name,
+  image,
+  price,
+  desc,
+  averageRating,
+  numOfReviews,
+}) => {
+  const { amount, currency } = convertCurrency(price);
   return (
     <div className='product-card2 flex flex-col md:flex-row gap-4 justify-between items-center col-span-12'>
       <header className='md:basis-1/2 border'>
         <img
-          src={img}
+          src={image}
           className='w-3/4 md:w-full h-80 object-cover'
           alt='product'
           draggable={false}
         />
       </header>
       <footer className='md:basis-1/2'>
-        <h3 className='capitalize font-bold mt-2 text-base'>Product Name</h3>
-        <p className='font-semibold mt-2'>$ 50.00</p>
-        <p className='mt-2'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-          eligendi accusantium alias, eum dolores recusandae laborum quo
-          expedita dolor repellendus?
+        <h3 className='capitalize font-bold mt-2 text-base'>{name}</h3>
+        <p className='font-semibold mt-2'>
+          {currency} {amount}
         </p>
+        <p className='mt-2'>{desc}</p>
 
-        <StarRated rating={3.2} />
+        <div className='flex justify-start items-center gap-2'>
+          <StarRated rating={averageRating} />
+          <span>[{numOfReviews}]</span>
+        </div>
 
         <div className='btns mt-2 flex justify-start items-center gap-2'>
           <Link

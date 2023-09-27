@@ -81,6 +81,10 @@ section#products main header .line::after {
     @apply border-black block bg-black h-0.5;
 }
 
+section#products main header .line.dark::after {
+    @apply bg-white border-white;
+}
+
 /*  product container */
 section#products .products-container {
     @apply overflow-y-scroll h-full sm:px-4;
