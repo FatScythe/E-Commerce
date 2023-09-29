@@ -382,5 +382,5 @@ GET: {{DOMAIN}}/api/v1/payment/paystack/reference-id
 ```
 
 #### Future Feature
-1. Paginate the product page
+1. Implemented dark mode on all pages
 2. Send email when payment is successful
