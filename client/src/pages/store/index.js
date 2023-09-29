@@ -57,7 +57,9 @@ const StoreCard = ({ _id, name, owner, open, featured }) => {
     if (products === undefined || null) {
       filteredProduct = [];
     }
-    filteredProduct = products.filter((product) => product.store === name);
+    filteredProduct = products.filter(
+      (product) => product.store === name.trim()
+    );
     if (filteredProduct.length > 1) {
       setImages([filteredProduct[0].image, filteredProduct[1].image]);
       setBgImage(filteredProduct[0].image);
