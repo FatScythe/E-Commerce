@@ -18,7 +18,7 @@ const Footer = () => {
       id='footer'
       className={`container ${dark ? "text-white" : "text-black"}`}
     >
-      <h1 className='text-center text-lg'>ayeti adorn</h1>
+      <h1 className='text-center text-lg font-semibold'>ayétí adorn</h1>
       <div className='accordian-container'>
         {accordianData.map((accordian) => {
           return <Accordian key={accordian.id} {...accordian} />;
@@ -31,7 +31,7 @@ const Footer = () => {
         </h2>
         <p className='my-2'>
           Exclusive offers, a heads up on new things, and sightings of
-          Ayeti-Adorn in the wild. #adornedByayeti
+          Ayétí-Adorn in the wild. #adornedByayétí
         </p>
         <div
           className={`${

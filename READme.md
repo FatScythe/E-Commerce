@@ -1,5 +1,5 @@
-## Ayeti Adorn
-![Ayeti Adorn](images/Ayeti.png "Ayeti Adorn")
+## Ayétí Adorn
+![Ayétí Adorn](images/Ayeti.png "Ayeti Adorn")
 #### Description:  E-commerce web application built with the MERN Stack, with 3 mode of payment using Flutterwave, Paystack or Stripe. 
 ___
 

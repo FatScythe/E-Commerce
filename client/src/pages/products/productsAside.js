@@ -101,8 +101,8 @@ const ProductAside = ({
           }
         >
           <option>all</option>
-          <option>ayeti-adorn</option>
-          <option>jum's crotchet</option>
+          <option>ayétí-adorn</option>
+          <option>jum's crochet</option>
           <option>umar's kaftan</option>
         </select>
       </div>

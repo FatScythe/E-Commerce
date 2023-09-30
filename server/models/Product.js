@@ -37,7 +37,7 @@ const productSchema = new Schema(
     },
     store: {
       type: String,
-      default: "Ayeti-Adorn",
+      default: "Ayétí-Adorn",
       required: [true, "Please provide a store"],
     },
     featured: {
