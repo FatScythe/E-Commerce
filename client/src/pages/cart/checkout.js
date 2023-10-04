@@ -206,7 +206,7 @@ const Checkout = () => {
 
     setForm({
       ...form,
-      link: "http://localhost:3000/stripe",
+      link: "/stripe",
     });
 
     dispatch(
