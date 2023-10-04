@@ -61,8 +61,8 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: `http://localhost:3000/payment/verify?mode=stripe&email=${email}`,
+        // Change domain here
+        return_url: `https://ayeti-aorn.onrender.com/payment/verify?mode=stripe&email=${email}`,
       },
     });
 
