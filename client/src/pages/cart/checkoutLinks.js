@@ -83,17 +83,27 @@ const CheckoutLinks = ({ form, setForm, loading, handleSubmit }) => {
       </div>
       <div className='links'>
         {form.link ? (
-          <a
-            className='flex justify-center items-center mb-5 w-11/12 md:w-1/2 mx-auto text-base bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition-all ease-in duration-75'
-            href={form.link}
-            rel='noreferrer'
-          >
-            Payment page
-          </a>
+          form.payWith === "Stripe" ? (
+            <Link
+              className='flex justify-center items-center mb-5 w-11/12 md:w-1/2 mx-auto text-base bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition-all ease-in duration-75'
+              to={form.link}
+            >
+              Payment page
+            </Link>
+          ) : (
+            <a
+              className='flex justify-center items-center mb-5 w-11/12 md:w-1/2 mx-auto text-base bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded transition-all ease-in duration-75'
+              href={form.link}
+              rel='noreferrer'
+            >
+              Payment page
+            </a>
+          )
         ) : (
           <button
             className='flex justify-center items-cente mb-5 w-11/12 md:w-1/2 mx-auto text-base hover:bg-secondary border border-black p-4 rounded-xl transition-all ease-in duration-75'
             onClick={handleSubmit}
+            disabled={loading}
           >
             {loading ? "..." : "place order"}
           </button>
