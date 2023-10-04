@@ -61,7 +61,7 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Change domain here
+        // Change domain here if not in production
         return_url: `https://ayeti-aorn.onrender.com/payment/verify?mode=stripe&email=${email}`,
       },
     });
