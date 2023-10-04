@@ -55,7 +55,7 @@ ___
 2. Icons - idk:(
 3. Components - >13 
 
-> NB: Change domain for stripe
+> NB: Change domain for stripe return url in production and testing
 
 ### Server Side / API
 #### NB:
