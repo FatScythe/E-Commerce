@@ -12,21 +12,22 @@ ___
 
 ### ✨ Built With:
 1. React
-2. Cloudinary
-3. NodeJS
-4. ExpressJS
-5. Git
-6. Github
-7. MongoDB
-8. JWT
-9. Bcrypt
-10. Express Rate limiter
-11. Express file Upload
-12. Nodemailer
-13. Render
-14. React-router
-15. Tailwind
-16. swr
+2. Redux Tool Kit
+3. Cloudinary
+4. NodeJS
+5. ExpressJS
+6. Git
+7. Github
+8. MongoDB
+9. JWT
+10. Bcrypt
+11. Express Rate limiter
+12. Express file Upload
+13. Nodemailer
+14. Render
+15. React-router
+16. Tailwind
+17. swr
 ___
 
 ### 📚 Getting Started
@@ -53,6 +54,8 @@ ___
 1. Pages -19
 2. Icons - idk:(
 3. Components - >13 
+
+> NB: Change domain for stripe
 
 ### Server Side / API
 #### NB:
